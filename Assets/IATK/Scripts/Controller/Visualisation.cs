@@ -314,7 +314,10 @@ namespace IATK
                 uid = Guid.NewGuid().ToString().Substring(0, 8);
             }
 
-            if (theVisualizationObject != null)
+            // Made minor change to solve runtime error.
+            // Upon program start, it now checks if there is a dataSource object
+            // connected via the editor before attempting to create a visualisation.
+            if (theVisualizationObject != null && dataSource != null)
                 RuntimeEditorLoadAndSaveConfiguration();
 
         }
@@ -367,7 +370,10 @@ namespace IATK
             if (File.Exists(ConfigurationFileName()))
             {
                 if (theVisualizationObject.creationConfiguration == null) theVisualizationObject.creationConfiguration = new CreationConfiguration();
-                if (!dataSource.IsLoaded) dataSource.load();
+                if (dataSource)
+                {
+                    if (!dataSource.IsLoaded) dataSource.load();
+                }                
 
                 theVisualizationObject.creationConfiguration.Deserialize(ConfigurationFileName());
                 theVisualizationObject.creationConfiguration.disableWriting = true;
