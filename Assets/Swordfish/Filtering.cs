@@ -46,7 +46,7 @@ public class Filtering : MonoBehaviour
         {
 
             int children = files.transform.childCount;
-            for (int i = 0; i < children; i++)
+            for (int i = 1; i < children; i++)
             {
                 dataObjects.Add(files.transform.GetChild(i).gameObject);
             }
@@ -73,7 +73,7 @@ public class Filtering : MonoBehaviour
             {
                 if (dataObjects[i].GetComponent<CSVDataSource>().getDimensions()[index].MetaData.maxValue <= filterValue)
                 {
-                    files.transform.GetChild(i).gameObject.SetActive(false);
+                    files.GetFiles()[i].gameObject.SetActive(false);
                 }
             }
         }
@@ -92,7 +92,7 @@ public class Filtering : MonoBehaviour
             {
                 if (dataObjects[i].GetComponent<CSVDataSource>().getDimensions()[index].MetaData.maxValue >= filterValue)
                 {
-                    files.transform.GetChild(i).gameObject.SetActive(false);
+                    files.GetFiles()[i].gameObject.SetActive(false);
                 }
             }
         }

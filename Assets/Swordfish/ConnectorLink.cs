@@ -6,20 +6,26 @@ using UnityEngine;
 [RequireComponent(typeof(LineRenderer))]
 public class ConnectorLink : MonoBehaviour
 {
-    public GameObject pointA;
-    public GameObject pointB;
+    public GameObject anchor;
+
+    private bool lineSet = false;
+    private Vector3 other;
+    private Vector3 anchorLastPos;
     private LineRenderer line;
-
-    // Start is called before the first frame update
-    void Start()
+    private void Update()
     {
-        line = GetComponent<LineRenderer>();        
+        if (lineSet && line.GetPosition(1) != anchor.transform.position)
+        {
+            line.SetPosition(0, other);
+            line.SetPosition(1, anchor.transform.position);
+        }
     }
-
-    // Update is called once per frame
-    void Update()
+    public void SetPointA(Vector3 pos)
     {
-        line.SetPosition(0, pointA.transform.position);
-        line.SetPosition(1, pointB.transform.position);
+        line = GetComponent<LineRenderer>();
+        line.SetPosition(0, pos);
+        line.SetPosition(1, anchor.transform.position);
+        lineSet = true;
+        other = pos;
     }
 }

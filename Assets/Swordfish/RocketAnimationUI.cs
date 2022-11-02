@@ -19,23 +19,22 @@ public class RocketAnimationUI : MonoBehaviour
     private RocketAnimation rocket;    
     private DataPoint currentDataPoint;
 
-    void Start()
-    {
-        rocket = GetComponent<RocketAnimation>();
-    }
-
     void Update()
     {
         if (!loaded)
         {
             InitialLoad();
-        }
-
-        currentDataPoint = rocket.getCurrentDataPoint();
-        if (currentDataPoint)
+        } else
         {
-            foreach (GameObject display in dataDisplays)
-                display.GetComponentInChildren<TextMeshPro>().text = currentDataPoint.GetValuesAsString();
+            currentDataPoint = rocket.getCurrentDataPoint();
+                
+            if (currentDataPoint)
+            {
+                foreach (GameObject display in dataDisplays)
+                {
+                    display.GetComponentInChildren<Text>(true).text = currentDataPoint.GetValuesAsString(); 
+                }
+            }
         }
     }
 
@@ -46,22 +45,26 @@ public class RocketAnimationUI : MonoBehaviour
         {
             trajectorySourceUIDropdown.ClearOptions();
 
-            // Get data files from the DataFiles component of the visualisation
-            List<CSVDataSource> dataSourceList = rocket.gameObject.transform.parent.GetComponentInChildren<DataFiles>().GetFiles();
-
-            // DataSourceList has been fully loaded by DataFiles
-            if (dataSourceList.Count > 0)
+            rocket = GetComponent<RocketAnimation>();
+            if (rocket)
             {
-                // Get the names of those data files as a list
-                List<string> dataSourceNames = new List<string>();
-                foreach (CSVDataSource source in dataSourceList)
-                {
-                    dataSourceNames.Add(source.name);
-                }
+                // Get data files from the DataFiles component of the visualisation
+                List<CSVDataSource> dataSourceList = rocket.gameObject.transform.parent.GetComponentInChildren<DataFiles>().GetFiles();
 
-                // Add names of data files as dropdown options
-                trajectorySourceUIDropdown.AddOptions(dataSourceNames);
-                loaded = true;
+                // DataSourceList has been fully loaded by DataFiles
+                if (dataSourceList.Count > 0)
+                {
+                    // Get the names of those data files as a list
+                    List<string> dataSourceNames = new List<string>();
+                    foreach (CSVDataSource source in dataSourceList)
+                    {
+                        dataSourceNames.Add(source.name);
+                    }
+
+                    // Add names of data files as dropdown options
+                    trajectorySourceUIDropdown.AddOptions(dataSourceNames);
+                    loaded = true;
+                }                
             }
         }
     }

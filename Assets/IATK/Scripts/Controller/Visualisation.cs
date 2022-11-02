@@ -305,6 +305,13 @@ namespace IATK
             }
         }
 
+        // Sets the key text and font size
+        public void SetKey(string label, float fontSize)
+        {
+            Key title = this.GetComponentInChildren<Key>();
+            title.Legend.text = label;
+            title.Legend.fontSize = fontSize;
+        }
 
         void OnEnable()
         {

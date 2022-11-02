@@ -63,7 +63,7 @@ public class RocketAnimation : MonoBehaviour
             }
 
             //Check if the rocket has reached the next point destination. Move destination to next point in list.
-            if (Vector3.Distance(transform.localPosition, points[index]) < 0.00001f)
+            if (Vector3.Distance(transform.localPosition, points[index]) < 0.00001f) // Change the 0.00001f in future
             {
                 index++;          
             }
@@ -112,9 +112,11 @@ public class RocketAnimation : MonoBehaviour
         transform.localRotation = Quaternion.LookRotation(startTarget);
 
         // Slider is not null
-        if (animationUI.getPercentSlider())
-        {
-            animationUI.getPercentSlider().value = 0;
+        if(animationUI) { 
+            if (animationUI.getPercentSlider())
+            {
+                animationUI.getPercentSlider().value = 0;
+            }
         }
     }
 
@@ -165,10 +167,13 @@ public class RocketAnimation : MonoBehaviour
         resetAnimation();
 
         pointsGOs = dataObjects.GetFiles()[selectedIndex].GetComponentInChildren<VisualisationPoints>().DataPoints();
-        
+
         // Trajectory source dropdown is not null
-        if (animationUI.getDropdown())
-            animationUI.getDropdown().value = selectedIndex;
+        if (animationUI)
+        {
+            if (animationUI.getDropdown())
+                animationUI.getDropdown().value = selectedIndex;
+        }
     }
 
     // Set the trajectory that the rocket is animated across based on the user selecting a trajectory's data point

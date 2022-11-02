@@ -34,4 +34,9 @@ public class VisualisationLine : MonoBehaviour
     {
         lineMat = mat;
     }
+
+    public void resetLineMaterialToOriginal()
+    {
+        line.material = lineMat;
+    }
 }

@@ -105,6 +105,20 @@ namespace IATK
             }
         }
 
+        // Returns the original string value when given the converted normalised float.
+        public string getOriginalString(int col, float normalisedValue)
+        {
+            try
+            {
+                return getDimensions()[col].StringTable[getDimensions()[col].Identifier][(int)normalisedValue];
+            }
+            catch(Exception e)
+            {
+                Debug.Log("Error: " + e);
+                return normalisedValue.ToString();
+            }
+        }
+
         /// <summary>
         /// Returns the orginal value from the data dimension range
         /// </summary>
@@ -535,7 +549,7 @@ namespace IATK
         }
 
 // LUKE EDIT
-        // Repopulate the data dimensions based on gobal scaling of multipl data files
+        // Repopulate the data dimensions based on gobal scaling of multiple data files
         public void repopulate(float[] min, float[] max)
         {
             // Populate data structure
@@ -701,6 +715,21 @@ namespace IATK
             return rowVector;
         }
 
+        // Returns array of values corresponding to column indexes for
+        // a given row
+        public float[] GetCols(int[] colIndexes, int rowIndex)
+        {
+            float[] vals = new float[colIndexes.Length];
+            float[] row = GetRow(dataArray, rowIndex);
+
+            for (int i = 0; i < colIndexes.Length; i++)
+            {
+                vals[i] = row[colIndexes[i]];
+            }
+
+            return vals;
+        }
+
         /// <summary>
         /// returns one column of the 2D array
         /// </summary>
@@ -717,6 +746,56 @@ namespace IATK
                 colVector[i] = matrix[i, col];
             }
             return colVector;
+        }
+
+        // Seaches the data and returns the column number for the matching
+        // column title. If colName does not match any of the columns, return -1.
+        public int findCol(string colName)
+        {
+            for (int i = 0; i < dimensionData.Count; i++)
+            {
+                if (dimensionData[i].Identifier.Equals(colName))
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        // Returns the ID of the object.
+        // If error occurs, return -1.
+        public int GetID()
+        {
+            try
+            {
+                return Int32.Parse(data.name);
+            }
+            catch (Exception e)
+            {
+                Debug.Log("Error retrieving object ID; " + e);
+                return -1;
+            }
+        }
+
+        // Returns the indices for all rows of data containing the colVal
+        // for the corresponding column (colNum)
+        public List<int> getRowIndices(int colNum, float colVal)
+        {
+            List<int> rows = new List<int>();
+
+            // Loop all rows of data
+            for (int i = 0; i < DataCount; i++)
+            {
+                // If row value equals colval, add the index to list.
+                float rowVal = GetRow(dataArray, i)[colNum];
+                if (rowVal == colVal)
+                {
+                    rows.Add(i);
+                }
+            }
+
+            return rows;
         }
 
         /// <summary>
@@ -798,22 +877,6 @@ namespace IATK
         {
             return this[identifier].MetaData.categoryCount;
         }
-
-        //public int getNumberOfCategories(float[] column)
-        //{
-        //    List<float> values = new List<float>();
-        //    for (int i = 0; i < column.Length; i++)
-        //    {
-        //        if (!values.Contains(column[i]))
-        //        {
-        //            values.Add(column[i]);
-        //           // Debug.Log(normaliseValue(column[i], 0f, 1f, dimensionsRange[7].x, dimensionsRange[7].y));
-        //        }
-        //        //if (column[i] != column[i + 1])
-        //        //{ Debug.Log(column[i] + "       " + column[i + 1]); categories++; }
-        //    }
-        //    return values.Count;
-        //}
     }
 
 }   // Namespace

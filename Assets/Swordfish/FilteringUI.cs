@@ -119,4 +119,21 @@ public class FilteringUI : MonoBehaviour
         }
         filtering.RunFilter(inputValues);
     }
+
+    public void UIClearFilter()
+    {
+        // Hide all input fields
+        singleFilterInputField.text = "";
+        minFilterInputField.text = "";
+        maxFilterInputField.text = "";
+        singleFilterInputField.gameObject.SetActive(false);
+        minFilterInputField.gameObject.SetActive(false);
+        maxFilterInputField.gameObject.SetActive(false);
+        filtering.SetFilterVariable("None");
+        filterTypeDropdown.value = 0;
+        filterVarDropdown.value = 0;
+        List<float> inputValues = new List<float>();
+        filtering.RunFilter(inputValues);
+
+    }
 }
