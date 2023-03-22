@@ -110,6 +110,7 @@ public class DataPoint : MonoBehaviour
         Select();
     }
 
+    [ContextMenu("Select DataPoint")]
     public void Select()
     {
         // Data point has not been selected before
