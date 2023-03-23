@@ -1665,6 +1665,7 @@ MonoBehaviour:
   trajectoryUISlider: {fileID: 3826111412573721588}
   dataDisplays:
   - {fileID: 3826111411659001936}
+  dataVisibility: {fileID: 587851127}
 --- !u!1 &146493545
 GameObject:
   m_ObjectHideFlags: 0
@@ -6559,6 +6560,7 @@ GameObject:
   m_Component:
   - component: {fileID: 587851125}
   - component: {fileID: 587851126}
+  - component: {fileID: 587851127}
   m_Layer: 0
   m_Name: DataFiles
   m_TagString: Untagged
@@ -6597,6 +6599,20 @@ MonoBehaviour:
     type: 3}
   rocket: {fileID: 139061462}
   LegendItemPrefab: {fileID: 3197214584601758200}
+--- !u!114 &587851127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 587851124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bec11a16a18eaef479c6922688156ebd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataFilesObject: {fileID: 587851124}
+  visibilityFilter: 
 --- !u!1 &598356442
 GameObject:
   m_ObjectHideFlags: 0

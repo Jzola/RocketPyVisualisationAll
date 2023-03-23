@@ -14,6 +14,7 @@ public class RocketAnimationUI : MonoBehaviour
     // Array of GameObjects containing TextMeshPro component to display the data
     // of the visualisation 
     public GameObject[] dataDisplays;
+    public OutputVariableVisibility dataVisibility;
 
     private bool loaded = false;
     private RocketAnimation rocket;    
@@ -32,7 +33,25 @@ public class RocketAnimationUI : MonoBehaviour
             {
                 foreach (GameObject display in dataDisplays)
                 {
-                    display.GetComponentInChildren<Text>(true).text = currentDataPoint.GetValuesAsString(); 
+                    // If there is a visibility filter component, it will only show visible data fields
+                    if (dataVisibility != null)
+                    {
+                        string[] values = currentDataPoint.GetValuesAsString().TrimEnd('\n').Split('\n');
+                        string visibleValues = values[0]; // Will always have the ID added
+
+                        for (int i = 1; i < values.Length; i++)
+                        {
+                            if (dataVisibility.getVisibility(i-1))
+                            {
+                                visibleValues += "\n" + values[i];
+                            }
+                        }
+                        display.GetComponentInChildren<Text>(true).text = visibleValues; 
+                    } else
+                    {
+                        display.GetComponentInChildren<Text>(true).text = currentDataPoint.GetValuesAsString();
+                    }
+
                 }
             }
         }
@@ -70,6 +89,7 @@ public class RocketAnimationUI : MonoBehaviour
     }
 
     // Plays/resumes the rocket animation
+    [ContextMenu("PlayAnimation")]
     public void playAnimation()
     {
         rocket.setPlaying(true);
