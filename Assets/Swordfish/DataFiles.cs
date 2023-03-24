@@ -22,8 +22,8 @@ public class DataFiles : MonoBehaviour
     private int maxIndexZ = 0;
 
     // Simulation files
-    public string folder = "MainData";
-    private string path = "/Resources/";
+    private string folder = "Default_Inputs";
+    private string path = "/Resources/AdditionalOutputs/";
     private List<CSVDataSource> files;
     private CSVDataSource input;
 
@@ -53,6 +53,13 @@ public class DataFiles : MonoBehaviour
 
     private void Start()
     {
+        // Use old data if new data paths isn't found
+        if (!Directory.Exists(Application.dataPath + path + folder))
+        {
+            folder = "MainData";
+            path = "/Resources/";
+}
+
         // Create the material objects
         dataPointMats = new Material[]
         {

@@ -38,15 +38,27 @@ public class DataPoint : MonoBehaviour
         trajectoryID = Int32.Parse(dataSource.data.name);
 
         // Get values of data point as a string
-        valuesString = "ID: " + dataSource.GetID() + "\n";
-        for (var i = 0; i < data.Length; i++)
-            valuesString += dataSource[i].Identifier + ": " + data[i] + "\n";
+        updateValuesString();
+
     }
 
     public void SetData(CSVDataSource source, Single[] data)
     {
         dataSource = source;
         this.data = data;
+        updateValuesString();
+    }
+
+    private void updateValuesString()
+    {
+        OutputVariableVisibility valueVisibility = GetComponentInParent<OutputVariableVisibility>();
+
+        valuesString = "ID: " + dataSource.GetID() + "\n";
+        for (var i = 0; i < data.Length; i++)
+            if (valueVisibility == null || valueVisibility.getVisibilities().Length == 0 || valueVisibility.getVisibility(i))
+            {
+                valuesString += dataSource[i].Identifier + ": " + data[i] + "\n";
+            }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -110,11 +122,24 @@ public class DataPoint : MonoBehaviour
         Select();
     }
 
+    [ContextMenu("Select DataPoint")]
     public void Select()
     {
-        // Data point has not been selected before
-        if (!valuesDisplay) 
-        {           
+        // Was selected, now deselect
+        if (selected)
+        {
+            selected = false;
+            meshRenderer.material = hoverMaterial;
+
+            Destroy(valuesDisplay);
+        }
+        // Was not selected, now select
+        else
+        {
+            selected = true;
+            meshRenderer.material = selectedMaterial;
+
+            updateValuesString();
 
             // Instantiate UI display of values
             var valuesDisplayPrefab = Resources.Load<GameObject>("Prefabs/DataPointUIDisplay");
@@ -131,29 +156,6 @@ public class DataPoint : MonoBehaviour
             valuesDisplay.GetComponentInChildren<Text>().text = valuesString;
             // Connect the line renderer of the display to the data point
             valuesDisplay.GetComponentInChildren<ConnectorLink>().SetPointA(transform.position);
-            selected = false;
-        } 
-        // Was selected, now deselect
-        if (selected)
-        {
-            selected = false;
-            meshRenderer.material = hoverMaterial;
-            if (valuesDisplay)
-            {
-                valuesDisplay.SetActive(false);
-            }
-        }
-        // Was not selected, now select
-        else
-        {
-            selected = true;
-            meshRenderer.material = selectedMaterial;
-
-            // Show UI display of values
-            if (valuesDisplay)
-            {
-                valuesDisplay.SetActive(true);
-            }
         }                
     }
 
