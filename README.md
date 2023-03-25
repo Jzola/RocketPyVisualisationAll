@@ -21,9 +21,14 @@ The project has been developed based on the rocket simulation data generated fro
 	 - UI components
 	 - Grabbing the bar chart 
  - Primary button (A/X button) = select a data point to select its trajectory as the trajectory to play the animation over 
- - Left thumbstick = movement  
- - Right thumbstick up (hold) = activate pointer to interact with UI components
+ - Left thumbstick/ touchpad = movement  
+ - Right thumbstick = Rotation
+ - Right grip button = activate pointer to interact with UI components
 
-## Team
+## Original Team
 - Luke Gerschwitz (luke.gerschwitz@gmail.com)
 - Elyssa Yeo (elyssayeo16@gmail.com)
+
+## New Team
+ - David Galbory (galdp004@mymail.unisa.edu.au)
+ - Heather Leyssenaar (leyhm006@mymail.unisa.edu.au)
