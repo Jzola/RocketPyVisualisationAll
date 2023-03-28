@@ -404,6 +404,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GraphPrefab: {fileID: 7634332073583643605, guid: 7168fa4484f58784ba8f7e039387cdab,
     type: 3}
+  variableExtractionFile: {fileID: 4900000, guid: ad85bd01f248ec24eb06e2d064086cb9,
+    type: 3}
+  xAxis: ' Y (m)'
+  yAxis: ' Z (m)'
+  zAxis: ' X (m)'
 --- !u!4 &1218938301 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9039197142049710588, guid: 28c5a99939782dd44ac0dee4e40054c4,

@@ -88,19 +88,21 @@ public class RocketAnimationUI : MonoBehaviour
         }
     }
 
+    [ContextMenu("Play Animation")]
     // Plays/resumes the rocket animation
-    [ContextMenu("PlayAnimation")]
     public void playAnimation()
     {
         rocket.setPlaying(true);
     }
 
+    [ContextMenu("Pause Animation")]
     // Pause the rocket animation  
     public void pauseAnimation()
     {
         rocket.setPlaying(false);
     }
 
+    [ContextMenu("Reset Animation")]
     // Reset the animation to the beginning
     public void resetAnimation()
     {

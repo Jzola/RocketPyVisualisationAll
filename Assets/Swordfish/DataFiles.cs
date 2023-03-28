@@ -353,4 +353,29 @@ public class DataFiles : MonoBehaviour
     {
         visualisation.SetKey(label, 0.4f);
     }
+
+
+    // Adds new points to the existing graph
+    public void addNewPoints()
+    {
+        // For each data file, create the trajectory within the visualisation object.
+        for (int i = 0; i < files.Count; i++)
+        {
+            // Rescale the values based upon global min/max
+            files[i].repopulate(dimensionMin, dimensionMax);
+
+            // Create the trajectory data objects
+            CreateTrajectory(i);
+        }
+
+        // After all trajectories have been created, update axis ticks
+        UpdateAxisTicks();
+
+        // After final view has loaded, delete it from the visualisation object as
+        // all trajectory data is in visualisationPoints and visualisationLines objects .
+        visualisation.destroyView();
+
+        // Add colour coding information to the legend
+        UpdateLegend();
+    }
 }
