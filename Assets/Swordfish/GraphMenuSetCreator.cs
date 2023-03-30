@@ -14,7 +14,7 @@ public class GraphMenuSetCreator : MonoBehaviour
     public string yAxis = " Z (m)";
     public string zAxis = " X (m)";
 
-
+    public bool tweenPointsOnUpdate = true;
     
     [Header("Available Variables:")]
     [Tooltip("List of variables found in the first default csv output file")]
@@ -47,7 +47,8 @@ public class GraphMenuSetCreator : MonoBehaviour
         visualisation.yDimension = new DimensionFilter { Attribute = yAxis };
         visualisation.zDimension = new DimensionFilter { Attribute = zAxis };
     }
-
+    
+    // Testing purposes, can be implemented later in graph configurator
     [ContextMenu("Delete Last Graph")]
     public void DeleteLastGraph()
     {
@@ -58,6 +59,7 @@ public class GraphMenuSetCreator : MonoBehaviour
         Destroy(graph);
     }
 
+    // Testing purposes, can be implemented later in graph configurator
     [ContextMenu("Update Last Graph")]
     public void UpdateLastGraph()
     {
@@ -73,22 +75,21 @@ public class GraphMenuSetCreator : MonoBehaviour
         visualisation.yDimension = new DimensionFilter { Attribute = yAxis };
         visualisation.zDimension = new DimensionFilter { Attribute = zAxis };
 
-        // Finds and deletes all the previous points, leaving the data behind
         DataFiles dataFiles = graph.GetComponentInChildren<DataFiles>();
+
+        // Finds and updates all the previous points with the new axes
         foreach (Transform dataSet in dataFiles.gameObject.transform)
         {
-            foreach (Transform pointSet in dataSet)
+            VisualisationPoints trajectory = dataSet.GetComponentInChildren<VisualisationPoints>();
+            if (trajectory != null)
             {
-                Destroy(pointSet.gameObject);
+                trajectory.tweenPointsOnUpdate = tweenPointsOnUpdate;
+                dataFiles.UpdateTrajectory(trajectory);
             }
         }
 
+        // Resets rocket animation data
         RocketAnimation rocket = graph.GetComponentInChildren<RocketAnimation>();
-
-        // Resets rocket animation data and adds new points to graph
-        rocket.lineList.Clear();
-        dataFiles.addNewPoints();
-        rocket.GetRocketAnimationUI().InitialLoad();
         rocket.setSelectedTrajectory(0);
     }
 

@@ -260,6 +260,20 @@ public class DataFiles : MonoBehaviour
         point.GetComponent<VisualisationPoints>().CreatePoints(stageTimes, colourCol, dataPointMats);
     }
 
+    // Updates an existing trajectory using its visualisationpoints component
+    public void UpdateTrajectory(VisualisationPoints visualisationPoints)
+    {
+        // Create the BigMesh object for respective trajectory.
+        visualisation.dataSource = visualisationPoints.GetComponentInParent<CSVDataSource>();
+        visualisation.CreateVisualisation(AbstractVisualisation.VisualisationTypes.SCATTERPLOT);
+        BigMesh mesh = visualisation.theVisualizationObject.viewList[0].BigMesh;
+
+        visualisationPoints.transform.parent.GetComponentInChildren<VisualisationLine>().setVisualisationMesh(mesh);
+        visualisationPoints.setVisualisationMesh(mesh);
+
+        visualisationPoints.updatePoints();
+    }
+
     // Adds the colour coding information to the visualisation legend
     private void UpdateLegend()
     {

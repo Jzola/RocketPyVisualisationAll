@@ -13,6 +13,8 @@ public class VisualisationPoints : MonoBehaviour
     private List<GameObject> dataPoints;
     private BigMesh visualisationMesh;
     private Material pointMat;
+    private bool pointsNeedUpdating = false;
+    public bool tweenPointsOnUpdate = false;
 
     private Color[] classifications = new Color[]
     {
@@ -60,6 +62,58 @@ public class VisualisationPoints : MonoBehaviour
                 point.GetComponent<MeshRenderer>().material = materials[CalcColor(point, flightStageTimes, i, colourCol)];
             }
         }
+    }
+
+    // Updates the points already placed on the scene, moving them if the BigMesh has changed
+    public void updatePoints()
+    {
+        // Updates the Visualisation Points vertices with the new mesh
+        vertices = visualisationMesh.getBigMeshVertices();
+        CSVDataSource dataSource = (CSVDataSource)GetComponentInParent<Visualisation>().dataSource;
+
+        for (int i = 0; i < vertices.Length; i++)
+        {
+            // Moves the data points
+            if (!tweenPointsOnUpdate) dataPoints[i].transform.localPosition = vertices[i];
+            DataPoint point = dataPoints[i].GetComponent<DataPoint>();
+
+            // Set the data values for that point (i.e. the row of values from CSV)
+            point.SetData(dataSource, dataSource.GetRow(dataSource.dataArray, i));
+        }
+
+        // Hides renderline while moving points
+        transform.parent.GetComponentInChildren<VisualisationLine>().gameObject.GetComponent<Renderer>().enabled = !tweenPointsOnUpdate;
+        pointsNeedUpdating = tweenPointsOnUpdate;
+    }
+
+    // Gets run every frame
+    private void Update()
+    {
+        if (pointsNeedUpdating)
+        {
+            bool hasMoved = false;
+            // For every known point, if its not where it should be, it is animated towards where it needs to be
+            for (int i = 0; i < dataPoints.Count; i++)
+            {
+                float distance = Vector3.Distance(dataPoints[i].transform.localPosition, vertices[i]);
+                float minDist = 0.01f;
+
+                // Checks if points are where they should be, on the vertices
+                if (Vector3.Distance(dataPoints[i].transform.localPosition, vertices[i]) > minDist)
+                {
+                    float speed = distance * 0.9f;
+                    float minSpeed = 0.2f;
+                    dataPoints[i].transform.localPosition = Vector3.MoveTowards(dataPoints[i].transform.localPosition, vertices[i], (speed > minSpeed ? speed : minSpeed) * Time.deltaTime);
+                    hasMoved = true;
+                }
+            }
+
+            if (!hasMoved)
+            {
+                pointsNeedUpdating = false;
+                transform.parent.GetComponentInChildren<VisualisationLine>().gameObject.GetComponent<Renderer>().enabled = true;
+            }
+        } 
     }
 
     // Calculates the colour of data point based upon what stage of the flight

@@ -409,6 +409,7 @@ MonoBehaviour:
   xAxis: ' Y (m)'
   yAxis: ' Z (m)'
   zAxis: ' X (m)'
+  tweenPointsOnUpdate: 1
   variables: []
 --- !u!4 &1218938301 stripped
 Transform:
