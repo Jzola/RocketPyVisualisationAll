@@ -9,21 +9,29 @@ public class OutputVariableVisibility : MonoBehaviour
     private List<CSVDataSource> dataFiles;
     public bool[] visibilityFilter;
 
+    private int initialNoOfShownVariables = 11;
+
     // Start is called before the first frame update
     void Start()
     {
         dataFiles = dataFilesObject.GetComponent<DataFiles>().GetFiles();
-        resetVisibilty();
+        initialiseVisiblities(initialNoOfShownVariables);
     }
 
-    // Reset and resize the visibility
-    public void resetVisibilty()
+    // Sets the first given amount of variables to be shown, hiding the rest, and resizes the filter
+    public void initialiseVisiblities(int amountVisible)
     {
         visibilityFilter = new bool[dataFiles[0].DimensionCount];
         for (int i = 0; i < visibilityFilter.Length; i++)
         {
-            visibilityFilter[i] = true;
+            visibilityFilter[i] = i < amountVisible ? true : false;
         }
+    }
+
+    // Reset and resize the visibility to show all
+    public void resetVisibilty()
+    {
+        initialiseVisiblities(9999);
     }
 
     // Sets visibilityFilter based on given index

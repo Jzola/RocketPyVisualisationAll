@@ -24,7 +24,8 @@ public class DataPoint : MonoBehaviour
     // Material of DataPoint directly before it is changed by script
     private Material previousMaterial;
 
-    private String valuesString;
+    private String rawValuesString;
+    private String filteredValuesString;
 
     private ChartLinkingManager manager;
     private int trajectoryID;
@@ -49,16 +50,24 @@ public class DataPoint : MonoBehaviour
         updateValuesString();
     }
 
-    private void updateValuesString()
+    public void updateValuesString()
     {
         OutputVariableVisibility valueVisibility = GetComponentInParent<OutputVariableVisibility>();
 
-        valuesString = "ID: " + dataSource.GetID() + "\n";
+        rawValuesString = "ID: " + dataSource.GetID() + "\n";
+        filteredValuesString = "ID: " + dataSource.GetID() + "\n";
+
         for (var i = 0; i < data.Length; i++)
+        {
+            string dataLine = dataSource[i].Identifier + ": " + data[i] + "\n";
+
+            // If the data has been toggled off, don't add it to the line
             if (valueVisibility == null || valueVisibility.getVisibilities().Length == 0 || valueVisibility.getVisibility(i))
             {
-                valuesString += dataSource[i].Identifier + ": " + data[i] + "\n";
+                filteredValuesString += dataLine;
             }
+            rawValuesString += dataLine;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -153,15 +162,20 @@ public class DataPoint : MonoBehaviour
             valuesDisplay.transform.localPosition = new Vector3(0, 12, -5);
 
             // Set text to display values of data point
-            valuesDisplay.GetComponentInChildren<Text>().text = valuesString;
+            valuesDisplay.GetComponentInChildren<Text>().text = filteredValuesString;
             // Connect the line renderer of the display to the data point
             valuesDisplay.GetComponentInChildren<ConnectorLink>().SetPointA(transform.position);
         }                
     }
 
-    public String GetValuesAsString()
+    public String GetRawValuesAsString()
     {
-        return valuesString;
+        return rawValuesString;
+    }
+    public String GetFilteredValuesAsString()
+    {
+        return filteredValuesString;
+
     }
 
     public void ResetMaterial()

@@ -409,6 +409,7 @@ MonoBehaviour:
   xAxis: ' Y (m)'
   yAxis: ' Z (m)'
   zAxis: ' X (m)'
+  variables: []
 --- !u!4 &1218938301 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9039197142049710588, guid: 28c5a99939782dd44ac0dee4e40054c4,
@@ -9269,7 +9270,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8769165772263717265}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.85, y: 3.534, z: -4.69}
+  m_LocalPosition: {x: -2.522, y: 3.591, z: -5.003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 500786705344461924}

@@ -58,11 +58,13 @@ public class GraphMenuSetCreator : MonoBehaviour
         Destroy(graph);
     }
 
-/*    [ContextMenu("Update Last Graph")]
+    [ContextMenu("Update Last Graph")]
     public void UpdateLastGraph()
     {
+        // If there are no graphs, break out of method
         if (createdGraphs.Count < 1) return;
 
+        // Get the last graph
         GameObject graph = createdGraphs[createdGraphs.Count - 1];
 
         // Sets the axes for the graph instance
@@ -71,14 +73,23 @@ public class GraphMenuSetCreator : MonoBehaviour
         visualisation.yDimension = new DimensionFilter { Attribute = yAxis };
         visualisation.zDimension = new DimensionFilter { Attribute = zAxis };
 
+        // Finds and deletes all the previous points, leaving the data behind
         DataFiles dataFiles = graph.GetComponentInChildren<DataFiles>();
-
-        foreach (Transform child in dataFiles.gameObject.transform)
+        foreach (Transform dataSet in dataFiles.gameObject.transform)
         {
-            Destroy(child.GetComponentInChildren<CSVDataSource>().obj);
+            foreach (Transform pointSet in dataSet)
+            {
+                Destroy(pointSet.gameObject);
+            }
         }
 
+        RocketAnimation rocket = graph.GetComponentInChildren<RocketAnimation>();
+
+        // Resets rocket animation data and adds new points to graph
+        rocket.lineList.Clear();
         dataFiles.addNewPoints();
+        rocket.GetRocketAnimationUI().InitialLoad();
+        rocket.setSelectedTrajectory(0);
     }
-*/
+
 }
