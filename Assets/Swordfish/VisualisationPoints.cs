@@ -15,6 +15,7 @@ public class VisualisationPoints : MonoBehaviour
     private Material pointMat;
     private bool pointsNeedUpdating = false;
     public bool tweenPointsOnUpdate = false;
+    private bool pointsVisible = true;
 
     private Color[] classifications = new Color[]
     {
@@ -103,8 +104,14 @@ public class VisualisationPoints : MonoBehaviour
                 {
                     float speed = distance * 0.9f;
                     float minSpeed = 0.2f;
+
+                    // Moves towards the target spot, based on given speed and time.
                     dataPoints[i].transform.localPosition = Vector3.MoveTowards(dataPoints[i].transform.localPosition, vertices[i], (speed > minSpeed ? speed : minSpeed) * Time.deltaTime);
                     hasMoved = true;
+                } else
+                {
+                    // If the points are within the minimum distance, teleport to their exact position
+                    dataPoints[i].transform.localPosition = vertices[i];
                 }
             }
 

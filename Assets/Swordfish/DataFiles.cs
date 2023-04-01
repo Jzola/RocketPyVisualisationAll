@@ -272,6 +272,9 @@ public class DataFiles : MonoBehaviour
         visualisationPoints.setVisualisationMesh(mesh);
 
         visualisationPoints.updatePoints();
+
+        // Removes the mesh from the ingame scene
+        DestroyImmediate(mesh.gameObject);
     }
 
     // Adds the colour coding information to the visualisation legend
