@@ -6,19 +6,20 @@ using UnityEngine;
 public class OutputVariableVisibility : MonoBehaviour
 {
     public GameObject dataFilesObject;
-    private List<CSVDataSource> dataFiles;
     public bool[] visibilityFilter;
 
-    private int initialNoOfShownVariables = 11;
+    private List<CSVDataSource> dataFiles;
+    private int initialNoOfShownVariables = 11; // The amount of variables to have toggled on, starting in order from the first variable columns
 
     // Start is called before the first frame update
     void Start()
     {
+        // Finds the datafile component and initialises the list of visibilities
         dataFiles = dataFilesObject.GetComponent<DataFiles>().GetFiles();
         initialiseVisiblities(initialNoOfShownVariables);
     }
 
-    // Sets the first given amount of variables to be shown, hiding the rest, and resizes the filter
+    // Sets the first given amount of variables to be shown, hiding the rest, resizing the filter beforehand
     public void initialiseVisiblities(int amountVisible)
     {
         visibilityFilter = new bool[dataFiles[0].DimensionCount];
@@ -31,7 +32,7 @@ public class OutputVariableVisibility : MonoBehaviour
     // Reset and resize the visibility to show all
     public void resetVisibilty()
     {
-        initialiseVisiblities(9999);
+        initialiseVisiblities(9999); // Impossible number of variables, to ensure everything is visible
     }
 
     // Sets visibilityFilter based on given index

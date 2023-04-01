@@ -268,6 +268,7 @@ public class DataFiles : MonoBehaviour
         visualisation.CreateVisualisation(AbstractVisualisation.VisualisationTypes.SCATTERPLOT);
         BigMesh mesh = visualisation.theVisualizationObject.viewList[0].BigMesh;
 
+        // Set the Visualisation points/line components mesh to the new BigMesh
         visualisationPoints.transform.parent.GetComponentInChildren<VisualisationLine>().setVisualisationMesh(mesh);
         visualisationPoints.setVisualisationMesh(mesh);
 

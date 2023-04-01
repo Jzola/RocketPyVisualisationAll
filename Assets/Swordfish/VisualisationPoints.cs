@@ -72,6 +72,7 @@ public class VisualisationPoints : MonoBehaviour
         vertices = visualisationMesh.getBigMeshVertices();
         CSVDataSource dataSource = (CSVDataSource)GetComponentInParent<Visualisation>().dataSource;
 
+        // Updates every point on the vertices found on the BigMesh
         for (int i = 0; i < vertices.Length; i++)
         {
             // Moves the data points
@@ -115,6 +116,7 @@ public class VisualisationPoints : MonoBehaviour
                 }
             }
 
+            // If the points haven't moved at all, disable point updating (To save processing) and enable the RenderLines
             if (!hasMoved)
             {
                 pointsNeedUpdating = false;

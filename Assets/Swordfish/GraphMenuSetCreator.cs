@@ -10,10 +10,12 @@ public class GraphMenuSetCreator : MonoBehaviour
     public GameObject GraphPrefab;
     public TextAsset variableExtractionFile;
 
+    // Axes that make up the graph.
     public string xAxis = " Y (m)";
     public string yAxis = " Z (m)";
     public string zAxis = " X (m)";
 
+    // Animates the points on update if true, teleports if false.
     public bool tweenPointsOnUpdate = true;
     
     [Header("Available Variables:")]
