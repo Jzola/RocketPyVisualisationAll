@@ -33,23 +33,14 @@ public class RocketAnimationUI : MonoBehaviour
             {
                 foreach (GameObject display in dataDisplays)
                 {
+                    currentDataPoint.updateValuesString();
                     // If there is a visibility filter component, it will only show visible data fields
                     if (dataVisibility != null)
                     {
-                        string[] values = currentDataPoint.GetValuesAsString().TrimEnd('\n').Split('\n');
-                        string visibleValues = values[0]; // Will always have the ID added
-
-                        for (int i = 1; i < values.Length; i++)
-                        {
-                            if (dataVisibility.getVisibility(i-1))
-                            {
-                                visibleValues += "\n" + values[i];
-                            }
-                        }
-                        display.GetComponentInChildren<Text>(true).text = visibleValues; 
+                        display.GetComponentInChildren<Text>(true).text = currentDataPoint.GetFilteredValuesAsString();
                     } else
                     {
-                        display.GetComponentInChildren<Text>(true).text = currentDataPoint.GetValuesAsString();
+                        display.GetComponentInChildren<Text>(true).text = currentDataPoint.GetRawValuesAsString();
                     }
 
                 }
@@ -57,7 +48,7 @@ public class RocketAnimationUI : MonoBehaviour
         }
     }
 
-    private void InitialLoad()
+    public void InitialLoad()
     {
         // Setup dropdown UI with list of data source associated with the visualisation that the rocket is from
         if (trajectorySourceUIDropdown)
@@ -88,19 +79,21 @@ public class RocketAnimationUI : MonoBehaviour
         }
     }
 
+    [ContextMenu("Play Animation")]
     // Plays/resumes the rocket animation
-    [ContextMenu("PlayAnimation")]
     public void playAnimation()
     {
         rocket.setPlaying(true);
     }
 
+    [ContextMenu("Pause Animation")]
     // Pause the rocket animation  
     public void pauseAnimation()
     {
         rocket.setPlaying(false);
     }
 
+    [ContextMenu("Reset Animation")]
     // Reset the animation to the beginning
     public void resetAnimation()
     {

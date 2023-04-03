@@ -260,6 +260,24 @@ public class DataFiles : MonoBehaviour
         point.GetComponent<VisualisationPoints>().CreatePoints(stageTimes, colourCol, dataPointMats);
     }
 
+    // Updates an existing trajectory using its visualisationpoints component
+    public void UpdateTrajectory(VisualisationPoints visualisationPoints)
+    {
+        // Create the BigMesh object for respective trajectory.
+        visualisation.dataSource = visualisationPoints.GetComponentInParent<CSVDataSource>();
+        visualisation.CreateVisualisation(AbstractVisualisation.VisualisationTypes.SCATTERPLOT);
+        BigMesh mesh = visualisation.theVisualizationObject.viewList[0].BigMesh;
+
+        // Set the Visualisation points/line components mesh to the new BigMesh
+        visualisationPoints.transform.parent.GetComponentInChildren<VisualisationLine>().setVisualisationMesh(mesh);
+        visualisationPoints.setVisualisationMesh(mesh);
+
+        visualisationPoints.updatePoints();
+
+        // Removes the mesh from the ingame scene
+        DestroyImmediate(mesh.gameObject);
+    }
+
     // Adds the colour coding information to the visualisation legend
     private void UpdateLegend()
     {
@@ -352,5 +370,30 @@ public class DataFiles : MonoBehaviour
     public void SetKey(string label)
     {
         visualisation.SetKey(label, 0.4f);
+    }
+
+
+    // Adds new points to the existing graph
+    public void addNewPoints()
+    {
+        // For each data file, create the trajectory within the visualisation object.
+        for (int i = 0; i < files.Count; i++)
+        {
+            // Rescale the values based upon global min/max
+            files[i].repopulate(dimensionMin, dimensionMax);
+
+            // Create the trajectory data objects
+            CreateTrajectory(i);
+        }
+
+        // After all trajectories have been created, update axis ticks
+        UpdateAxisTicks();
+
+        // After final view has loaded, delete it from the visualisation object as
+        // all trajectory data is in visualisationPoints and visualisationLines objects .
+        visualisation.destroyView();
+
+        // Add colour coding information to the legend
+        UpdateLegend();
     }
 }

@@ -14,11 +14,16 @@ public class VisualisationLine : MonoBehaviour
 
     void Start()
     {
+        createLineRenderer();
+    }
+
+    private void createLineRenderer()
+    {
         vertices = visualisationMesh.getBigMeshVertices();
 
         // Creat the lineRenderer object from the BigMesh data
         line = GetComponent<LineRenderer>();
-        line.startWidth=(0.006f);
+        line.startWidth = (0.006f);
         line.useWorldSpace = false;
         line.positionCount = vertices.Length;
         line.SetPositions(vertices);
@@ -28,6 +33,7 @@ public class VisualisationLine : MonoBehaviour
     public void setVisualisationMesh(BigMesh mesh)
     {
         visualisationMesh = mesh;
+        createLineRenderer();
     }
     
     public void setLineMaterial(Material mat)

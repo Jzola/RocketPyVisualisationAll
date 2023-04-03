@@ -195,4 +195,10 @@ public class RocketAnimation : MonoBehaviour
     {
         playing = play;
     }
+
+    // Gets the rocket animation UI component
+    public RocketAnimationUI GetRocketAnimationUI()
+    {
+        return animationUI;
+    }
 }
