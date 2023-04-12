@@ -21,15 +21,17 @@ public class GraphMenuSetCreator : GraphAxes
     // Creates a graph, based on the given prefab and set axes
     public void CreateGraph()
     {
-        // Creates and adds graph instance to list
+        // Creates graph and sets its axis variables
         GameObject graph = Instantiate(GraphPrefab);
-        
-        // Sets the axes for the graph instance
-        Visualisation visualisation = graph.GetComponentInChildren<Visualisation>();
-        visualisation.xDimension = new DimensionFilter { Attribute = xAxis };
-        visualisation.yDimension = new DimensionFilter { Attribute = yAxis };
-        visualisation.zDimension = new DimensionFilter { Attribute = zAxis };
+        setGraphAxisVariables(graph);
 
-        graph.GetComponentInChildren<GraphConfig>().variables = variables;
+        // Sets the variables for the graph config. The config will still automatically get these variables after creations,
+        // but the inspector window won't update without this happening before being fully instantiated
+        GraphConfig graphConfig = graph.GetComponentInChildren<GraphConfig>();
+        graphConfig.variables = variables;
+        graphConfig.dimensions = dimensions;
+        graphConfig.xAxis = xAxis;
+        graphConfig.yAxis = yAxis;
+        graphConfig.zAxis = zAxis;
     }
 }

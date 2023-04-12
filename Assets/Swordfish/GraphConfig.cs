@@ -10,7 +10,6 @@ public class GraphConfig : GraphAxes
     // Animates the points on update if true, teleports if false.
     public bool tweenPointsOnUpdate = true;
     private bool variablesInitialised = false;
-    public int dimensions = 3;
 
 
     // Start is called before the first frame update
@@ -29,9 +28,7 @@ public class GraphConfig : GraphAxes
             Visualisation visualisation = transform.parent.GetComponentInChildren<Visualisation>();
             if ( visualisation != null)
             {
-                xAxis = visualisation.xDimension.Attribute;
-                yAxis = dimensions >= 2 ? visualisation.yDimension.Attribute : "Undefined";
-                zAxis = visualisation.zDimension.Attribute;
+                setGraphAxisVariables(transform.parent.gameObject);
                 variablesInitialised = true;
             }
         }
@@ -49,16 +46,10 @@ public class GraphConfig : GraphAxes
     public void UpdateGraph()
     {
         setGraphDimensions(dimensions);
-        string unusedAxis = "Undefined";
 
         // Get the whole graph object
         GameObject graph = transform.parent.gameObject;
-
-        // Sets the axes for the graph instance
-        Visualisation visualisation = graph.GetComponentInChildren<Visualisation>();
-        visualisation.xDimension = new DimensionFilter { Attribute = xAxis };
-        visualisation.yDimension = dimensions >= 2 ? new DimensionFilter { Attribute = yAxis } : unusedAxis;
-        visualisation.zDimension = dimensions >= 3 ? new DimensionFilter { Attribute = zAxis } : unusedAxis;
+        setGraphAxisVariables(graph);
 
         DataFiles dataFiles = graph.GetComponentInChildren<DataFiles>();
 
@@ -91,13 +82,6 @@ public class GraphConfig : GraphAxes
             default:
                 break;
         }
-    }
-
-    // Changes the number of dimensions used on the graph; 1, 2 or 3. Does not update the graph, call UpdateGraph() to apply changes
-    // Number will be rounded to the closest valid dimension if too large or small
-    public void setGraphDimensions(int dimensions)
-    {
-        this.dimensions = Mathf.Clamp(dimensions, 1, 3);
     }
 
     // Abstracts the given variable on the graph, default is time
