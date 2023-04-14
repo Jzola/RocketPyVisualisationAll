@@ -13,7 +13,7 @@ public class VisualisationPoints : MonoBehaviour
     private List<GameObject> dataPoints;
     private BigMesh visualisationMesh;
     private Material pointMat;
-    private bool pointsNeedUpdating = false;
+    public bool pointsNeedUpdating = false;
     public bool tweenPointsOnUpdate = false;
     private bool pointsVisible = true;
 

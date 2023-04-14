@@ -9,8 +9,8 @@ public class GraphConfig : GraphAxes
 
     // Animates the points on update if true, teleports if false.
     public bool tweenPointsOnUpdate = true;
+    public bool waitForAllPointsToMove = false;
     private bool variablesInitialised = false;
-
 
     // Start is called before the first frame update
     void Start()
@@ -51,6 +51,15 @@ public class GraphConfig : GraphAxes
         GameObject graph = transform.parent.gameObject;
         setGraphAxisVariables(graph);
 
+        StartCoroutine(updateTrajectories(graph));
+
+        // Resets rocket animation data
+        RocketAnimation rocket = graph.GetComponentInChildren<RocketAnimation>();
+        rocket.setSelectedTrajectory(0);
+    }
+
+    private IEnumerator updateTrajectories(GameObject graph)
+    {
         DataFiles dataFiles = graph.GetComponentInChildren<DataFiles>();
 
         // Finds and updates all the previous points with the new axes
@@ -61,12 +70,25 @@ public class GraphConfig : GraphAxes
             {
                 trajectory.tweenPointsOnUpdate = tweenPointsOnUpdate;
                 dataFiles.UpdateTrajectory(trajectory);
+
+                // Prevent points from moving during coroutine
+                if (waitForAllPointsToMove) trajectory.pointsNeedUpdating = false;
             }
+            yield return null;
         }
 
-        // Resets rocket animation data
-        RocketAnimation rocket = graph.GetComponentInChildren<RocketAnimation>();
-        rocket.setSelectedTrajectory(0);
+        // Enables the points to move once coroutines are over
+        if (waitForAllPointsToMove)
+        {
+            foreach (Transform dataSet in dataFiles.gameObject.transform)
+            {
+                VisualisationPoints trajectory = dataSet.GetComponentInChildren<VisualisationPoints>();
+                if (trajectory != null)
+                {
+                    trajectory.pointsNeedUpdating = trajectory.tweenPointsOnUpdate;
+                }
+            }
+        }
     }
 
     // Changes the type of the graph

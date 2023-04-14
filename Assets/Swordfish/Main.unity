@@ -407,9 +407,12 @@ MonoBehaviour:
   xAxis: ' Y (m)'
   yAxis: ' Z (m)'
   zAxis: ' X (m)'
+  dimensions: 3
   variables: []
   GraphPrefab: {fileID: 7634332073583643605, guid: 7168fa4484f58784ba8f7e039387cdab,
     type: 3}
+  inputFolderName: Default_Inputs
+  availableInputs: []
 --- !u!4 &1218938301 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9039197142049710588, guid: 28c5a99939782dd44ac0dee4e40054c4,

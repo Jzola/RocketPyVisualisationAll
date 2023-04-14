@@ -53,13 +53,55 @@ public class DataFiles : MonoBehaviour
 
     private void Start()
     {
-        // Use old data if new data paths isn't found
-        if (!Directory.Exists(Application.dataPath + path + folder))
-        {
-            folder = "MainData";
-            path = "/Resources/";
-}
+        createMaterials();
+        StartCoroutine(setSimulationFiles());
+    }
 
+    public void setSimulationPath(string path, string folder)
+    {
+        // Use old data if new data paths isn't found
+        if (Directory.Exists(Application.dataPath + path + folder))
+        {
+            this.path = path;
+            this.folder = folder;
+        }
+    }
+
+    public IEnumerator setSimulationFiles()
+    {
+        // First find files and create csvDataSource objects
+        files = new List<CSVDataSource>();
+        CreateCSVDataSource();
+
+        dimensionMin = new float[files[0].DimensionCount];
+        dimensionMax = new float[files[0].DimensionCount];
+
+        GetMinMax();
+
+        // For each data file, create the trajectory within the visualisation object.
+        for (int i = 0; i < files.Count; i++)
+        {
+            // Rescale the values based upon global min/max
+            files[i].repopulate(dimensionMin, dimensionMax);
+
+            // Create the trajectory data objects
+            CreateTrajectory(i);
+            yield return null;
+        }
+
+        // After all trajectories have been created, update axis ticks
+        UpdateAxisTicks();
+
+        // After final view has loaded, delete it from the visualisation object as
+        // all trajectory data is in visualisationPoints and visualisationLines objects .
+        visualisation.destroyView();
+
+        // Add colour coding information to the legend
+        UpdateLegend();
+    }
+
+    private void createMaterials()
+    {
         // Create the material objects
         dataPointMats = new Material[]
         {
@@ -86,35 +128,6 @@ public class DataFiles : MonoBehaviour
             dataPointMats[i].renderQueue = 3000;
             dataPointMats[i].color = classifications[i];
         }
-
-        // First find files and create csvDataSource objects
-        files = new List<CSVDataSource>();
-        CreateCSVDataSource();
-
-        dimensionMin = new float[files[0].DimensionCount];
-        dimensionMax = new float[files[0].DimensionCount];
-
-        GetMinMax();
-
-        // For each data file, create the trajectory within the visualisation object.
-        for (int i = 0; i < files.Count; i++)
-        {
-            // Rescale the values based upon global min/max
-            files[i].repopulate(dimensionMin, dimensionMax);
-
-            // Create the trajectory data objects
-            CreateTrajectory(i);
-        }
-
-        // After all trajectories have been created, update axis ticks
-        UpdateAxisTicks();
-
-        // After final view has loaded, delete it from the visualisation object as
-        // all trajectory data is in visualisationPoints and visualisationLines objects .
-        visualisation.destroyView();
-
-        // Add colour coding information to the legend
-        UpdateLegend();
     }
 
     // For each csv file in the directory, create a csvDataSourceObject
