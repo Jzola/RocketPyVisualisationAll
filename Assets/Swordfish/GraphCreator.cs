@@ -48,5 +48,17 @@ public class GraphCreator : GraphAxes
         graphConfig.xAxis = xAxis;
         graphConfig.yAxis = yAxis;
         graphConfig.zAxis = zAxis;
+
+        // Set the focus variable for which input changes between simulations
+        string focusType = "None";
+        string[] varMap = File.ReadAllLines(Application.dataPath + inputFolderPath + "VariableFocusMapping.txt");
+        foreach (string var in varMap)
+        {
+            string[] pair = var.Split(':');
+            if (pair[0].Equals(inputFolderName)) {
+                focusType = pair[1];
+            }
+        }
+        graphConfig.focusType = focusType;
     }
 }
