@@ -4,6 +4,8 @@ using UnityEngine;
 using IATK;
 using System.IO;
 using UnityEngine.UI;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 public class DataFiles : MonoBehaviour
 {
@@ -25,7 +27,8 @@ public class DataFiles : MonoBehaviour
     private string folder = "Default_Inputs";
     private string path = "/Resources/AdditionalOutputs/";
     private List<CSVDataSource> files;
-    private CSVDataSource input;
+    [System.NonSerialized]
+    public CSVDataSource input;
 
 
     // Colour Coding
@@ -133,7 +136,8 @@ public class DataFiles : MonoBehaviour
     // For each csv file in the directory, create a csvDataSourceObject
     private void CreateCSVDataSource()
     {
-        string[] filePaths = Directory.GetFiles(Application.dataPath + (path+folder), "*.csv");
+        // Makes sure to sort the files properly
+        string[] filePaths = Directory.GetFiles(Application.dataPath + (path + folder), "*.csv").OrderBy(f => Regex.Replace(f, "[0-9]+", match => match.Value.PadLeft(5, '0'))).ToArray();
         string[] inputFile = Directory.GetFiles(Application.dataPath + (path + folder + "/inputData"), "*.csv");
 
         GameObject inputDataObj = new GameObject("InputData");

@@ -122,6 +122,32 @@ public class Filtering : MonoBehaviour
         }
     }
 
+    // Hide all values except the provided index
+    public CSVDataSource FilterSingle(int index)
+    {
+        CSVDataSource single = null;
+        try
+        {
+            foreach (Transform child in files.transform)
+            {
+                // Finds actual ID of files and hides all except provided
+                CSVDataSource traj = child.GetComponent<CSVDataSource>();
+                if (traj != null && !traj.data.name.Equals((index + 1).ToString()))
+                {
+                    child.gameObject.SetActive(false);
+                } else
+                {
+                    single = traj;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e);
+        }
+        return single;
+    }
+
     // Remove all filters
     public void ResetFilters()
     {

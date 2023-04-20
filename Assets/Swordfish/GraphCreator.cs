@@ -79,6 +79,18 @@ public class GraphCreator : GraphAxes
         graphConfig.yAxis = yAxis;
         graphConfig.zAxis = zAxis;
 
+        // Set the focus variable for which input changes between simulations
+        string focusType = "None";
+        string[] varMap = File.ReadAllLines(Application.dataPath + inputFolderPath + "VariableFocusMapping.txt");
+        foreach (string var in varMap)
+        {
+            string[] pair = var.Split(':');
+            if (pair[0].Equals(inputFolderName)) {
+                focusType = pair[1];
+            }
+        }
+        graphConfig.focusType = focusType;
+
     }
 
     //function for spawning new graphs in circle around user. Not really working properly yet.
@@ -94,5 +106,6 @@ public class GraphCreator : GraphAxes
         pos.y = center.y + 1;
         pos.z = center.z + (radius * Mathf.Cos(ang * Mathf.Deg2Rad)); 
         return pos;
+
     }
 }

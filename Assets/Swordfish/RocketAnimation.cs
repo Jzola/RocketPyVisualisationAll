@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using IATK;
 
+[SelectionBase]
 public class RocketAnimation : MonoBehaviour
 {
     // DataFiles of the associated visualisation

@@ -1,0 +1,8 @@
+Default_Inputs:None
+BurnOutInputs:Burn out time
+BurnOutLatest:Burn out time
+MassIncrease:rocket mass (kg)
+NozzleIncrease:Nozzle Distance
+Propellant:Propellant
+WeatherChangeMass:None
+WindSpeed:E wind start,E wind end,N wind start,N wind end
