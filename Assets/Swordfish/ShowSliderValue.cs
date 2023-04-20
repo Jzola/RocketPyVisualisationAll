@@ -11,6 +11,7 @@ public class ShowSliderValue : MonoBehaviour
         sliderText = GetComponent<Text>();
     }
 
+    //update text after user change
     public void textUpdate(float value)
     {
         if (sliderText)
