@@ -13,8 +13,8 @@ public class GraphCreator : GraphAxes
     private string inputFolderPath = "/Resources/AdditionalOutputs/";
 
     public string[] availableInputs;
-    public int graphsCreated = 0;
-    public float radius = 6;
+    private int graphsCreated = 0;
+    private float radius = 6;
 
     public GameObject VRCamera;
     Vector3 VRCamOriginalPosition; // = VRCamera.transform.position;
