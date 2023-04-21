@@ -87,20 +87,26 @@ public class DataFiles : MonoBehaviour
             // Rescale the values based upon global min/max
             files[i].repopulate(dimensionMin, dimensionMax);
 
-            // Create the trajectory data objects
-            CreateTrajectory(i);
+            if (visualisation != null)
+            {
+                // Create the trajectory data objects
+                CreateTrajectory(i);
+            }
             yield return null;
         }
 
-        // After all trajectories have been created, update axis ticks
-        UpdateAxisTicks();
+        if (visualisation != null)
+        {
+            // After all trajectories have been created, update axis ticks
+            UpdateAxisTicks();
 
-        // After final view has loaded, delete it from the visualisation object as
-        // all trajectory data is in visualisationPoints and visualisationLines objects .
-        visualisation.destroyView();
+            // After final view has loaded, delete it from the visualisation object as
+            // all trajectory data is in visualisationPoints and visualisationLines objects .
+            visualisation.destroyView();
 
-        // Add colour coding information to the legend
-        UpdateLegend();
+            // Add colour coding information to the legend
+            UpdateLegend();
+        }
     }
 
     private void createMaterials()
@@ -316,6 +322,7 @@ public class DataFiles : MonoBehaviour
             newItem.transform.parent = LegendItemPrefab.transform.parent;
             newItem.transform.localScale = LegendItemPrefab.transform.localScale;
             newItem.transform.position = LegendItemPrefab.transform.position;
+            newItem.transform.rotation = LegendItemPrefab.transform.rotation;
             Vector2 newPos = new Vector2(newItem.GetComponent<RectTransform>().anchoredPosition.x, newItem.GetComponent<RectTransform>().anchoredPosition.y - (yPos*multiplier));
             newItem.GetComponent<RectTransform>().anchoredPosition = newPos;
 
@@ -380,11 +387,14 @@ public class DataFiles : MonoBehaviour
     // Sets the visualisation key text to the launch site latitude and longitude
     public void SetKey(float lat, float lon)
     {
-        string label = "Latitude: " + lat + "\nLongitude: " + lon;
-        visualisation.SetKey(label, 0.4f);
+        if (visualisation != null)
+        {
+            string label = "Latitude: " + lat + "\nLongitude: " + lon;
+            visualisation.SetKey(label, 0.4f);
+        }
     }
 
-    public void SetKey(string label)
+        public void SetKey(string label)
     {
         visualisation.SetKey(label, 0.4f);
     }

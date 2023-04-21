@@ -410,8 +410,11 @@ MonoBehaviour:
   dimensions: 3
   variables:
   - 
-  GraphPrefab: {fileID: 7634332073583643605, guid: 7168fa4484f58784ba8f7e039387cdab,
+  scatterGraphPrefab: {fileID: 7634332073583643605, guid: 7168fa4484f58784ba8f7e039387cdab,
     type: 3}
+  barGraphPrefab: {fileID: 7559326757985018075, guid: e510b41864fa3494896c738279d90a6c,
+    type: 3}
+  graphType: 0
   inputFolderName: Default_Inputs
   availableInputs: []
   VRCamera: {fileID: 8769165772263717265}

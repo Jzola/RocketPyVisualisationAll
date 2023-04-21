@@ -4,18 +4,28 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using System.Linq;
+using BarGraph.VittorCloud;
 
 public class GraphCreator : GraphAxes
 {
+    public enum GraphType { SCATTER, BAR };
+
     //Graph prefab is based on the original Input data using different rocket types and weights.
-    public GameObject GraphPrefab;
+    [Header("Graphs")]
+    public GameObject scatterGraphPrefab;
+    public GameObject barGraphPrefab;
+    public GraphType graphType = GraphType.SCATTER;
+
+    [Header("Inputs")]
     public string inputFolderName = "Default_Inputs";
     private string inputFolderPath = "/Resources/AdditionalOutputs/";
-
     public string[] availableInputs;
-    private int graphsCreated = 0;
-    private float radius = 6;
 
+    private int graphsCreated = 0;
+    private float radius = 5;
+    private float maxGraphsInCircle = 6;
+
+    [Header("Object to Spawn Around")]
     public GameObject VRCamera;
     Vector3 VRCamOriginalPosition; // = VRCamera.transform.position;
 
@@ -45,11 +55,63 @@ public class GraphCreator : GraphAxes
     // Creates a graph, based on the given prefab and set axes
     public void CreateGraph()
     {
+        GameObject graph = null;
+        switch (graphType)
+        {
+            case GraphType.BAR:
+                graph = Instantiate(barGraphPrefab, SpawnInCircle(VRCamOriginalPosition, radius), VRCamera.transform.rotation);
 
-        GameObject graph = Instantiate(GraphPrefab, SpawnInCircle(VRCamOriginalPosition, radius), VRCamera.transform.rotation); ;
-        
+                // Change the folder input folder
+                graph.GetComponentInChildren<DataFiles>().setSimulationPath(inputFolderPath, inputFolderName);
+                LoadInputVariables liv = graph.GetComponentInChildren<LoadInputVariables>();
+                liv.folder = "inputData";
+                liv.path = inputFolderPath + inputFolderName + "/";
+                break;
+
+            case GraphType.SCATTER:
+                graph = Instantiate(scatterGraphPrefab, SpawnInCircle(VRCamOriginalPosition, radius), VRCamera.transform.rotation);
+
+                // Pretty jank, but "hides" the bar graph stuff attached to the scatter graph, since the scatter can't be generated without it.
+                graph.GetComponentInChildren<BarGraphGenerator>().transform.Translate(0, -9999, 0, graph.transform);
+                graph.GetComponentInChildrenWithTag<Canvas>("Highlighting").transform.Translate(0,-9999, 0, graph.transform);
+
+                setGraphAxisVariables(graph);
+
+                // Change the folder input folder
+                graph.GetComponentInChildren<DataFiles>().setSimulationPath(inputFolderPath, inputFolderName);
+
+                // Sets the variables for the graph config. The config will still automatically get these variables after creations,
+                // but the inspector window won't update without this happening before being fully instantiated
+                GraphConfig graphConfig = graph.GetComponentInChildren<GraphConfig>();
+                graphConfig.variables = variables;
+                graphConfig.dimensions = dimensions;
+                graphConfig.xAxis = xAxis;
+                graphConfig.yAxis = yAxis;
+                graphConfig.zAxis = zAxis;
+
+                // Set the focus variable for which input changes between simulations
+                string focusType = "None";
+                string[] varMap = File.ReadAllLines(Application.dataPath + inputFolderPath + "VariableFocusMapping.txt");
+                foreach (string var in varMap)
+                {
+                    string[] pair = var.Split(':');
+                    if (pair[0].Equals(inputFolderName)) {
+                        focusType = pair[1];
+                    }
+                }
+                graphConfig.focusType = focusType;
+                break;
+            default:
+                break;
+        }
+
+        //rotate the graph for better viewing
+        //TODO fix issue where rotations go too high.
+        graph.transform.RotateAround(graph.transform.position, Vector3.up, graphsCreated * (360 / maxGraphsInCircle));
+        graphsCreated++;
+
         // Creates graph and sets its axis variables. Move up if there are 6 graphs, or they will overlap
-        if(graphsCreated == 5)
+        if (graphsCreated == maxGraphsInCircle)
         {
             VRCamOriginalPosition.y = VRCamOriginalPosition.y + 6;
 
@@ -59,39 +121,6 @@ public class GraphCreator : GraphAxes
             //was needed to fix an unidentified bug where new graphs spawning at y = 40 
             //VRCamOriginalPosition.y = 3;
         }
-               
-        setGraphAxisVariables(graph);
-        
-        //rotate the graph for better viewing
-        //TODO fix issue where rotations go too high.
-        graph.transform.RotateAround(graph.transform.position, Vector3.up, graphsCreated * 60);
-        graphsCreated++;
-
-
-        //Change the folder here
-        graph.GetComponentInChildren<DataFiles>().setSimulationPath(inputFolderPath, inputFolderName);
-
-        // Sets the variables for the graph config. The config will still automatically get these variables after creations,
-        // but the inspector window won't update without this happening before being fully instantiated
-        GraphConfig graphConfig = graph.GetComponentInChildren<GraphConfig>();
-        graphConfig.variables = variables;
-        graphConfig.dimensions = dimensions;
-        graphConfig.xAxis = xAxis;
-        graphConfig.yAxis = yAxis;
-        graphConfig.zAxis = zAxis;
-
-        // Set the focus variable for which input changes between simulations
-        string focusType = "None";
-        string[] varMap = File.ReadAllLines(Application.dataPath + inputFolderPath + "VariableFocusMapping.txt");
-        foreach (string var in varMap)
-        {
-            string[] pair = var.Split(':');
-            if (pair[0].Equals(inputFolderName)) {
-                focusType = pair[1];
-            }
-        }
-        graphConfig.focusType = focusType;
-
     }
 
     //function for spawning new graphs in circle around user. Not really working properly yet.
@@ -101,7 +130,7 @@ public class GraphCreator : GraphAxes
         //possible bug due to values able to be negative
         float offset = 1;
         //TODO adjust the angle so that objects arrange themselves in a circle.
-        float ang = graphsCreated * 60;
+        float ang = graphsCreated * (360 / maxGraphsInCircle);
         Vector3 pos;
         pos.x = center.x + (radius * Mathf.Sin(ang * Mathf.Deg2Rad)) ;
         pos.y = center.y + 1;

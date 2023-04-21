@@ -16,8 +16,10 @@ public class LoadInputVariables : MonoBehaviour
     private DataFiles trajectoryFiles;
 
     // Simulation Data
-    private string folder = "MainData/inputData/";
-    private string path = "/Resources/";
+    [System.NonSerialized]
+    public string folder = "MainData/inputData/";
+    [System.NonSerialized]
+    public string path = "/Resources/";
     public int idCol = 0;
 
     // Axes info

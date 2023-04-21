@@ -8,6 +8,7 @@ public class GraphAxes : MonoBehaviour
     public TextAsset variableExtractionFile;
 
     // Axes that make up the graph.
+    [Header("Axes")]
     public string xAxis;
     public string yAxis;
     public string zAxis;
@@ -15,7 +16,7 @@ public class GraphAxes : MonoBehaviour
 
     private const string unusedAxisID = "Undefined";
 
-    [Header("Available Variables:")]
+    [Header("Available Variables for Axes:")]
     [Tooltip("List of variables found in the first default csv output file")]
     public List<string> variables;
 

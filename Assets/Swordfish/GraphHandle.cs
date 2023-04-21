@@ -25,6 +25,8 @@ public class GraphHandle : MonoBehaviour
     {
         if (!init)
         {
+            ChartLinkingManager test1 = GetComponentInParent<ChartLinkingManager>();
+            BarGraphGenerator test2 = test1.GetComponentInChildren<BarGraphGenerator>();
             barGraph = GetComponentInParent<ChartLinkingManager>().GetComponentInChildren<BarGraphGenerator>().gameObject;
             if (barGraph)
             {

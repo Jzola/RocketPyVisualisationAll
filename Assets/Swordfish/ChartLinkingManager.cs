@@ -28,7 +28,7 @@ public class ChartLinkingManager : MonoBehaviour
 
     protected virtual void Start()
     {
-        trajectoryVisualisation = GetComponentsInChildren<Visualisation>()[0];
+        trajectoryVisualisation = GetComponentsInChildren<Visualisation>().Length == 0 ? null : GetComponentsInChildren<Visualisation>()[0];
 
         // Get the input data source
         inputVarLoader = GetComponentInChildren<LoadInputVariables>();
@@ -93,7 +93,7 @@ public class ChartLinkingManager : MonoBehaviour
     protected void HighlightTrajectory(int trajectoryID)
     {
         // If trajectory data sources have not been initialised. Cannot be in Start as data sources are generated after Start occurs.
-        if (trajectoryDataSources.Count == 0)
+        if (trajectoryDataSources.Count == 0 && trajectoryVisualisation != null)
             trajectoryDataSources = trajectoryVisualisation.GetComponentInChildren<DataFiles>().GetFiles();
 
         for (int i = 0; i < trajectoryDataSources.Count; i++)
@@ -126,7 +126,7 @@ public class ChartLinkingManager : MonoBehaviour
     public void HighlightTrajectories(List<int> ids)
     {
         // If trajectory data sources have not been initialised. Cannot be in Start as data sources are generated after Start occurs.
-        if (trajectoryDataSources.Count == 0)
+        if (trajectoryDataSources.Count == 0 && trajectoryVisualisation != null)
             trajectoryDataSources = trajectoryVisualisation.GetComponentInChildren<DataFiles>().GetFiles();
 
         for (int i = 0; i < trajectoryDataSources.Count; i++)
@@ -156,7 +156,7 @@ public class ChartLinkingManager : MonoBehaviour
     public void HideTrajectories(List<int> ids)
     {
         // If trajectory data sources have not been initialised. Cannot be in Start as data sources are generated after Start occurs.
-        if (trajectoryDataSources.Count == 0)
+        if (trajectoryDataSources.Count == 0 && trajectoryVisualisation != null)
             trajectoryDataSources = trajectoryVisualisation.GetComponentInChildren<DataFiles>().GetFiles();
 
         for (int i = 0; i < trajectoryDataSources.Count; i++)
@@ -185,7 +185,7 @@ public class ChartLinkingManager : MonoBehaviour
     public void HideTrajectories()
     {
         // If trajectory data sources have not been initialised. Cannot be in Start as data sources are generated after Start occurs.
-        if (trajectoryDataSources.Count == 0)
+        if (trajectoryDataSources.Count == 0 && trajectoryVisualisation != null)
             trajectoryDataSources = trajectoryVisualisation.GetComponentInChildren<DataFiles>().GetFiles();
 
         for (int i = 0; i < trajectoryDataSources.Count; i++)
