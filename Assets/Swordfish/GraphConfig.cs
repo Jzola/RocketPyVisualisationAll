@@ -68,13 +68,31 @@ public class GraphConfig : GraphAxes
             // Finds the engine used for the current trajectory
             focusEngine = inputData.getOriginalString(inputData.findCol("motor type"), inputData["motor type"].Data[index] * (inputData["motor type"].MetaData.categoryCount - 1));
             
+            // Getting the focus value from a given focus type, if a valid match was made in the map
              if (focusType != "None")
             {
                 try
                 {
-                    DimensionData data = inputData[focusType];
-                    focusValue = (data.MetaData.minValue + (data.Data[index] * (data.MetaData.maxValue - data.MetaData.minValue))).ToString(); // Un-normalise the data
-                    // TODO add more checking for proper variables and multi-focus strings
+                    if (focusType.Contains(","))
+                    {
+                        string[] focusTypes = focusType.Split(',');
+                        focusValue = "";
+                        string sep = ", ";
+
+                        // Finds and concatonates the focus values
+                        foreach (string type in focusTypes)
+                        {
+                            DimensionData data = inputData[type];
+                            focusValue += (data.MetaData.minValue + (data.Data[index] * (data.MetaData.maxValue - data.MetaData.minValue))).ToString(); // Un-normalise the focus data
+                            focusValue += sep;
+                        }
+                        focusValue = focusValue.Substring(0, focusValue.Length - sep.Length);
+                    } else
+                    {
+                        // Finds and sets the focus value
+                        DimensionData data = inputData[focusType];
+                        focusValue = (data.MetaData.minValue + (data.Data[index] * (data.MetaData.maxValue - data.MetaData.minValue))).ToString(); // Un-normalise the focus data
+                    }
                 }
                 catch (System.Exception e)
                 {

@@ -18,6 +18,7 @@ public class GraphCreator : GraphAxes
 
     public GameObject VRCamera;
     Vector3 VRCamOriginalPosition; // = VRCamera.transform.position;
+
     // Start is called before the first frame update
     void Start()
     {
