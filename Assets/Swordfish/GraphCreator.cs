@@ -6,7 +6,7 @@ using UnityEngine;
 using System.Linq;
 using BarGraph.VittorCloud;
 
-public class GraphCreator : GraphAxes
+public class GraphCreator : GraphCommon
 {
     public enum GraphType { SCATTER, BAR };
 
@@ -15,11 +15,6 @@ public class GraphCreator : GraphAxes
     public GameObject scatterGraphPrefab;
     public GameObject barGraphPrefab;
     public GraphType graphType = GraphType.SCATTER;
-
-    [Header("Inputs")]
-    public string inputFolderName = "Default_Inputs";
-    private string inputFolderPath = "/Resources/AdditionalOutputs/";
-    public string[] availableInputs;
 
     private int graphsCreated = 0;
     private float radius = 5;
@@ -32,20 +27,8 @@ public class GraphCreator : GraphAxes
     // Start is called before the first frame update
     void Start()
     {
-        
-        // Creates a list of variables from the given file
-        variables = new List<string>();
-        variables.AddRange(variableExtractionFile.text.Substring(0, variableExtractionFile.text.IndexOf(System.Environment.NewLine)).Split(','));
+        Initialise();
 
-        //find the folder names in the Additional Outputs Folder
-        DirectoryInfo[] directories = new DirectoryInfo(Application.dataPath + inputFolderPath).GetDirectories();
-
-        //Get the different types of datasets where the input variable was changed (burnout, temperature).
-        availableInputs = new string[directories.Length];
-        for (int i = 0; i < directories.Length; i++)
-        {
-            availableInputs[i] = directories[i].Name;
-        }
         //get the original position of the camera 
         VRCamOriginalPosition = VRCamera.transform.position;
         VRCamOriginalPosition.y = 3;
@@ -56,6 +39,8 @@ public class GraphCreator : GraphAxes
     public void CreateGraph()
     {
         GameObject graph = null;
+
+        // Depending on the currently set graphtype enum, that specified graph will be set up
         switch (graphType)
         {
             case GraphType.BAR:
@@ -67,6 +52,7 @@ public class GraphCreator : GraphAxes
                 liv.folder = "inputData";
                 liv.path = inputFolderPath + inputFolderName + "/";
                 break;
+
 
             case GraphType.SCATTER:
                 graph = Instantiate(scatterGraphPrefab, SpawnInCircle(VRCamOriginalPosition, radius), VRCamera.transform.rotation);
@@ -83,24 +69,18 @@ public class GraphCreator : GraphAxes
                 // Sets the variables for the graph config. The config will still automatically get these variables after creations,
                 // but the inspector window won't update without this happening before being fully instantiated
                 GraphConfig graphConfig = graph.GetComponentInChildren<GraphConfig>();
+                graphConfig.variableExtractionFile = variableExtractionFile;
                 graphConfig.variables = variables;
                 graphConfig.dimensions = dimensions;
                 graphConfig.xAxis = xAxis;
                 graphConfig.yAxis = yAxis;
                 graphConfig.zAxis = zAxis;
-
-                // Set the focus variable for which input changes between simulations
-                string focusType = "None";
-                string[] varMap = File.ReadAllLines(Application.dataPath + inputFolderPath + "VariableFocusMapping.txt");
-                foreach (string var in varMap)
-                {
-                    string[] pair = var.Split(':');
-                    if (pair[0].Equals(inputFolderName)) {
-                        focusType = pair[1];
-                    }
-                }
-                graphConfig.focusType = focusType;
+                graphConfig.inputFolderName = inputFolderName;
+                graphConfig.availableInputs = availableInputs;
+                graphConfig.focusType = graphConfig.getFocusType();
                 break;
+
+
             default:
                 break;
         }

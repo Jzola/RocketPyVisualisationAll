@@ -57,7 +57,7 @@ public class DataFiles : MonoBehaviour
     private void Start()
     {
         createMaterials();
-        StartCoroutine(setSimulationFiles());
+        setSimulationFilesCoroutine();
     }
 
     public void setSimulationPath(string path, string folder)
@@ -68,6 +68,16 @@ public class DataFiles : MonoBehaviour
             this.path = path;
             this.folder = folder;
         }
+    }
+
+    public string getSimulationPath()
+    {
+        return path + folder;
+    }
+
+    public void setSimulationFilesCoroutine()
+    {
+        StartCoroutine(setSimulationFiles());   
     }
 
     public IEnumerator setSimulationFiles()
@@ -368,20 +378,29 @@ public class DataFiles : MonoBehaviour
     // Update the axis ticks 
     private void UpdateAxisTicks()
     {
-        // Update X axis
-        DestroyImmediate(visualisation.theVisualizationObject.X_AXIS);
-        visualisation.dataSource = files[maxIndexY];
-        visualisation.theVisualizationObject.ReplaceAxis(AbstractVisualisation.PropertyType.X);
+        if (!visualisation.xDimension.Attribute.Equals("Undefined"))
+        {
+            // Update X axis
+            DestroyImmediate(visualisation.theVisualizationObject.X_AXIS);
+            visualisation.dataSource = files[maxIndexY];
+            visualisation.theVisualizationObject.ReplaceAxis(AbstractVisualisation.PropertyType.X);
+        }
 
-        // Update Y axis
-        DestroyImmediate(visualisation.theVisualizationObject.Y_AXIS);
-        visualisation.dataSource = files[maxIndexZ];
-        visualisation.theVisualizationObject.ReplaceAxis(AbstractVisualisation.PropertyType.Y);
+        if (!visualisation.yDimension.Attribute.Equals("Undefined"))
+        {
+            // Update Y axis
+            DestroyImmediate(visualisation.theVisualizationObject.Y_AXIS);
+            visualisation.dataSource = files[maxIndexZ];
+            visualisation.theVisualizationObject.ReplaceAxis(AbstractVisualisation.PropertyType.Y);
+        }
 
-        // Update Z axis
-        DestroyImmediate(visualisation.theVisualizationObject.Z_AXIS);
-        visualisation.dataSource = files[maxIndexX];
-        visualisation.theVisualizationObject.ReplaceAxis(AbstractVisualisation.PropertyType.Z);
+        if (!visualisation.zDimension.Attribute.Equals("Undefined"))
+        {
+            // Update Z axis
+            DestroyImmediate(visualisation.theVisualizationObject.Z_AXIS);
+            visualisation.dataSource = files[maxIndexX];
+            visualisation.theVisualizationObject.ReplaceAxis(AbstractVisualisation.PropertyType.Z);
+        }
     }
 
     // Sets the visualisation key text to the launch site latitude and longitude
@@ -422,5 +441,18 @@ public class DataFiles : MonoBehaviour
 
         // Add colour coding information to the legend
         UpdateLegend();
+    }
+
+    // Deletes all children (trajectories, points, etc) of this object.
+    public void DestroyTrajectories()
+    {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+        rocket.lineList.Clear();
+
+        // Makes sure the filters have been reset
+        GetComponentInParent<ThirdLevelChartLinkingManager>().GetComponentInChildren<FilteringUI>().reload();
     }
 }

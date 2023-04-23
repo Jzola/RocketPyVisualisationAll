@@ -136,4 +136,14 @@ public class FilteringUI : MonoBehaviour
         filtering.RunFilter(inputValues);
 
     }
+
+    public void reload()
+    {
+        filtering.reload();
+        loaded = false;
+
+        filterVarDropdown.ClearOptions();
+        filterTypeDropdown.ClearOptions();
+
+    }
 }

@@ -1,19 +1,21 @@
 using IATK;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using static IATK.DataSource;
 
-public class GraphConfig : GraphAxes
+public class GraphConfig : GraphCommon
 {
     public enum GraphType {SCATTER, BAR};
     private GameObject graph;
-
+   
     // Animates the points on update if true, teleports if false.
     public bool tweenPointsOnUpdate = true;
     public bool waitForAllPointsToMove = false;
     private bool variablesInitialised = false;
 
+    [Header("Trajectory Info")]
     [Range(-1, 29)] // Can't adjust at runtime, so using the currently known max
     public int selectedTrajectory = -1; // -1 = All, else an individual trajectory
     private int previousSelection = -1;
@@ -21,15 +23,17 @@ public class GraphConfig : GraphAxes
 
     // Focus data that changes between different inputs
     private CSVDataSource focusData = null;
-    public string focusID = "None";
+    public string focusID = "None"; // Datafile / Trajectory ID
     public string focusEngine = "None";
-    public string focusType = "None";
-    public string focusValue = "None";
+    public string focusType = "None"; // Input variable from the all_inputs.csv file
+    public string focusValue = "None"; // Value of the input variable for the specific selection
 
 
     // Start is called before the first frame update
     void Start()
     {
+        Initialise();
+
         graph = transform.parent.gameObject;
         filter = graph.GetComponentInChildren<Filtering>();
     }
@@ -127,6 +131,8 @@ public class GraphConfig : GraphAxes
     [ContextMenu("Update Graph")]
     public void UpdateGraph()
     {
+        selectTrajectory(-1); // Reset selection and filter
+        setInputDataset();
         setGraphDimensions(dimensions);
 
         // Set the axis variables and update trajectories
@@ -138,6 +144,7 @@ public class GraphConfig : GraphAxes
         rocket.setSelectedTrajectory(0);
     }
 
+    // Coroutine function for updating trajectories
     private IEnumerator updateTrajectories(GameObject graph)
     {
         DataFiles dataFiles = graph.GetComponentInChildren<DataFiles>();
@@ -195,7 +202,17 @@ public class GraphConfig : GraphAxes
     // Changes the input dataset
     public void setInputDataset()
     {
-        // TODO: Change the dataset from the default to a given dataset
+        DataFiles dataFiles = graph.GetComponentInChildren<DataFiles>();
+        
+        // If the path is unchanged, don't make new simulation data
+        if (!dataFiles.getSimulationPath().Equals(inputFolderPath + inputFolderName))
+        {
+            dataFiles.DestroyTrajectories();
+            dataFiles.setSimulationPath(inputFolderPath, inputFolderName);
+            dataFiles.setSimulationFilesCoroutine();
+        }
+
+        focusType = getFocusType();
     }
 
     // Changes the input value of the given dataset

@@ -254,4 +254,10 @@ public class Filtering : MonoBehaviour
     {
         return dataObjects;
     }
+
+    public void reload()
+    {
+        loaded = false;
+        dataObjects.Clear();
+    }
 }
