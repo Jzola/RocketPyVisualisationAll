@@ -31,6 +31,7 @@ public class GraphCreator : GraphCommon
 
         //get the original position of the camera 
         VRCamOriginalPosition = VRCamera.transform.position;
+        //force the height to where it is visible to player
         VRCamOriginalPosition.y = 3;
     }
 
@@ -90,7 +91,7 @@ public class GraphCreator : GraphCommon
         graph.transform.RotateAround(graph.transform.position, Vector3.up, graphsCreated * (360 / maxGraphsInCircle));
         graphsCreated++;
 
-        // Creates graph and sets its axis variables. Move up if there are 6 graphs, or they will overlap
+        //  Move up if there are 6 graphs, or they will overlap
         if (graphsCreated == maxGraphsInCircle)
         {
             VRCamOriginalPosition.y = VRCamOriginalPosition.y + 6;
