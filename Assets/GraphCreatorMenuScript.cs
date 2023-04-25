@@ -43,10 +43,26 @@ public class GraphCreatorMenuScript : MonoBehaviour
         //we want the default_inputs chosen to start with.
 
         //TODO check folders that are present 
-        //debugText.text = Path.GetDirectoryName();
+        //get folders 
+        string debugTextStr = "";
+        string path = "Assets\\Resources";
+        string[] folder_paths = Directory.GetDirectories(path);
+        //folder_paths = Directory.
+        foreach(string folder in folder_paths)
+        {
+            //TODO get rid of the mapbox folder.
+            string newfolder = folder.Replace(path+"\\", "");
+
+            debugTextStr = debugTextStr + newfolder +"\n";
+        }
+        List<string> variableOptionsList = new List<string>();
 
 
-        
+        //debugText.text = debugTextStr;
+        debugText.enabled = false;
+        //Path.
+
+
 
 
 
@@ -77,6 +93,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
         //link to the graph creator
         //TODO get David's advice on whether the create graph can be set up this way.
         //gCreator.variables.
+        //gCreator.dimensions = 
     }
     // Update is called once per frame
     void Update()
