@@ -9,13 +9,14 @@ public class GraphCreatorMenuScript : MonoBehaviour
 {
     //references to create graph and graph config will be required
     public GraphCreator gCreator;
-    //this only exists on a graph at runtime, so may need another way to access the generated data sets
+    //this only exists on a graph at runtime after creation, so may need another way to access the generated data sets
     public GraphConfig gConfig;
     public Dropdown axisDropdown;
     public Dropdown variableDropdown;
     public ToggleGroup graphTypeChoice;
     public ToggleGroup dimensionsChoice;
     public Text debugText;
+    public Button createGraphButton;
     public List<int> axesChosen = new List<int>();
 
     // Start is called before the first frame update
@@ -45,21 +46,29 @@ public class GraphCreatorMenuScript : MonoBehaviour
         //TODO check folders that are present 
         //get folders 
         string debugTextStr = "";
-        string path = "Assets\\Resources";
+        string path = "Assets\\Resources\\AdditionalOutputs";
         string[] folder_paths = Directory.GetDirectories(path);
-        //folder_paths = Directory.
-        foreach(string folder in folder_paths)
-        {
-            //TODO get rid of the mapbox folder.
-            string newfolder = folder.Replace(path+"\\", "");
 
+        List<string> variableOptionsList = new List<string>();
+        //folder_paths = Directory.
+        foreach (string folder in folder_paths)
+        {
+            //display without the Assets Resources path
+            //
+            string newfolder = folder.Replace(path+"\\", "");
+            //this folder has sub folders "Env1, Env2" etc. so is not set up correctly to be automatically loaded.
+            if(!newfolder.Equals("WeatherChangeMass"))
+                variableOptionsList.Add(newfolder);
+            Dropdown.OptionData odata = new Dropdown.OptionData();
+            odata.text = newfolder;
+            
             debugTextStr = debugTextStr + newfolder +"\n";
         }
-        List<string> variableOptionsList = new List<string>();
 
+        variableDropdown.AddOptions(variableOptionsList);
 
-        //debugText.text = debugTextStr;
-        debugText.enabled = false;
+        debugText.text = debugTextStr;
+        //debugText.enabled = false; //if not using the debug text.
         //Path.
 
 
@@ -94,6 +103,17 @@ public class GraphCreatorMenuScript : MonoBehaviour
         //TODO get David's advice on whether the create graph can be set up this way.
         //gCreator.variables.
         //gCreator.dimensions = 
+
+        //create the graph with chosen parameters.
+
+
+        //filter the graph with chosen axes
+
+
+        //clear the fields OR reset to default.
+
+
+
     }
     // Update is called once per frame
     void Update()
