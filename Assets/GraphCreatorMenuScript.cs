@@ -25,7 +25,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
     public string yaxisChosen;
     public string zaxisChosen;
     public string inputvariableChosen;
-    public string graphTypeChosen;
+    public GraphCreator.GraphType graphTypeChosen;
     public string dimensionChosen;
     public List<Toggle> graphToggles;
     public List<Toggle> dimensionToggles;
@@ -62,12 +62,19 @@ public class GraphCreatorMenuScript : MonoBehaviour
         variableDropdown.onValueChanged.AddListener(delegate { variableDropdownItemSelected(variableDropdown); });
 
         debugText.text = "";
-        debugText.enabled = false; //if not using the debug text.
-        
+        debugText.enabled = false; //if not using the debug text, set to false.
+
         //graphToggles[0] = bar graph, graphToggles[1] = scatter graph;
         //dimensionToggles[0] = 2D, dimensionToggles[1] = 3D.
-        //graphToggles[0].
+        //can either add a listener here  or handle checking in the createGraph method
 
+        //set defaults (will also prevent errors if create graph is clicked before any changes made).
+        
+
+        setDefaults();
+
+        //connect the button to the createGraph method
+        createGraphButton.onClick.AddListener(createGraph);
 
 
 
@@ -84,7 +91,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
     [ContextMenu("Choose Axis")] //Heather doesn't know how to make this show up in inspector yet.
     private void axisDropdownItemSelected(Dropdown axisDropdown)
     {
-        //TODO later sprint: Put the chosen axes into a list to be used for filtering the graph output
+        
         //TODO find out if the Filtering UI will handle whether the .csv suffix is required
         int index = axisDropdown.value;
         //do something with text
@@ -97,26 +104,37 @@ public class GraphCreatorMenuScript : MonoBehaviour
 
         //TODO: test in VR if the correct axis chosen is filled with the user choice. Otherwise will need to create separate listeners. 
         if (axisDropdown.Equals(xaxisDropdown))
+        {
             xaxisChosen = axisDropdown.options[index].text;
+            debugText.text += "x axis" + axisDropdown.options[index].text;
+        }
+            
         else if (axisDropdown.Equals(yaxisDropdown))
+        {
             yaxisChosen = axisDropdown.options[index].text;
+            debugText.text += "y axis " + axisDropdown.options[index].text;
+        }
+
         else
+        {
             zaxisChosen = axisDropdown.options[index].text;
-        
+            debugText.text += "z axis " + axisDropdown.options[index].text;
+        }
+            
+
         //TODO use some visual aid to show that axes are removed or re-added to the filter list (maybe a text box that refreshes the list
         //OR if can add a checkbox to the drop down options
-
+        debugText.enabled = true;
 
 
     }
-
+    [ContextMenu("Create a graph")]
     public void createGraph()
     {
         //link to the graph creator
         //TODO get David's advice on whether the create graph can be set up this way.
-        //can also access Graph Common
-        //gCreator.
-        //xaxisDropdown.selected
+        //can also access Graph Common for variables
+
         //
         if (dimensionToggles[0].isOn)
         {
@@ -128,17 +146,54 @@ public class GraphCreatorMenuScript : MonoBehaviour
             gCreator.dimensions = 3;
             debugText.text += "3D";
         }
-
+        //will need more if statements if more graph types are implemented.
+        if (graphToggles[0].isOn)
+        {
+            gCreator.graphType = GraphCreator.GraphType.BAR;
+            debugText.text += " Bar Graph";
+        }
+        else
+        {
+            gCreator.graphType = GraphCreator.GraphType.SCATTER;
+            debugText.text += " Scatter Graph";
+        }
         //create the graph with chosen parameters.
+        gCreator.xAxis = xaxisChosen;
+        gCreator.yAxis = yaxisChosen;
+        gCreator.zAxis = zaxisChosen;
 
+        //gCreator input variable required
+        gCreator.inputFolderName = inputvariableChosen;
 
-        //filter the graph with chosen axes
+        //needs to be tested in VR
+        gCreator.CreateGraph();
 
+        //decide if we need the debug text. Set to false to disable.
+        debugText.enabled = true;
 
         //clear the fields OR reset to default.
+        xaxisDropdown.value = 0;
+        yaxisDropdown.value = 1;
+        zaxisDropdown.value = 2;
+        variableDropdown.value = 2;
 
 
 
+    }
+
+    private void setDefaults()
+    {
+        graphTypeChosen = GraphCreator.GraphType.SCATTER;
+        xaxisChosen = xaxisDropdown.options[0].text;
+        xaxisDropdown.value = 0;
+        yaxisDropdown.value = 1;
+        zaxisDropdown.value = 2;
+        yaxisChosen = yaxisDropdown.options[1].text;
+        zaxisChosen = zaxisDropdown.options[2].text;
+        variableDropdown.value = 2;
+        inputvariableChosen = variableDropdown.options[2].text;
+        dimensionChosen = 3.ToString();
+        gCreator.dimensions = 3;
     }
     // Update is called once per frame
     void Update()

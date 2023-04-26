@@ -61,6 +61,7 @@ public class GraphCreator : GraphCommon
                 // Pretty jank, but "hides" the bar graph stuff attached to the scatter graph, since the scatter can't be generated without it.
                 graph.GetComponentInChildren<BarGraphGenerator>().transform.Translate(0, -9999, 0, graph.transform);
                 graph.GetComponentInChildrenWithTag<Canvas>("Highlighting").transform.Translate(0,-9999, 0, graph.transform);
+                //graph.GetComponentInChildrenWithTag<Canvas>("Highlighting").
 
                 setGraphAxisVariables(graph);
 
