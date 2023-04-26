@@ -531,7 +531,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -200, y: -200}
+  m_AnchoredPosition: {x: -200, y: -270}
   m_SizeDelta: {x: 200, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &114874109
@@ -5705,7 +5705,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 995509393}
   toggleTransition: 1
   graphic: {fileID: 1455434141}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 418073587}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -5776,14 +5776,26 @@ MonoBehaviour:
   gCreator: {fileID: 841604785}
   gConfig: {fileID: 0}
   xaxisDropdown: {fileID: 227193851}
-  yaxisDropdown: {fileID: 0}
-  zaxisDropdown: {fileID: 0}
+  yaxisDropdown: {fileID: 681504051}
+  zaxisDropdown: {fileID: 1023516910}
   variableDropdown: {fileID: 950590534}
   graphTypeChoice: {fileID: 418073587}
   dimensionsChoice: {fileID: 802588653}
   debugText: {fileID: 114874109}
-  createGraphButton: {fileID: 0}
-  axesChosen: 
+  createGraphButton: {fileID: 1703531757}
+  axesChosen: []
+  xaxisChosen: 
+  yaxisChosen: 
+  zaxisChosen: 
+  inputvariableChosen: 
+  graphTypeChosen: 
+  dimensionChosen: 
+  graphToggles:
+  - {fileID: 2009477755}
+  - {fileID: 1621425969}
+  dimensionToggles:
+  - {fileID: 1394395200}
+  - {fileID: 953267301}
 --- !u!114 &1631345618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7528,7 +7540,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1726615559}
   toggleTransition: 1
   graphic: {fileID: 889691935}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 418073587}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []

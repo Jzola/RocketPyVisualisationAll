@@ -25,6 +25,10 @@ public class GraphCreatorMenuScript : MonoBehaviour
     public string yaxisChosen;
     public string zaxisChosen;
     public string inputvariableChosen;
+    public string graphTypeChosen;
+    public string dimensionChosen;
+    public List<Toggle> graphToggles;
+    public List<Toggle> dimensionToggles;
 
     // Start is called before the first frame update
     void Start()
@@ -39,15 +43,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
         yaxisDropdown.options.Clear();
         zaxisDropdown.options.Clear();
 
-        //Dropdown.OptionData xOptionData;
-        //xOptionData = xaxisDropdown.
-        //yaxisDropdown.options.Remove(xOptionData);
-
-        //foreach (string var in variableList)
-        //{
-        //    optionsList.Add(var);
-        //}
-        //populate the axes dropdown 
+        //fill the dropdowns
         xaxisDropdown.AddOptions(variableList);
         yaxisDropdown.AddOptions(variableList);
         zaxisDropdown.AddOptions(variableList);
@@ -67,7 +63,10 @@ public class GraphCreatorMenuScript : MonoBehaviour
 
         debugText.text = "";
         debugText.enabled = false; //if not using the debug text.
-        //Path.
+        
+        //graphToggles[0] = bar graph, graphToggles[1] = scatter graph;
+        //dimensionToggles[0] = 2D, dimensionToggles[1] = 3D.
+        //graphToggles[0].
 
 
 
@@ -103,6 +102,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
             yaxisChosen = axisDropdown.options[index].text;
         else
             zaxisChosen = axisDropdown.options[index].text;
+        
         //TODO use some visual aid to show that axes are removed or re-added to the filter list (maybe a text box that refreshes the list
         //OR if can add a checkbox to the drop down options
 
@@ -116,7 +116,18 @@ public class GraphCreatorMenuScript : MonoBehaviour
         //TODO get David's advice on whether the create graph can be set up this way.
         //can also access Graph Common
         //gCreator.
-        //gCreator.dimensions = 
+        //xaxisDropdown.selected
+        //
+        if (dimensionToggles[0].isOn)
+        {
+            gCreator.dimensions = 2;
+            debugText.text += "2D";
+        }
+        else
+        {
+            gCreator.dimensions = 3;
+            debugText.text += "3D";
+        }
 
         //create the graph with chosen parameters.
 
