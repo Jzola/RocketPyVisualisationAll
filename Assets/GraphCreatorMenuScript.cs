@@ -36,6 +36,12 @@ public class GraphCreatorMenuScript : MonoBehaviour
         //GraphCreator has access to GraphCommon fields
 
         Canvas canvas = this.GetComponent<Canvas>();
+        //get the anchor and make it invisible to start (make it visible when the menu is minimised)
+        GameObject anchor = this.transform.parent.gameObject;
+        MeshRenderer rend = anchor.GetComponent<MeshRenderer>();
+        rend.enabled = false;
+        //anchor.GetComponent<Renderer>.enabled = false;
+        //anchor.transform.localScale = new Vector3(0, 0, 0);
         List<string> variableList = gCreator.variables;
         //axisDropdown = canvas.GetComponentInChildrenWithTag //cannot get 'WithTag' to work. Understanding needed for Heather to use.
         //TODO in future sprint - get list from available input type folders (count the CSVs)
@@ -69,7 +75,6 @@ public class GraphCreatorMenuScript : MonoBehaviour
         //can either add a listener here  or handle checking in the createGraph method
 
         //set defaults (will also prevent errors if create graph is clicked before any changes made).
-        
 
         setDefaults();
 
@@ -77,7 +82,9 @@ public class GraphCreatorMenuScript : MonoBehaviour
         createGraphButton.onClick.AddListener(createGraph);
 
 
-
+    }
+    private void toggleMenuVisibility()
+    {
 
     }
 
@@ -124,7 +131,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
 
         //TODO use some visual aid to show that axes are removed or re-added to the filter list (maybe a text box that refreshes the list
         //OR if can add a checkbox to the drop down options
-        debugText.enabled = true;
+        debugText.enabled = false;
 
 
     }
@@ -180,14 +187,16 @@ public class GraphCreatorMenuScript : MonoBehaviour
 
 
     }
-
+    //some default variables in case no buttons are pushed
     private void setDefaults()
     {
         graphTypeChosen = GraphCreator.GraphType.SCATTER;
         xaxisChosen = xaxisDropdown.options[0].text;
+        //some default axes for the axisdropdown display
         xaxisDropdown.value = 0;
         yaxisDropdown.value = 1;
         zaxisDropdown.value = 2;
+        //the *axis chosen variables should show up in the inspector.
         yaxisChosen = yaxisDropdown.options[1].text;
         zaxisChosen = zaxisDropdown.options[2].text;
         variableDropdown.value = 2;
