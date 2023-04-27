@@ -29,6 +29,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
     public string dimensionChosen;
     public List<Toggle> graphToggles;
     public List<Toggle> dimensionToggles;
+    private MeshRenderer rend;
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +39,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
         Canvas canvas = this.GetComponent<Canvas>();
         //get the anchor and make it invisible to start (make it visible when the menu is minimised)
         GameObject anchor = this.transform.parent.gameObject;
-        MeshRenderer rend = anchor.GetComponent<MeshRenderer>();
+        rend = anchor.GetComponent<MeshRenderer>();
         rend.enabled = false;
         //anchor.GetComponent<Renderer>.enabled = false;
         //anchor.transform.localScale = new Vector3(0, 0, 0);
@@ -80,11 +81,30 @@ public class GraphCreatorMenuScript : MonoBehaviour
 
         //connect the button to the createGraph method
         createGraphButton.onClick.AddListener(createGraph);
+        anchor.GetComponent<Button>().onClick.AddListener(toggleMenuVisibility);
 
 
     }
+    [ContextMenu("Toggle Menu")]
     private void toggleMenuVisibility()
     {
+        RectTransform rt;
+        rt = GetComponent<RectTransform>();
+        if (rend.enabled == false)
+        {
+            rend.enabled = true;
+            this.GetComponent<CanvasGroup>().alpha = 1;
+            rt = GetComponent<RectTransform>();
+            rt.localScale = new Vector3(0, 0, 0);
+
+        }
+        else
+        {
+            rend.enabled = false;
+            rt.localScale= new Vector3((float)0.0050148922, (float)0.00701489206, (float)0.0050148922);
+            //Vector3(0.0050148922,0.00701489206,0.0050148922)
+            this.GetComponent<CanvasGroup>().alpha = 1;
+        }
 
     }
 
