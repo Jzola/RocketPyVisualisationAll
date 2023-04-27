@@ -81,15 +81,18 @@ public class GraphCreatorMenuScript : MonoBehaviour
 
         //connect the button to the createGraph method
         createGraphButton.onClick.AddListener(createGraph);
-        //these listeners need to be tested in VR.
+        //these listeners need to be tested in VR. //DOESN'T WORK.
         anchor.GetComponent<Button>().onClick.AddListener(toggleMenuVisibility);
+        Button btnName = anchor.GetComponent<Button>();
+        debugText.text = "Check anchor " + btnName.name;
         
         Button minButton = anchor.GetComponentInChildrenWithTag<Button>("Minimize");
         Debug.Log("min button" + minButton.name); //too many warnings
 
-        debugText.text = "min button" + minButton.name;
-        //debugText.enabled=true;
+        debugText.text += " min button" + minButton.name;
+        debugText.enabled=true;
         minButton.onClick.AddListener(toggleMenuVisibility);
+
 
 
     }
