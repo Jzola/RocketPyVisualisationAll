@@ -29,7 +29,7 @@ public class DataFiles : MonoBehaviour
     private List<CSVDataSource> files;
     [System.NonSerialized]
     public CSVDataSource input;
-
+    public OutputVariableVisibility outputVariableVisibility; // GraphConfig Component
 
     // Colour Coding
     //[SerializeField]
@@ -282,6 +282,7 @@ public class DataFiles : MonoBehaviour
         point.GetComponent<VisualisationPoints>().setVisualisationMesh(mesh);
         point.GetComponent<VisualisationPoints>().setDataPointPrefab(dataPointPrefab);
         point.GetComponent<VisualisationPoints>().setPointMaterial(mat);
+        point.GetComponent<VisualisationPoints>().valueVisibility = outputVariableVisibility;
         point.transform.SetParent(files[fileIndex].transform, false);
         point.SetActive(true);
 

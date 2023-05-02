@@ -52,7 +52,7 @@ public class DataPoint : MonoBehaviour
 
     public void updateValuesString()
     {
-        OutputVariableVisibility valueVisibility = GetComponentInParent<OutputVariableVisibility>();
+        OutputVariableVisibility valueVisibility = GetComponentInParent<VisualisationPoints>().valueVisibility;
 
         rawValuesString = "ID: " + dataSource.GetID() + "\n";
         filteredValuesString = "ID: " + dataSource.GetID() + "\n";

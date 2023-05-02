@@ -16,6 +16,8 @@ public class VisualisationPoints : MonoBehaviour
     public bool pointsNeedUpdating = false;
     public bool tweenPointsOnUpdate = false;
     private bool pointsVisible = true;
+    [System.NonSerialized]
+    public OutputVariableVisibility valueVisibility;
 
     private Color[] classifications = new Color[]
     {

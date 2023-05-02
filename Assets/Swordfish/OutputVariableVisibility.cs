@@ -8,21 +8,42 @@ public class OutputVariableVisibility : MonoBehaviour
     public GameObject dataFilesObject;
     public bool[] visibilityFilter;
 
-    private List<CSVDataSource> dataFiles;
+    private List<CSVDataSource> dataSources;
     private int initialNoOfShownVariables = 11; // The amount of variables to have toggled on, starting in order from the first variable columns
+    private bool initialized = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        // Finds the datafile component and initialises the list of visibilities
-        dataFiles = dataFilesObject.GetComponent<DataFiles>().GetFiles();
-        initialiseVisiblities(initialNoOfShownVariables);
+        initiliseData();
+    }
+
+    // Runs every frame
+    void Update()
+    {
+        // If class failed to initialise earlier, try again
+        if (!initialized)
+        {
+            initiliseData();
+        }
+    }
+
+    // Gets the csvdatasources and initialises fields
+    private void initiliseData()
+    {
+        dataSources = dataFilesObject.GetComponent<DataFiles>().GetFiles();
+        // If dataSources is empty, don't trigger the initilized flag
+        if (dataSources.Count > 0)
+        {
+            initialiseVisiblities(initialNoOfShownVariables);
+            initialized = true;
+        }
     }
 
     // Sets the first given amount of variables to be shown, hiding the rest, resizing the filter beforehand
     public void initialiseVisiblities(int amountVisible)
     {
-        visibilityFilter = new bool[dataFiles[0].DimensionCount];
+        visibilityFilter = new bool[dataSources[0].DimensionCount];
         for (int i = 0; i < visibilityFilter.Length; i++)
         {
             visibilityFilter[i] = i < amountVisible ? true : false;
@@ -44,7 +65,7 @@ public class OutputVariableVisibility : MonoBehaviour
     // Sets visibilityFilter based on given variable name
     public void setVisibility(string varName, bool visible)
     {
-        int index = dataFiles[0].findCol(varName);
+        int index = dataSources[0].findCol(varName);
         if (index != -1)
         {
             visibilityFilter[index] = visible;
@@ -60,7 +81,7 @@ public class OutputVariableVisibility : MonoBehaviour
     // Gets visibility based on variable/ column name
     public bool getVisibility(string varName)
     {
-        int index = dataFiles[0].findCol(varName);
+        int index = dataSources[0].findCol(varName);
         if (index != -1)
         {
             return visibilityFilter[index];
