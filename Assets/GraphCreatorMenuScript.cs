@@ -89,13 +89,14 @@ public class GraphCreatorMenuScript : MonoBehaviour
         Button btnName = anchor.GetComponent<Button>();
         debugText.text = "Check anchor " + btnName.name;
         
+        //correctly finds the minimizer button attached to the canvas object. Replace with inspector drag and drop.
         Button minButton = anchor.GetComponentInChildrenWithTag<Button>("Minimize");
         
         Debug.Log("min button" + minButton.name); //too many warnings
 
         debugText.text += " min button" + minButton.name;
         ///debugText.enabled=true;
-        minButton.onClick.AddListener(toggleMenuVisibility);
+       // minButton.onClick.AddListener(toggleMenuVisibility);
 
 
 
@@ -128,7 +129,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
     private void toggleMenuVisibility()
     {
         RectTransform rt;
-        //this gets the shader/rendering for the anchor. Don't use this. With maximizer canvas.
+        //this gets the shader/rendering for the anchor. Don't use this With maximizer canvas.
         rt = GetComponent<RectTransform>();
         if (rend.enabled == false)
         {
@@ -156,7 +157,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
         
     }
 
-    [ContextMenu("Choose Axis")] //Heather doesn't know how to make this show up in inspector yet.
+    [ContextMenu("Choose Axis")] 
     private void axisDropdownItemSelected(Dropdown axisDropdown)
     {
         
