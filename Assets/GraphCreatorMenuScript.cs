@@ -29,6 +29,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
     public string dimensionChosen;
     public List<Toggle> graphToggles;
     public List<Toggle> dimensionToggles;
+    private MeshRenderer rend;
 
     // Start is called before the first frame update
     void Start()
@@ -36,9 +37,15 @@ public class GraphCreatorMenuScript : MonoBehaviour
         //GraphCreator has access to GraphCommon fields
 
         Canvas canvas = this.GetComponent<Canvas>();
+        //get the anchor and make it invisible to start (make it visible when the menu is minimised)
+        GameObject anchor = this.transform.parent.gameObject;
+        rend = anchor.GetComponent<MeshRenderer>();
+        rend.enabled = false;
+        //anchor.GetComponent<Renderer>.enabled = false;
+        //anchor.transform.localScale = new Vector3(0, 0, 0);
         List<string> variableList = gCreator.variables;
         //axisDropdown = canvas.GetComponentInChildrenWithTag //cannot get 'WithTag' to work. Understanding needed for Heather to use.
-        //TODO in future sprint - get list from available input type folders (count the CSVs)
+        //
         xaxisDropdown.options.Clear();
         yaxisDropdown.options.Clear();
         zaxisDropdown.options.Clear();
@@ -69,15 +76,76 @@ public class GraphCreatorMenuScript : MonoBehaviour
         //can either add a listener here  or handle checking in the createGraph method
 
         //set defaults (will also prevent errors if create graph is clicked before any changes made).
-        
+        //add a listener to the graph dimensions options/toggles that disables z axis if 2D is checked, and enables if 3D is checked.
+        //dimensionToggles[0].OnSelect.AddListener(toggleMenuVisibility);
+        dimensionToggles[0].onValueChanged.AddListener(dimensionChanged);
 
         setDefaults();
 
         //connect the button to the createGraph method
         createGraphButton.onClick.AddListener(createGraph);
+        //these listeners need to be tested in VR. //DOESN'T WORK.
+        anchor.GetComponent<Button>().onClick.AddListener(toggleMenuVisibility);
+        Button btnName = anchor.GetComponent<Button>();
+        debugText.text = "Check anchor " + btnName.name;
+        
+        Button minButton = anchor.GetComponentInChildrenWithTag<Button>("Minimize");
+        
+        Debug.Log("min button" + minButton.name); //too many warnings
+
+        debugText.text += " min button" + minButton.name;
+        ///debugText.enabled=true;
+        minButton.onClick.AddListener(toggleMenuVisibility);
 
 
 
+    }
+    [ContextMenu("Change dimension")]
+    private void dimensionChanged(bool arg0)
+    {
+        
+        
+        if (dimensionToggles[0].isOn)
+        {
+            //the 2D option has been selected, so there is no Z axis
+            //should I be using isActiveAndEnabled?
+            zaxisDropdown.enabled = false;
+            //zaxisDropdown.isActiveAndEnabled = false;
+            //zaxisDropdown.Hide();// = true;
+            zaxisDropdown.gameObject.SetActive(false);
+        }
+        else
+        {
+            zaxisDropdown.enabled = true;
+            //zaxisDropdown.Show();
+            zaxisDropdown.gameObject.SetActive(true);
+        }
+        
+    }
+
+    //to be moved
+    [ContextMenu("Toggle Menu")]
+    private void toggleMenuVisibility()
+    {
+        RectTransform rt;
+        //this gets the shader/rendering for the anchor. Don't use this. With maximizer canvas.
+        rt = GetComponent<RectTransform>();
+        if (rend.enabled == false)
+        {
+            rend.enabled = true;
+            this.GetComponent<CanvasGroup>().alpha = 1;
+            rt = GetComponent<RectTransform>();
+            rt.localScale = new Vector3(0, 0, 0);
+
+        }
+        else
+        {
+            rend.enabled = false;
+            //replace this with a variable taken from the menu's original size, not a hard coded value.
+            rt.localScale= new Vector3((float)0.0050148922, (float)0.00701489206, (float)0.0050148922);
+            //Vector3(0.0050148922,0.00701489206,0.0050148922)
+            this.GetComponent<CanvasGroup>().alpha = 1;
+        }
 
     }
 
@@ -122,9 +190,8 @@ public class GraphCreatorMenuScript : MonoBehaviour
         }
             
 
-        //TODO use some visual aid to show that axes are removed or re-added to the filter list (maybe a text box that refreshes the list
-        //OR if can add a checkbox to the drop down options
-        debugText.enabled = true;
+        //show that axes are added
+        debugText.enabled = false;
 
 
     }
@@ -172,28 +239,35 @@ public class GraphCreatorMenuScript : MonoBehaviour
         debugText.enabled = true;
 
         //clear the fields OR reset to default.
-        xaxisDropdown.value = 0;
-        yaxisDropdown.value = 1;
-        zaxisDropdown.value = 2;
+        xaxisDropdown.value = 2;
+        yaxisDropdown.value = 3;
+        zaxisDropdown.value = 1;
         variableDropdown.value = 2;
+        //test code
+        dimensionChanged(true);
 
 
 
     }
-
+    //some default variables in case no buttons are pushed
     private void setDefaults()
     {
         graphTypeChosen = GraphCreator.GraphType.SCATTER;
-        xaxisChosen = xaxisDropdown.options[0].text;
-        xaxisDropdown.value = 0;
-        yaxisDropdown.value = 1;
-        zaxisDropdown.value = 2;
-        yaxisChosen = yaxisDropdown.options[1].text;
-        zaxisChosen = zaxisDropdown.options[2].text;
+        xaxisChosen = xaxisDropdown.options[2].text;
+        //some default axes for the axisdropdown display
+        xaxisDropdown.value = 2;
+        yaxisDropdown.value = 3;
+        zaxisDropdown.value = 1;
+        //the *axis chosen variables should show up in the inspector.
+        yaxisChosen = yaxisDropdown.options[3].text;
+        zaxisChosen = zaxisDropdown.options[1].text;
         variableDropdown.value = 2;
         inputvariableChosen = variableDropdown.options[2].text;
         dimensionChosen = 3.ToString();
         gCreator.dimensions = 3;
+        
+
+
     }
     // Update is called once per frame
     void Update()

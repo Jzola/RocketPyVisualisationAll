@@ -13,6 +13,7 @@ TagManager:
   - LinkedVisualisation
   - Controller
   - Highlighting
+  - Minimize
   layers:
   - Default
   - TransparentFX
