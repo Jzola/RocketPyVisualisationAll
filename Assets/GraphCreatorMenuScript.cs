@@ -103,19 +103,24 @@ public class GraphCreatorMenuScript : MonoBehaviour
     [ContextMenu("Change dimension")]
     private void dimensionChanged(bool arg0)
     {
-        //test code
-        dimensionToggles[0].isOn = true;
+        
+        
         if (dimensionToggles[0].isOn)
         {
             //the 2D option has been selected, so there is no Z axis
             //should I be using isActiveAndEnabled?
             zaxisDropdown.enabled = false;
+            //zaxisDropdown.isActiveAndEnabled = false;
+            //zaxisDropdown.Hide();// = true;
+            zaxisDropdown.gameObject.SetActive(false);
         }
         else
         {
             zaxisDropdown.enabled = true;
+            //zaxisDropdown.Show();
+            zaxisDropdown.gameObject.SetActive(true);
         }
-        //throw new NotImplementedException();
+        
     }
 
     //to be moved
@@ -238,6 +243,8 @@ public class GraphCreatorMenuScript : MonoBehaviour
         yaxisDropdown.value = 3;
         zaxisDropdown.value = 1;
         variableDropdown.value = 2;
+        //test code
+        dimensionChanged(true);
 
 
 
@@ -258,6 +265,9 @@ public class GraphCreatorMenuScript : MonoBehaviour
         inputvariableChosen = variableDropdown.options[2].text;
         dimensionChosen = 3.ToString();
         gCreator.dimensions = 3;
+        
+
+
     }
     // Update is called once per frame
     void Update()
