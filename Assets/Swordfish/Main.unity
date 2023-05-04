@@ -2784,7 +2784,7 @@ MonoBehaviour:
     type: 3}
   barGraphPrefab: {fileID: 7559326757985018075, guid: e510b41864fa3494896c738279d90a6c,
     type: 3}
-  graphType: 1
+  graphType: 0
   VRCamera: {fileID: 8769165772263717265}
 --- !u!1 &870311337
 GameObject:
@@ -7698,8 +7698,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1888413712}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.2, z: 0.3}
+  m_LocalPosition: {x: 0, y: 0, z: -4.1786}
+  m_LocalScale: {x: 0.09935696, y: 0.066237964, z: 0.09935696}
   m_Children:
   - {fileID: 1572263290}
   - {fileID: 1631345616}
@@ -7708,7 +7708,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2, y: 4.5}
+  m_AnchoredPosition: {x: -1.78, y: 4.197}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1888413717
