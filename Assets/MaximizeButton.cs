@@ -39,10 +39,10 @@ public class MaximizeButton : MonoBehaviour
         rectThis.localScale = zero;
 
         maxButton = this.gameObject.GetComponentInChildren<Button>();
-        heading = this.gameObject.transform.GetChild(1).GetComponent<Text>();
+        heading = this.gameObject.transform.GetChild(0).GetComponent<Text>();
 
         //test that we have the right button and text. Will be "Max button" by default, but can be customized.
-        heading.text = maxButton.name;
+        //heading.text = maxButton.name;
 
         //add the listener to both buttons
         otherPanelMinimizeButton.onClick.AddListener(ToggleCanvasVisibility);

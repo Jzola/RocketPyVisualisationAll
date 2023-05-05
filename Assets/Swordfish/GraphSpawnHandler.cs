@@ -11,6 +11,7 @@ public class GraphSpawnHandler : MonoBehaviour
     // Spawning
     private float radius = 5;
     private float maxGraphsInCircle = 6;
+    private float spawnHeight = 0;
     private Vector3 spawnCentre;
 
     // Movement
@@ -142,7 +143,7 @@ public class GraphSpawnHandler : MonoBehaviour
             
             Vector3 pos = new Vector3();
             pos.x = spawnCentre.x + (radius * Mathf.Sin(ang * Mathf.Deg2Rad));
-            pos.y = spawnCentre.y;
+            pos.y = spawnCentre.y + spawnHeight;
             pos.z = spawnCentre.z + (radius * Mathf.Cos(ang * Mathf.Deg2Rad));
 
             graphPos.Add(pos);
