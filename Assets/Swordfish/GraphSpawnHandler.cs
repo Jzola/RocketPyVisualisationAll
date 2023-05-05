@@ -11,7 +11,7 @@ public class GraphSpawnHandler : MonoBehaviour
     // Spawning
     private float radius = 5;
     private float maxGraphsInCircle = 6;
-    private float spawnHeight = 0;
+    private float spawnHeight = 0.5f;
     private Vector3 spawnCentre;
 
     // Movement

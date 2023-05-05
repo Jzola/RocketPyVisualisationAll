@@ -4750,7 +4750,7 @@ RectTransform:
   m_GameObject: {fileID: 1093823062}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 970150837}
   m_RootOrder: 0
@@ -5553,6 +5553,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Locomotors.AxisMove.Vertical-Slide.Horizontal-SmoothRotate
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750158069942609354, guid: 01193696c843f354990981f4ab90e660,
+        type: 3}
+      propertyPath: multiplier.y
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 7328395537461744615, guid: 01193696c843f354990981f4ab90e660,
         type: 3}
@@ -7571,6 +7576,7 @@ GameObject:
   - component: {fileID: 1888413714}
   - component: {fileID: 1888413713}
   - component: {fileID: 1888413717}
+  - component: {fileID: 1888413718}
   m_Layer: 5
   m_Name: MainMenuAnchor
   m_TagString: Untagged
@@ -7705,6 +7711,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1888413718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1888413712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6e560bcbc21ab4c84ad86313087fd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trigger: {fileID: 6836838895289887538}
+  maximiseButton: {fileID: 1572263294}
 --- !u!1 &1932632951
 GameObject:
   m_ObjectHideFlags: 0
