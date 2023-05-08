@@ -7,6 +7,10 @@ public class MaximizeButton : MonoBehaviour
 {
     //WARNING: to use this component with on another canvas, they must be siblings, or not connected at all in component hierarchy.
     //Scaling or deactivating a parent object will always deactivate the child objects.
+    /*
+     * The minimize button prefab can be found in  Assets/Swordfish/Resources/Prefabs, and will need
+     * to be positioned appropriately (and possibly rezised) as a child object on each canvas.
+     */
 
     //Will need to use the inspector to drag and drop the components.
     public GameObject otherPanel;
