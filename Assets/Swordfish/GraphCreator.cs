@@ -16,9 +16,7 @@ public class GraphCreator : GraphCommon
     public GameObject barGraphPrefab;
     public GraphType graphType = GraphType.SCATTER;
 
-    private int graphsCreated = 0;
-    private float radius = 5;
-    private float maxGraphsInCircle = 6;
+    private GraphSpawnHandler graphHandler;
 
     [Header("Object to Spawn Around")]
     public GameObject VRCamera;
@@ -28,24 +26,34 @@ public class GraphCreator : GraphCommon
     void Start()
     {
         Initialise();
+        graphHandler = gameObject.AddComponent<GraphSpawnHandler>();
+        graphHandler.setSpawnCentre(VRCamera.transform.position);
 
-        //get the original position of the camera 
-        VRCamOriginalPosition = VRCamera.transform.position;
         //force the height to where it is visible to player
-        VRCamOriginalPosition.y = 3;
+        float playerHeight = 1;
+        graphHandler.offsetSpawnCentre(new Vector3(0, playerHeight, 0));
+    }
+
+    // Called every frame
+    void Update()
+    {
+
     }
 
     [ContextMenu("Create Graph")]
     // Creates a graph, based on the given prefab and set axes
     public void CreateGraph()
     {
+        if (!graphHandler.hasFreeSpace()) return;
+
         GameObject graph = null;
 
         // Depending on the currently set graphtype enum, that specified graph will be set up
         switch (graphType)
         {
             case GraphType.BAR:
-                graph = Instantiate(barGraphPrefab, SpawnInCircle(VRCamOriginalPosition, radius), VRCamera.transform.rotation);
+                //graph = Instantiate(barGraphPrefab, SpawnInCircle(VRCamOriginalPosition, radius), VRCamera.transform.rotation);
+                graph = Instantiate(barGraphPrefab);
 
                 // Change the folder input folder
                 graph.GetComponentInChildren<DataFiles>().setSimulationPath(inputFolderPath, inputFolderName);
@@ -56,7 +64,8 @@ public class GraphCreator : GraphCommon
 
 
             case GraphType.SCATTER:
-                graph = Instantiate(scatterGraphPrefab, SpawnInCircle(VRCamOriginalPosition, radius), VRCamera.transform.rotation);
+                //graph = Instantiate(scatterGraphPrefab, SpawnInCircle(VRCamOriginalPosition, radius), VRCamera.transform.rotation);
+                graph = Instantiate(scatterGraphPrefab);
 
                 // Pretty jank, but "hides" the bar graph stuff attached to the scatter graph, since the scatter can't be generated without it.
                 graph.GetComponentInChildren<BarGraphGenerator>().transform.Translate(0, -9999, 0, graph.transform);
@@ -87,37 +96,6 @@ public class GraphCreator : GraphCommon
                 break;
         }
 
-        //rotate the graph for better viewing
-        //TODO fix issue where rotations go too high.
-        graph.transform.RotateAround(graph.transform.position, Vector3.up, graphsCreated * (360 / maxGraphsInCircle));
-        graphsCreated++;
-
-        //  Move up if there are 6 graphs, or they will overlap
-        if (graphsCreated == maxGraphsInCircle)
-        {
-            VRCamOriginalPosition.y = VRCamOriginalPosition.y + 6;
-
-        }
-        else
-        {
-            //was needed to fix an unidentified bug where new graphs spawning at y = 40 
-            //VRCamOriginalPosition.y = 3;
-        }
-    }
-
-    //function for spawning new graphs in circle around user. Not really working properly yet.
-    Vector3 SpawnInCircle(Vector3 center, float radius)
-    {
-        //An offset is required to push the graph far enough away from the creator so we can see it
-        //possible bug due to values able to be negative
-        float offset = 1;
-        //TODO adjust the angle so that objects arrange themselves in a circle.
-        float ang = graphsCreated * (360 / maxGraphsInCircle);
-        Vector3 pos;
-        pos.x = center.x + (radius * Mathf.Sin(ang * Mathf.Deg2Rad)) ;
-        pos.y = center.y + 1;
-        pos.z = center.z + (radius * Mathf.Cos(ang * Mathf.Deg2Rad)); 
-        return pos;
-
+        graphHandler.add(graph);
     }
 }

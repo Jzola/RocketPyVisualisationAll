@@ -45,7 +45,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
         //anchor.transform.localScale = new Vector3(0, 0, 0);
         List<string> variableList = gCreator.variables;
         //axisDropdown = canvas.GetComponentInChildrenWithTag //cannot get 'WithTag' to work. Understanding needed for Heather to use.
-        //TODO in future sprint - get list from available input type folders (count the CSVs)
+        //
         xaxisDropdown.options.Clear();
         yaxisDropdown.options.Clear();
         zaxisDropdown.options.Clear();
@@ -76,6 +76,9 @@ public class GraphCreatorMenuScript : MonoBehaviour
         //can either add a listener here  or handle checking in the createGraph method
 
         //set defaults (will also prevent errors if create graph is clicked before any changes made).
+        //add a listener to the graph dimensions options/toggles that disables z axis if 2D is checked, and enables if 3D is checked.
+        //dimensionToggles[0].OnSelect.AddListener(toggleMenuVisibility);
+        dimensionToggles[0].onValueChanged.AddListener(dimensionChanged);
 
         setDefaults();
 
@@ -86,20 +89,47 @@ public class GraphCreatorMenuScript : MonoBehaviour
         Button btnName = anchor.GetComponent<Button>();
         debugText.text = "Check anchor " + btnName.name;
         
+        //correctly finds the minimizer button attached to the canvas object. Replace with inspector drag and drop.
         Button minButton = anchor.GetComponentInChildrenWithTag<Button>("Minimize");
+        
         Debug.Log("min button" + minButton.name); //too many warnings
 
         debugText.text += " min button" + minButton.name;
-        debugText.enabled=true;
-        minButton.onClick.AddListener(toggleMenuVisibility);
+        ///debugText.enabled=true;
+       // minButton.onClick.AddListener(toggleMenuVisibility);
 
 
 
     }
+    [ContextMenu("Change dimension")]
+    private void dimensionChanged(bool arg0)
+    {
+        
+        
+        if (dimensionToggles[0].isOn)
+        {
+            //the 2D option has been selected, so there is no Z axis
+            //should I be using isActiveAndEnabled?
+            zaxisDropdown.enabled = false;
+            //zaxisDropdown.isActiveAndEnabled = false;
+            //zaxisDropdown.Hide();// = true;
+            zaxisDropdown.gameObject.SetActive(false);
+        }
+        else
+        {
+            zaxisDropdown.enabled = true;
+            //zaxisDropdown.Show();
+            zaxisDropdown.gameObject.SetActive(true);
+        }
+        
+    }
+
+    //to be moved
     [ContextMenu("Toggle Menu")]
     private void toggleMenuVisibility()
     {
         RectTransform rt;
+        //this gets the shader/rendering for the anchor. Don't use this With maximizer canvas.
         rt = GetComponent<RectTransform>();
         if (rend.enabled == false)
         {
@@ -112,6 +142,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
         else
         {
             rend.enabled = false;
+            //replace this with a variable taken from the menu's original size, not a hard coded value.
             rt.localScale= new Vector3((float)0.0050148922, (float)0.00701489206, (float)0.0050148922);
             //Vector3(0.0050148922,0.00701489206,0.0050148922)
             this.GetComponent<CanvasGroup>().alpha = 1;
@@ -126,7 +157,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
         
     }
 
-    [ContextMenu("Choose Axis")] //Heather doesn't know how to make this show up in inspector yet.
+    [ContextMenu("Choose Axis")] 
     private void axisDropdownItemSelected(Dropdown axisDropdown)
     {
         
@@ -160,8 +191,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
         }
             
 
-        //TODO use some visual aid to show that axes are removed or re-added to the filter list (maybe a text box that refreshes the list
-        //OR if can add a checkbox to the drop down options
+        //show that axes are added
         debugText.enabled = false;
 
 
@@ -210,10 +240,12 @@ public class GraphCreatorMenuScript : MonoBehaviour
         debugText.enabled = true;
 
         //clear the fields OR reset to default.
-        xaxisDropdown.value = 0;
-        yaxisDropdown.value = 1;
-        zaxisDropdown.value = 2;
+        xaxisDropdown.value = 2;
+        yaxisDropdown.value = 3;
+        zaxisDropdown.value = 1;
         variableDropdown.value = 2;
+        //test code
+        dimensionChanged(true);
 
 
 
@@ -222,18 +254,21 @@ public class GraphCreatorMenuScript : MonoBehaviour
     private void setDefaults()
     {
         graphTypeChosen = GraphCreator.GraphType.SCATTER;
-        xaxisChosen = xaxisDropdown.options[0].text;
+        xaxisChosen = xaxisDropdown.options[2].text;
         //some default axes for the axisdropdown display
-        xaxisDropdown.value = 0;
-        yaxisDropdown.value = 1;
-        zaxisDropdown.value = 2;
+        xaxisDropdown.value = 2;
+        yaxisDropdown.value = 3;
+        zaxisDropdown.value = 1;
         //the *axis chosen variables should show up in the inspector.
-        yaxisChosen = yaxisDropdown.options[1].text;
-        zaxisChosen = zaxisDropdown.options[2].text;
+        yaxisChosen = yaxisDropdown.options[3].text;
+        zaxisChosen = zaxisDropdown.options[1].text;
         variableDropdown.value = 2;
         inputvariableChosen = variableDropdown.options[2].text;
         dimensionChosen = 3.ToString();
         gCreator.dimensions = 3;
+        
+
+
     }
     // Update is called once per frame
     void Update()
