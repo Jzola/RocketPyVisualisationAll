@@ -47605,6 +47605,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1479568845981871851, guid: 4e96eb871060a4549a02804724c0c708,
         type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479568845981871851, guid: 4e96eb871060a4549a02804724c0c708,
+        type: 3}
       propertyPath: m_SizeDelta.y
       value: 60
       objectReference: {fileID: 0}
