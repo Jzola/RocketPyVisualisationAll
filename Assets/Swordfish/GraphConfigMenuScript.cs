@@ -46,10 +46,11 @@ public class GraphConfigMenuScript : MonoBehaviour
             //remove the z axis dropdown if 2d graph.
             zAxisDropdown.gameObject.SetActive(false);
         }
-        
+
+        //currently the slider uses the max trajecjectories = 30.
         SetupSlider(trajectorySlider, 30, updateSliderValues);
 
-  
+
 
     }
     private void updateSliderValues(float value)
@@ -64,7 +65,7 @@ public class GraphConfigMenuScript : MonoBehaviour
         slider.wholeNumbers = true;
         slider.onValueChanged.AddListener(action);
     }
-    private void setupTextFields(string fID, string fType, string fValue) 
+    private void setupTextFields(string fID, string fType, string fValue)
     {
 
     }
@@ -96,6 +97,7 @@ public class GraphConfigMenuScript : MonoBehaviour
         dDown.options.Clear();
         dDown.AddOptions(options);
         dDown.value = defaultIndex;
+        dDown.onValueChanged.AddListener(delegate { dropdownItemSelected(dDown); });
 
     }
 
@@ -106,6 +108,38 @@ public class GraphConfigMenuScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+    private void dropdownItemSelected(Dropdown axisDropdown)
+    {
+
+        int index = axisDropdown.value;
+        //do something with text
+        string axis = axisDropdown.options[index].text;
+
+        //TODO: test in VR if the correct axis chosen is filled with the user choice. Otherwise will need to create separate listeners. 
+        if (axisDropdown.Equals(xAxisDropdown))
+        {
+
+            gConfig.xAxis = axisDropdown.options[index].text;
+
+        }
+
+        else if (axisDropdown.Equals(yAxisDropdown))
+        {
+            gConfig.yAxis = axisDropdown.options[index].text;
+
+
+        }
+
+        else if (axisDropdown.Equals(zAxisDropdown))
+        {
+            gConfig.zAxis = axisDropdown.options[index].text;
+
+        }
+        else if (axisDropdown.Equals(inputDropdown))
+        {
+            gConfig.inputFolderName = axisDropdown.options[index].text;
+        }
     }
 }

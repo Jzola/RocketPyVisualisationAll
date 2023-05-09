@@ -150,7 +150,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
     private void axisDropdownItemSelected(Dropdown axisDropdown)
     {
         
-        //TODO find out if the Filtering UI will handle whether the .csv suffix is required
+        
         int index = axisDropdown.value;
         //do something with text
         string axis = axisDropdown.options[index].text;
@@ -180,7 +180,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
         }
             
 
-        //show that axes are added
+        //show that axes are added (optional)
         debugText.enabled = false;
 
 

@@ -47440,6 +47440,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4264841475383548308}
     m_Modifications:
+    - target: {fileID: 1479568845981871851, guid: 4e96eb871060a4549a02804724c0c708,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479568846118115078, guid: 4e96eb871060a4549a02804724c0c708,
+        type: 3}
+      propertyPath: m_Text
+      value: Expand Graph Config Menu
+      objectReference: {fileID: 0}
     - target: {fileID: 1479568846445504544, guid: 4e96eb871060a4549a02804724c0c708,
         type: 3}
       propertyPath: otherPanel
@@ -47508,32 +47518,32 @@ PrefabInstance:
     - target: {fileID: 1479568846445504548, guid: 4e96eb871060a4549a02804724c0c708,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.018
+      value: -2.136
       objectReference: {fileID: 0}
     - target: {fileID: 1479568846445504548, guid: 4e96eb871060a4549a02804724c0c708,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9848078
       objectReference: {fileID: 0}
     - target: {fileID: 1479568846445504548, guid: 4e96eb871060a4549a02804724c0c708,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1479568846445504548, guid: 4e96eb871060a4549a02804724c0c708,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: -0.17364825
       objectReference: {fileID: 0}
     - target: {fileID: 1479568846445504548, guid: 4e96eb871060a4549a02804724c0c708,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1479568846445504548, guid: 4e96eb871060a4549a02804724c0c708,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -2.266
+      value: -1.308
       objectReference: {fileID: 0}
     - target: {fileID: 1479568846445504548, guid: 4e96eb871060a4549a02804724c0c708,
         type: 3}
@@ -47548,7 +47558,7 @@ PrefabInstance:
     - target: {fileID: 1479568846445504548, guid: 4e96eb871060a4549a02804724c0c708,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 1479568846445504548, guid: 4e96eb871060a4549a02804724c0c708,
         type: 3}
@@ -47559,6 +47569,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MaximizeCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479568846630117823, guid: 4e96eb871060a4549a02804724c0c708,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e96eb871060a4549a02804724c0c708, type: 3}
