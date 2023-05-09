@@ -9,37 +9,69 @@ public class GraphConfigMenuScript : MonoBehaviour
 {
     private GraphConfig gConfig;
     //variables taken from this graph's graph config.
-    private string focusID;
-    private string focusType;
-    private string focusValue;
+    //private string focusID;
+    //private string focusType;
+    //private string focusValue;
     public Slider trajectorySlider;
     public Text fIDText;
     public Text fTypeText;
     public Text fValueText;
+    public Text fEngineText;
     public Dropdown xAxisDropdown;
     public Dropdown yAxisDropdown;
     public Dropdown zAxisDropdown;
     public Dropdown inputDropdown;
     public Button updateGraphButton;
+    private int inputVarIndex;
+    private int xAxisIndex;
+    private int yAxisIndex = 3;
+    private int zAxisIndex = 1;
+
+    public int focusIDSlider= -1;
+    private int trajectoriesMax = 29;
 
     // Start is called before the first frame update
     void Start()
     {
         //initialize the graph config and text fields
         gConfig = transform.parent.gameObject.GetComponent<GraphConfig>();
-        focusID = gConfig.focusID;
-        focusType = gConfig.focusType;
-        focusValue = gConfig.focusValue;
+        
+        fIDText.text = gConfig.focusID;
+        fTypeText.text = gConfig.focusType;
+        fValueText.text = gConfig.focusValue;
+        fEngineText.text = gConfig.focusEngine;
 
-        fIDText.text = focusID;
-        fTypeText.text = focusType;
-        fValueText.text = focusValue;
+       
 
 
-        setUpDropdown(xAxisDropdown, gConfig.variables, 2);
-        setUpDropdown(yAxisDropdown, gConfig.variables, 3);
-        setUpDropdown(zAxisDropdown, gConfig.variables, 1);
-        setUpDropdown(inputDropdown, gConfig.availableInputs, 2);
+        //get variables and axes already sent from graph creation
+        if (gConfig.inputFolderName != null) {
+           inputVarIndex = gConfig.availableInputs.IndexOf(gConfig.inputFolderName);
+        }
+        else
+        {
+            inputVarIndex = 2;
+        }
+
+        if(gConfig.xAxis != null){
+            xAxisIndex = gConfig.variables.IndexOf(gConfig.xAxis); }
+        else
+        {
+            xAxisIndex = 2;
+        }
+        if(gConfig.yAxis != null)
+        {
+            yAxisIndex = gConfig.variables.IndexOf(gConfig.yAxis);
+        }
+        if(gConfig.zAxis != null)
+        {
+            zAxisIndex = gConfig.variables.IndexOf(gConfig.zAxis);
+        }
+        //
+        setUpDropdown(xAxisDropdown, gConfig.variables, xAxisIndex);
+        setUpDropdown(yAxisDropdown, gConfig.variables, yAxisIndex);
+        setUpDropdown(zAxisDropdown, gConfig.variables, zAxisIndex);
+        setUpDropdown(inputDropdown, gConfig.availableInputs, inputVarIndex);
 
 
         if (gConfig.dimensions == 2)
@@ -48,23 +80,56 @@ public class GraphConfigMenuScript : MonoBehaviour
             zAxisDropdown.gameObject.SetActive(false);
         }
 
-        //currently the slider uses the max trajecjectories = 30.
-        SetupSlider(trajectorySlider, 30, updateSliderValues);
+        //currently the slider uses the max trajecjectories = 30, but we include 0.
+        SetupSlider(trajectorySlider, 29);
+        //avoid errors from no fields chosen
+        setDefaults();
 
+        updateGraphButton.onClick.AddListener(applyGraphChanges);
+
+    }
+    private void updateSliderValues()
+    {
+        //to be tested in VR
+        int value = (int)trajectorySlider.value;
+        //convert the value to an int *if* different to previous value.
+        gConfig.selectTrajectory(value);
+        //update the focus 
+        fIDText.text = gConfig.focusID;
+        fTypeText.text = gConfig.focusType;
+        fValueText.text = gConfig.focusValue;
+        fEngineText.text = gConfig.focusEngine;
 
 
     }
-    private void updateSliderValues(float value)
+    [ContextMenu("Slider Testing")]
+    public void updateSliderValuesTesting()
     {
+        int value = 0;
+        if (focusIDSlider > trajectoriesMax)
+            value = 29;
+        //to be tested in Desktop mode
+        value = focusIDSlider;
+        trajectorySlider.value = value; //should automatically update the listener
+       
 
     }
-    private void SetupSlider(Slider slider, int valRange, UnityAction<float> action)
+    private void updateFocusText()
     {
-        // Convert valRange from int to a list of floats to one decimal place 
-        List<float> sliderValues = Enumerable.Range(0, valRange).Select(i => i / 1F).ToList();
-        slider.GetComponent<UISliderStep>().SetSliderValues(sliderValues);
+        fIDText.text = gConfig.focusID;
+        fTypeText.text = gConfig.focusType;
+        fValueText.text = gConfig.focusValue;
+        fEngineText.text = gConfig.focusEngine;
+    }
+    private void SetupSlider(Slider slider, int valRange)
+    {
+        //
+
+        slider.minValue = -1;
+        slider.maxValue = valRange;
         slider.wholeNumbers = true;
-        slider.onValueChanged.AddListener(action);
+        slider.value = -1;
+        slider.onValueChanged.AddListener(delegate { updateSliderValues(); });
     }
     private void setupTextFields(string fID, string fType, string fValue)
     {
@@ -98,6 +163,11 @@ public class GraphConfigMenuScript : MonoBehaviour
 
         gConfig.UpdateGraph();
 
+        //reset text.
+        updateFocusText();
+
+        //reset 
+
         setAllUIActive();
     }
 
@@ -112,7 +182,18 @@ public class GraphConfigMenuScript : MonoBehaviour
 
     private void setDefaults()
     {
-        //reset dropdowns to defualt values
+        //set up the graphConfig
+        int index = xAxisDropdown.value;
+        
+        gConfig.xAxis = xAxisDropdown.options[index].text;
+        index = yAxisDropdown.value;
+        gConfig.yAxis = yAxisDropdown.options[index].text;
+        index = zAxisDropdown.value;
+        gConfig.zAxis = zAxisDropdown.options[index].text;
+
+        index = inputDropdown.value;
+        gConfig.inputFolderName = inputDropdown.options[index].text;
+        
     }
     // Update is called once per frame
     void Update()
