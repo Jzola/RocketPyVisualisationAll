@@ -10,8 +10,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
 {
     //references to create graph and graph config will be required
     public GraphCreator gCreator;
-    //this only exists on a graph at runtime after creation, so may need another way to access the generated data sets
-    public GraphConfig gConfig;
+    
     public Dropdown xaxisDropdown;
     public Dropdown yaxisDropdown;
     public Dropdown zaxisDropdown;
