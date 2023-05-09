@@ -47736,7 +47736,7 @@ PrefabInstance:
     - target: {fileID: 1479568846445504551, guid: 4e96eb871060a4549a02804724c0c708,
         type: 3}
       propertyPath: m_Name
-      value: MaximizeCanvas
+      value: MaximizeCanvas Graph Config
       objectReference: {fileID: 0}
     - target: {fileID: 1479568846630117823, guid: 4e96eb871060a4549a02804724c0c708,
         type: 3}
