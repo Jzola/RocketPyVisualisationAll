@@ -1501,6 +1501,7 @@ MonoBehaviour:
   yAxisDropdown: {fileID: 5101444983285220866}
   zAxisDropdown: {fileID: 378400083775143373}
   inputDropdown: {fileID: 4868438860314391952}
+  updateGraphButton: {fileID: 7350235408915110837}
 --- !u!1 &1126808852933541237
 GameObject:
   m_ObjectHideFlags: 0
@@ -39980,7 +39981,7 @@ GameObject:
   - component: {fileID: 1069078862843671027}
   - component: {fileID: 7350235408915110837}
   m_Layer: 0
-  m_Name: Button
+  m_Name: Update Graph Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

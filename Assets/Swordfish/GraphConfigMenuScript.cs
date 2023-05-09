@@ -20,6 +20,7 @@ public class GraphConfigMenuScript : MonoBehaviour
     public Dropdown yAxisDropdown;
     public Dropdown zAxisDropdown;
     public Dropdown inputDropdown;
+    public Button updateGraphButton;
 
     // Start is called before the first frame update
     void Start()
@@ -73,6 +74,10 @@ public class GraphConfigMenuScript : MonoBehaviour
     private void setAllUIInactive()
     {
         trajectorySlider.enabled = false;
+        xAxisDropdown.enabled = false;
+        yAxisDropdown.enabled = false;
+        zAxisDropdown.enabled = false;
+        inputDropdown.enabled = false;
 
     }
 
@@ -80,6 +85,10 @@ public class GraphConfigMenuScript : MonoBehaviour
     private void setAllUIActive()
     {
         trajectorySlider.enabled = true;
+        xAxisDropdown.enabled = true;
+        yAxisDropdown.enabled = true;
+        zAxisDropdown.enabled = true;
+        inputDropdown.enabled = true;
 
     }
 
