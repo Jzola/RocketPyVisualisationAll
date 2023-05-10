@@ -15,6 +15,10 @@ public class GraphConfig : GraphCommon
     public bool waitForAllPointsToMove = false;
     private bool variablesInitialised = false;
 
+    private bool graphUpdating = false;
+    private bool rocketNeedsReset = false;
+    private RocketAnimation rocket;
+
     [Header("Trajectory Info")]
     [Range(-1, 29)] // Can't adjust at runtime, so using the currently known max
     public int selectedTrajectory = -1; // -1 = All, else an individual trajectory
@@ -36,6 +40,7 @@ public class GraphConfig : GraphCommon
 
         graph = transform.parent.gameObject;
         filter = graph.GetComponentInChildren<Filtering>();
+        rocket = graph.GetComponentInChildren<RocketAnimation>();
     }
 
     // Called every frame
@@ -56,6 +61,14 @@ public class GraphConfig : GraphCommon
         {
             selectTrajectory(selectedTrajectory);
             previousSelection = selectedTrajectory;
+        }
+
+        if (!graphUpdating && rocketNeedsReset)
+        {
+            rocket.gameObject.SetActive(true);
+            // Resets rocket animation data
+            rocket.setSelectedTrajectory(0);
+            rocketNeedsReset = false;
         }
     }
 
@@ -137,17 +150,20 @@ public class GraphConfig : GraphCommon
 
         // Set the axis variables and update trajectories
         setGraphAxisVariables(graph);
-        StartCoroutine(updateTrajectories(graph));
+        Coroutine test = StartCoroutine(updateTrajectories(graph));
 
-        // Resets rocket animation data
-        RocketAnimation rocket = graph.GetComponentInChildren<RocketAnimation>();
-        rocket.setSelectedTrajectory(0);
+        rocketNeedsReset = true;
+        rocket.gameObject.SetActive(false);
+        //// Resets rocket animation data MOVED TO UPDATE
+        //RocketAnimation rocket = graph.GetComponentInChildren<RocketAnimation>();
+        //rocket.setSelectedTrajectory(0);
     }
 
     // Coroutine function for updating trajectories
     private IEnumerator updateTrajectories(GameObject graph)
     {
         DataFiles dataFiles = graph.GetComponentInChildren<DataFiles>();
+        graphUpdating = true;
 
         // Finds and updates all the previous points with the new axes
         foreach (Transform dataSet in dataFiles.gameObject.transform)
@@ -176,6 +192,8 @@ public class GraphConfig : GraphCommon
                 }
             }
         }
+
+        graphUpdating = false;
     }
 
     // Changes the type of the graph
