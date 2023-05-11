@@ -58,6 +58,8 @@ public class GraphSpawnHandler : MonoBehaviour
             {
                 graphs.RemoveAt(i--);
                 posUpdateNeeded = true;
+                cirUpdateNeeded = true;
+                nextSpawnIndex = -1;
             }
         }
 
@@ -124,7 +126,7 @@ public class GraphSpawnHandler : MonoBehaviour
             if (nextSpawnIndex == -1 && hasFreeSpace()) nextSpawnIndex = graphs.Count();
 
             // Change state of selected circle to selected
-            spawnCircles[nextSpawnIndex].GetComponent<SpawnCircle>().changeState(SpawnCircle.State.SELECTED);
+            if (nextSpawnIndex != -1) spawnCircles[nextSpawnIndex].GetComponent<SpawnCircle>().changeState(SpawnCircle.State.SELECTED);
 
             cirUpdateNeeded = false;
         }
