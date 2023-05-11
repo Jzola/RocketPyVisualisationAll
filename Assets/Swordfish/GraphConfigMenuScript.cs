@@ -92,7 +92,7 @@ public class GraphConfigMenuScript : MonoBehaviour
     {
         //to be tested in VR
         int value = (int)trajectorySlider.value;
-        //convert the value to an int *if* different to previous value.
+        //
         gConfig.selectTrajectory(value);
         //update the focus 
         fIDText.text = gConfig.focusID;
