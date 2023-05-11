@@ -123,7 +123,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
     }
 
     //show changing of dimensions, and trigger the listener "dimensionChanged"
-    [ContextMenu("Check dimensionChanged")]
+    [ContextMenu("Check dimension Changed")]
     public void manualDimensionChange()
     {
         dimensionsChoice.allowSwitchOff = true;
