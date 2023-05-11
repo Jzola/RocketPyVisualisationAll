@@ -4,6 +4,8 @@ using UnityEngine.UI;
 public class DeleteGraphScript : MonoBehaviour
 {
     private GraphConfig gConfig;
+    //private GraphConfig scatterConfig;
+    //private BarGraphConfig barConfig;
     public Button confirmButton;
     public Button cancelButton;
     public Button launchButton;
@@ -15,6 +17,8 @@ public class DeleteGraphScript : MonoBehaviour
     void Start()
     {
         gConfig = transform.parent.gameObject.GetComponent<GraphConfig>();
+        
+
         //get the delete panel's viewing size
         rect = transform.gameObject.GetComponent<RectTransform>();
         deletePanelBigScale = rect.localScale;

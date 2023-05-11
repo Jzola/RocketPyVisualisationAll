@@ -54,7 +54,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
         yaxisDropdown.AddOptions(variableList);
         zaxisDropdown.AddOptions(variableList);
 
-        //create listeners. to be tested in VR.
+        //create listeners. 
         xaxisDropdown.onValueChanged.AddListener(delegate { axisDropdownItemSelected(xaxisDropdown); });
         yaxisDropdown.onValueChanged.AddListener(delegate { axisDropdownItemSelected(yaxisDropdown); });
         zaxisDropdown.onValueChanged.AddListener(delegate { axisDropdownItemSelected(zaxisDropdown); });
@@ -81,19 +81,38 @@ public class GraphCreatorMenuScript : MonoBehaviour
         createGraphButton.onClick.AddListener(createGraph);
         
         
-        //correctly finds the minimizer button attached to the canvas object. Replace with inspector drag and drop.
-
-        
-
-
-        ///debugText.enabled=true;
-       // minButton.onClick.AddListener(toggleMenuVisibility);
+       //debugText.enabled=true;
+    
 
 
 
     }
-    [ContextMenu("Change dimension")]
-    private void dimensionChanged(bool arg0)
+    //to be used in desktop mode
+    [ContextMenu("Change type")]
+    public void changeGraphType()
+    {
+        //allow the toggle to be switched off temporarily in order to bypass the 'only one toggle isOn' rule for groupToggle
+        graphTypeChoice.allowSwitchOff = true;
+        if (graphToggles[0].isOn)
+        {
+            graphToggles[0].isOn = false;
+            //due to toggle group rules, this should automatically select the other toggle, but just in case.
+            graphToggles[1].isOn = true;
+            
+            //graphTypeChoice.allowSwitchOff = false;
+        }
+        else
+        {
+            graphToggles[1].isOn = false;
+            graphToggles[0].isOn = true;
+            
+            
+        }
+        graphTypeChoice.allowSwitchOff = false;
+    }
+
+    [ContextMenu("Chexk axis removed")]
+    public void dimensionChanged(bool arg0)
     {
         
         
