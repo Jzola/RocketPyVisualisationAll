@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using IATK;
 using System;
+using System.Linq;
 
 public class GraphCreatorMenuScript : MonoBehaviour
 {
@@ -29,6 +30,13 @@ public class GraphCreatorMenuScript : MonoBehaviour
     public List<Toggle> graphToggles;
     public List<Toggle> dimensionToggles;
     private MeshRenderer rend;
+    private int dropDownValue;
+    public string dropdownTester="";
+    public List<string> variables;
+    
+    public enum axisdropDowns {xaxis, yaxis, zaxis };
+    public axisdropDowns axisDropdowns = axisdropDowns.xaxis;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -54,7 +62,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
         yaxisDropdown.AddOptions(variableList);
         zaxisDropdown.AddOptions(variableList);
 
-        //create listeners. to be tested in VR.
+        //create listeners. 
         xaxisDropdown.onValueChanged.AddListener(delegate { axisDropdownItemSelected(xaxisDropdown); });
         yaxisDropdown.onValueChanged.AddListener(delegate { axisDropdownItemSelected(yaxisDropdown); });
         zaxisDropdown.onValueChanged.AddListener(delegate { axisDropdownItemSelected(zaxisDropdown); });
@@ -79,21 +87,64 @@ public class GraphCreatorMenuScript : MonoBehaviour
 
         //connect the button to the createGraph method
         createGraphButton.onClick.AddListener(createGraph);
-        
-        
-        //correctly finds the minimizer button attached to the canvas object. Replace with inspector drag and drop.
-
-        
 
 
-        ///debugText.enabled=true;
-       // minButton.onClick.AddListener(toggleMenuVisibility);
+        //debugText.enabled=true;
+        variables = gCreator.variables;
+        //set a default value for the dropdown testing function
+        dropdownTester = variables[3];
+ 
 
 
 
     }
-    [ContextMenu("Change dimension")]
-    private void dimensionChanged(bool arg0)
+    //to be used in desktop mode
+    [ContextMenu("Change type")]
+    public void changeGraphType()
+    {
+        //allow the toggle to be switched off temporarily in order to bypass the 'only one toggle isOn' rule for groupToggle
+        graphTypeChoice.allowSwitchOff = true;
+        if (graphToggles[0].isOn)
+        {
+            graphToggles[0].isOn = false;
+            //due to toggle group rules, this should automatically select the other toggle, but just in case.
+            graphToggles[1].isOn = true;
+            
+            //graphTypeChoice.allowSwitchOff = false;
+        }
+        else
+        {
+            graphToggles[1].isOn = false;
+            graphToggles[0].isOn = true;
+            
+            
+        }
+        graphTypeChoice.allowSwitchOff = false;
+    }
+
+    //show changing of dimensions, and trigger the listener "dimensionChanged"
+    [ContextMenu("Check dimension Changed")]
+    public void manualDimensionChange()
+    {
+        dimensionsChoice.allowSwitchOff = true;
+        if (dimensionToggles[0].isOn)
+        {
+
+            dimensionToggles[0].isOn = false;
+            dimensionToggles[1].isOn = true;
+        }
+        else
+        {
+            dimensionToggles[1].isOn = false;
+            dimensionToggles[0].isOn = true;
+        }
+
+
+
+        dimensionsChoice.allowSwitchOff = false;
+    }
+    //if the dimension of the graph is 2D, hide the dropdown for the z axis and disable it.
+    public void dimensionChanged(bool arg0)
     {
         
         
@@ -137,6 +188,36 @@ public class GraphCreatorMenuScript : MonoBehaviour
             this.GetComponent<CanvasGroup>().alpha = 1;
         }
 
+    }
+    //test that the dropdowns can be changed via the inspector in desktop mode
+    [ContextMenu("Test Dropdown")]
+    public void dropDownTest()
+    {
+        int value;
+        //make sure the variable exists
+        if (variables.IndexOf(dropdownTester) != -1)
+        {
+            value = variables.IndexOf(dropdownTester);
+        }
+        else//use the default
+        {
+            value = 2;
+        }
+        if (axisDropdowns == axisdropDowns.xaxis)
+        {
+            xaxisDropdown.value = value;
+            axisDropdownItemSelected(xaxisDropdown);
+        }
+        else if(axisDropdowns == axisdropDowns.yaxis)
+        {
+            yaxisDropdown.value = value;
+            axisDropdownItemSelected(yaxisDropdown);
+        }
+        else if (axisDropdowns == axisdropDowns.zaxis)
+        {
+            zaxisDropdown.value = value;
+            axisDropdownItemSelected(zaxisDropdown);
+        }
     }
 
     private void variableDropdownItemSelected(Dropdown variableDropdown)
