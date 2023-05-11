@@ -26,17 +26,10 @@ public class GraphSpawnHandler : MonoBehaviour
     private Vector3 spawnCentre;
     private int nextSpawnIndex = 0;
 
-    // Movement
-    public bool animatedMove = true;
-    private bool posUpdateNeeded = false;
-    private float moveSpeed = 5;
-    private float maxAnglePerSec = 90;
-    private float snappingDist = 0.01f;
-
     // Awake is called when initilised
     void Awake()
     {
-        graphs = new List<GameObject>();
+        graphs = new List<GameObject>(new GameObject[maxGraphsInCircle]);
         graphPos = new List<Vector3>();
         spawnCircles = new List<GameObject>();
         circlesContainer = new GameObject("SpawnCircles");
@@ -51,64 +44,19 @@ public class GraphSpawnHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Checks if any of the graphs were destroyed, updating if so
-        for (int i = 0; i < graphs.Count; i++)
+        // Checks if a graph is deleted unbeknowningly to the handler, and flags a circle update if so
+        for (int i = 0; i < maxGraphsInCircle; i++)
         {
-            if (graphs[i] == null)
+            if (graphs[i] == null && spawnCircles[i].GetComponent<SpawnCircle>().getState() == SpawnCircle.State.IN_USE)
             {
-                graphs.RemoveAt(i--);
-                posUpdateNeeded = true;
-                cirUpdateNeeded = true;
-                nextSpawnIndex = -1;
+                flagCircleUpdate();
             }
-        }
-
-        // Shifts graphs when one gets deleted
-        if (posUpdateNeeded)
-        {
-            bool changeOccured = false;
-            for (int i = 0; i < graphs.Count; i++)
-            {
-                // If the graph is far from its target position, move it part way.
-                if (Vector3.Distance(graphs[i].transform.position, graphPos[i]) > snappingDist)
-                {
-                    // Calculating amount to move around the arc for the frame
-                    float targetAngle = Vector3.Angle(graphs[i].transform.position - spawnCentre, graphPos[i] - spawnCentre);
-                    float moveAngle = (targetAngle * moveSpeed < maxAnglePerSec ? targetAngle * moveSpeed : maxAnglePerSec) * Time.deltaTime;
-                    Vector3 newPos;
-
-                    if (moveAngle < 270) {
-                        // Update position
-                        Vector3 relPosCurrent = graphs[i].transform.position - spawnCentre;                     // Get current pos relative to the center
-                        Vector3 relDirTarget = Quaternion.AngleAxis(-moveAngle, Vector3.up) * relPosCurrent;    // Get the direction to the target from centre
-                        newPos = spawnCentre + relDirTarget.normalized * radius;                                // Add radius to direction from center, and set graph pos
-                    } 
-                    else
-                    {
-                        // If the graph somehow missed the target, then teleport to target
-                        newPos = graphPos[i];
-                    }
-
-                    graphs[i].transform.position = newPos;
-                    changeOccured = true;
-                } 
-                else
-                {
-                    // Snap graph onto target position
-                    graphs[i].transform.position = graphPos[i];
-                }
-                // Aim graph at centre
-                graphs[i].transform.LookAt(new Vector3(spawnCentre.x, graphs[i].transform.position.y, spawnCentre.z));
-            }
-
-            // If a change occured, update again next frame. Otherwise stop updating.
-            posUpdateNeeded = changeOccured;
         }
 
         // Auto selects the next spawn spot if not already selected
         if (hasFreeSpace() && nextSpawnIndex == -1)
         {
-            nextSpawnIndex = graphs.Count();
+            nextSpawnIndex = indexOfFirstUnityNull();
         }
 
         // Updates circle states
@@ -119,11 +67,8 @@ public class GraphSpawnHandler : MonoBehaviour
             {
                 SpawnCircle sc = spawnCircles[i].GetComponent<SpawnCircle>();
                 // If graph exists on circle, set to in use, otherwise set to default.
-                sc.changeState(graphs.Count > i && graphs[i] != null ? SpawnCircle.State.IN_USE : SpawnCircle.State.DEFAULT);
+                sc.changeState(graphs[i] != null ? SpawnCircle.State.IN_USE : SpawnCircle.State.DEFAULT);
             }
-
-            // If no circles selected, select next available space.
-            if (nextSpawnIndex == -1 && hasFreeSpace()) nextSpawnIndex = graphs.Count();
 
             // Change state of selected circle to selected
             if (nextSpawnIndex != -1) spawnCircles[nextSpawnIndex].GetComponent<SpawnCircle>().changeState(SpawnCircle.State.SELECTED);
@@ -136,24 +81,15 @@ public class GraphSpawnHandler : MonoBehaviour
     public bool add(GameObject graph)
     {
         if (hasFreeSpace() || validSpotSelected()) {
-            // Remove existing graph if spot is already occupied and put new graph in its spot
-            if (graphs.Count() > nextSpawnIndex && graphs[nextSpawnIndex] != null)
-            {
-                Destroy(graphs[nextSpawnIndex]);
-                graphs[nextSpawnIndex] = graph;
-            } 
-            else
-            {
-                // Add graph normally
-                graphs.Add(graph);
-            }
+            // Remove existing graph if spot is already occupied
+            if (graphs[nextSpawnIndex] != null) Destroy(graphs[nextSpawnIndex]);
+            
+            graphs[nextSpawnIndex] = graph;
 
             // Set position and rotation
-            //graph.transform.position = graphPos[graphs.IndexOf(graph)];
             graph.transform.position = graphPos[nextSpawnIndex];
             graph.transform.LookAt(new Vector3(spawnCentre.x, graph.transform.position.y, spawnCentre.z));
 
-            posUpdateNeeded = true;
             flagCircleUpdate();
             return true;
         }
@@ -164,10 +100,10 @@ public class GraphSpawnHandler : MonoBehaviour
     public void remove(GameObject graph)
     {
         // If the graph is successfully removed, destroy it and trigger an update.
-        if (graphs.Remove(graph))
+        if (graphs.Contains(graph))
         {
+            graphs[graphs.IndexOf(graph)] = null;
             Destroy(graph);
-            posUpdateNeeded = true;
             flagCircleUpdate();
         }
     }
@@ -177,9 +113,8 @@ public class GraphSpawnHandler : MonoBehaviour
     {
         foreach (GameObject graph in graphs)
         {
-            Destroy(graph);
+            if (graph != null) Destroy(graph);
         }
-        graphs.Clear();
         flagCircleUpdate();
     }
 
@@ -218,14 +153,13 @@ public class GraphSpawnHandler : MonoBehaviour
             graphPos.Add(pos);
         }
 
-        posUpdateNeeded = true;
         createSpawnCircles();
     }
 
     // Returns a bool indicating whether there is a free space for a new graph or not
     public bool hasFreeSpace()
     {
-        return graphs.Count < maxGraphsInCircle;
+        return indexOfFirstUnityNull() >= 0;
     }
 
     // Returns a bool indicating a spot has been selected
@@ -273,5 +207,18 @@ public class GraphSpawnHandler : MonoBehaviour
     {
         nextSpawnIndex = -1;
         cirUpdateNeeded = true;
+    }
+
+    // Checks for both nulls and "nulls" when looking for indexes, unlike the standard method
+    private int indexOfFirstUnityNull()
+    {
+        for (int i = 0; i < graphs.Count(); i++)
+        {
+            if (graphs[i] == null)
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 }

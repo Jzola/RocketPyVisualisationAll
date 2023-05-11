@@ -36,4 +36,9 @@ public class SpawnCircle : MonoBehaviour
     {
         this.currentState = state;
     }
+
+    public State getState()
+    {
+        return currentState;
+    }
 }
