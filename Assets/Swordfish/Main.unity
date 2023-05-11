@@ -2788,6 +2788,8 @@ MonoBehaviour:
     type: 3}
   graphType: 0
   VRCamera: {fileID: 8769165772263717265}
+  spawnCirclePrefab: {fileID: 4646104345103368571, guid: 5f99256a64a52c340816a95bd5ba2288,
+    type: 3}
 --- !u!1773428102 &841604786
 ParentConstraint:
   m_ObjectHideFlags: 0
@@ -6406,7 +6408,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gCreator: {fileID: 841604785}
-  gConfig: {fileID: 0}
   xaxisDropdown: {fileID: 227193851}
   yaxisDropdown: {fileID: 681504051}
   zaxisDropdown: {fileID: 1023516910}
