@@ -153,7 +153,7 @@ public class Filtering : MonoBehaviour
     {
         foreach(GameObject trajectory in dataObjects)
         {
-            trajectory.SetActive(true);
+            if (trajectory != null) trajectory.SetActive(true);
         }
     }
 

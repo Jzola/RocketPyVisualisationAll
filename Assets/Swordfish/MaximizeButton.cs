@@ -42,6 +42,7 @@ public class MaximizeButton : MonoBehaviour
         //start by minimizing the component so it won't be visible or interactable
         rectThis.localScale = zero;
 
+        //there should only be one button to find.
         maxButton = this.gameObject.GetComponentInChildren<Button>();
         heading = this.gameObject.transform.GetChild(0).GetComponent<Text>();
 

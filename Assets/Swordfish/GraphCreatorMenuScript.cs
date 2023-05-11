@@ -10,8 +10,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
 {
     //references to create graph and graph config will be required
     public GraphCreator gCreator;
-    //this only exists on a graph at runtime after creation, so may need another way to access the generated data sets
-    public GraphConfig gConfig;
+    
     public Dropdown xaxisDropdown;
     public Dropdown yaxisDropdown;
     public Dropdown zaxisDropdown;
@@ -71,30 +70,22 @@ public class GraphCreatorMenuScript : MonoBehaviour
         debugText.text = "";
         debugText.enabled = false; //if not using the debug text, set to false.
 
-        //graphToggles[0] = bar graph, graphToggles[1] = scatter graph;
-        //dimensionToggles[0] = 2D, dimensionToggles[1] = 3D.
-        //can either add a listener here  or handle checking in the createGraph method
-
-        //set defaults (will also prevent errors if create graph is clicked before any changes made).
+        
         //add a listener to the graph dimensions options/toggles that disables z axis if 2D is checked, and enables if 3D is checked.
-        //dimensionToggles[0].OnSelect.AddListener(toggleMenuVisibility);
+        
         dimensionToggles[0].onValueChanged.AddListener(dimensionChanged);
 
         setDefaults();
 
         //connect the button to the createGraph method
         createGraphButton.onClick.AddListener(createGraph);
-        //these listeners need to be tested in VR. //DOESN'T WORK.
-        anchor.GetComponent<Button>().onClick.AddListener(toggleMenuVisibility);
-        Button btnName = anchor.GetComponent<Button>();
-        debugText.text = "Check anchor " + btnName.name;
+        
         
         //correctly finds the minimizer button attached to the canvas object. Replace with inspector drag and drop.
-        Button minButton = anchor.GetComponentInChildrenWithTag<Button>("Minimize");
-        
-        Debug.Log("min button" + minButton.name); //too many warnings
 
-        debugText.text += " min button" + minButton.name;
+        
+
+
         ///debugText.enabled=true;
        // minButton.onClick.AddListener(toggleMenuVisibility);
 
@@ -109,10 +100,8 @@ public class GraphCreatorMenuScript : MonoBehaviour
         if (dimensionToggles[0].isOn)
         {
             //the 2D option has been selected, so there is no Z axis
-            //should I be using isActiveAndEnabled?
             zaxisDropdown.enabled = false;
-            //zaxisDropdown.isActiveAndEnabled = false;
-            //zaxisDropdown.Hide();// = true;
+            //completely hides the toggle
             zaxisDropdown.gameObject.SetActive(false);
         }
         else
@@ -125,7 +114,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
     }
 
     //to be moved
-    [ContextMenu("Toggle Menu")]
+    //[ContextMenu("Toggle Menu")]
     private void toggleMenuVisibility()
     {
         RectTransform rt;
@@ -161,7 +150,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
     private void axisDropdownItemSelected(Dropdown axisDropdown)
     {
         
-        //TODO find out if the Filtering UI will handle whether the .csv suffix is required
+        
         int index = axisDropdown.value;
         //do something with text
         string axis = axisDropdown.options[index].text;
@@ -191,7 +180,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
         }
             
 
-        //show that axes are added
+        //show that axes are added (optional)
         debugText.enabled = false;
 
 
@@ -199,11 +188,11 @@ public class GraphCreatorMenuScript : MonoBehaviour
     [ContextMenu("Create a graph")]
     public void createGraph()
     {
-        //link to the graph creator
-        //TODO get David's advice on whether the create graph can be set up this way.
+
         //can also access Graph Common for variables
 
-        //
+        //test z axis disappears
+        //dimensionToggles[0].isOn= true;
         if (dimensionToggles[0].isOn)
         {
             gCreator.dimensions = 2;
@@ -245,7 +234,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
         zaxisDropdown.value = 1;
         variableDropdown.value = 2;
         //test code
-        dimensionChanged(true);
+        //dimensionChanged(true);
 
 
 

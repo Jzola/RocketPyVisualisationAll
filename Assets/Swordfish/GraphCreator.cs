@@ -21,6 +21,7 @@ public class GraphCreator : GraphCommon
     [Header("Object to Spawn Around")]
     public GameObject VRCamera;
     Vector3 VRCamOriginalPosition; // = VRCamera.transform.position;
+    public GameObject spawnCirclePrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -28,10 +29,11 @@ public class GraphCreator : GraphCommon
         Initialise();
         graphHandler = gameObject.AddComponent<GraphSpawnHandler>();
         graphHandler.setSpawnCentre(VRCamera.transform.position);
+        graphHandler.spawnCirclePrefab = spawnCirclePrefab;
 
         //force the height to where it is visible to player
-        float playerHeight = 1;
-        graphHandler.offsetSpawnCentre(new Vector3(0, playerHeight, 0));
+        float graphHeight = 1.5f;
+        graphHandler.setSpawnHeight(graphHeight);
     }
 
     // Called every frame

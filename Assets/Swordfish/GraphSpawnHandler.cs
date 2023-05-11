@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,13 +6,19 @@ using UnityEngine;
 
 public class GraphSpawnHandler : MonoBehaviour
 {
+    // Graphs
     private List<GameObject> graphs;
     private List<Vector3> graphPos;
+
+    // Spawn Circles
+    public GameObject spawnCirclePrefab;
+    private List<GameObject> spawnCircles;
+    private GameObject circlesContainer;
 
     // Spawning
     private float radius = 5;
     private float maxGraphsInCircle = 6;
-    private float spawnHeight = 0.5f;
+    public float spawnHeight;
     private Vector3 spawnCentre;
 
     // Movement
@@ -26,9 +33,16 @@ public class GraphSpawnHandler : MonoBehaviour
     {
         graphs = new List<GameObject>();
         graphPos = new List<Vector3>();
+        spawnCircles = new List<GameObject>();
+        circlesContainer = new GameObject("SpawnCircles");
 
         setSpawnCentre(new Vector3(0,0,0));
-        updateSpawnLocations();
+    }
+
+    // Start is called during the first frame
+    void Start()
+    {
+        createSpawnCircles();
     }
 
     // Update is called once per frame
@@ -132,6 +146,12 @@ public class GraphSpawnHandler : MonoBehaviour
         updateSpawnLocations();
     }
 
+    public void setSpawnHeight(float graphHeight)
+    {
+        spawnHeight = graphHeight;
+        updateSpawnLocations();
+    }
+
     // Updates list of all potential spawn locations, based on field variables
     private void updateSpawnLocations()
     {
@@ -155,5 +175,23 @@ public class GraphSpawnHandler : MonoBehaviour
     public bool hasFreeSpace()
     {
         return graphs.Count < maxGraphsInCircle;
+    }
+
+    // Creates graph spawn circles below the graph spawn positions
+    private void createSpawnCircles()
+    {
+        // Remove old circles
+        foreach(GameObject circle in spawnCircles)
+        {
+            Destroy(circle);
+        }
+
+        foreach(Vector3 pos in graphPos)
+        {
+            // Set spawn height to feet
+            Vector3 circlePos = new Vector3(pos.x, spawnCentre.y, pos.z);
+            // Create circle and add it to circle list
+            spawnCircles.Add(Instantiate(spawnCirclePrefab, circlePos, spawnCirclePrefab.transform.rotation, circlesContainer.transform));
+        }
     }
 }

@@ -35,13 +35,13 @@ public class GraphConfigMenuScript : MonoBehaviour
     {
         //initialize the graph config and text fields
         gConfig = transform.parent.gameObject.GetComponent<GraphConfig>();
-        
+
         fIDText.text = gConfig.focusID;
         fTypeText.text = gConfig.focusType;
         fValueText.text = gConfig.focusValue;
         fEngineText.text = gConfig.focusEngine;
 
-       
+
 
 
         //get variables and axes already sent from graph creation
@@ -94,7 +94,7 @@ public class GraphConfigMenuScript : MonoBehaviour
         int value = (int)trajectorySlider.value;
         //
         gConfig.selectTrajectory(value);
-        //update the focus 
+        //update the focus
         fIDText.text = gConfig.focusID;
         fTypeText.text = gConfig.focusType;
         fValueText.text = gConfig.focusValue;
@@ -111,7 +111,7 @@ public class GraphConfigMenuScript : MonoBehaviour
         //to be tested in Desktop mode
         value = focusIDSlider;
         trajectorySlider.value = value; //should automatically update the listener
-       
+
 
     }
     private void updateFocusText()
@@ -166,7 +166,7 @@ public class GraphConfigMenuScript : MonoBehaviour
         //reset text.
         updateFocusText();
 
-        //reset 
+        //reset
 
         setAllUIActive();
     }
@@ -184,7 +184,7 @@ public class GraphConfigMenuScript : MonoBehaviour
     {
         //set up the graphConfig
         int index = xAxisDropdown.value;
-        
+
         gConfig.xAxis = xAxisDropdown.options[index].text;
         index = yAxisDropdown.value;
         gConfig.yAxis = yAxisDropdown.options[index].text;
@@ -193,7 +193,7 @@ public class GraphConfigMenuScript : MonoBehaviour
 
         index = inputDropdown.value;
         gConfig.inputFolderName = inputDropdown.options[index].text;
-        
+
     }
     // Update is called once per frame
     void Update()
@@ -207,7 +207,7 @@ public class GraphConfigMenuScript : MonoBehaviour
         //do something with text
         string axis = axisDropdown.options[index].text;
 
-        //TODO: test in VR if the correct axis chosen is filled with the user choice. Otherwise will need to create separate listeners. 
+        //TODO: test in VR if the correct axis chosen is filled with the user choice. Otherwise will need to create separate listeners.
         if (axisDropdown.Equals(xAxisDropdown))
         {
 
