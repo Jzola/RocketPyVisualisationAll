@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4646104345103368572}
   - component: {fileID: 4646104345103368570}
   - component: {fileID: 4646104345103368547}
+  - component: {fileID: 6497972719716513113}
   m_Layer: 5
   m_Name: SpawnCircle
   m_TagString: Untagged
@@ -85,7 +86,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &4646104345103368575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,6 +138,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5f882687d55b494e93e293c1eb699de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
+  handler: {fileID: 0}
+  colours: []
+--- !u!114 &6497972719716513113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4646104345103368571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: -2413806693520163455, guid: 66574e11f08666849a9b1471d7d9f234,
+    type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &4646104346403980415
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,11 +270,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.23584908, g: 0.23584908, b: 0.23584908, a: 1}
-    m_HighlightedColor: {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 1}
-    m_PressedColor: {r: 0.427451, g: 0.58431375, b: 0.34509805, a: 1}
-    m_SelectedColor: {r: 0.42743078, g: 0.5849056, b: 0.3448736, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_NormalColor: {r: 0.23584908, g: 0.23584908, b: 0.23584908, a: 0}
+    m_HighlightedColor: {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 0}
+    m_PressedColor: {r: 0.427451, g: 0.58431375, b: 0.34509805, a: 0}
+    m_SelectedColor: {r: 0.42743078, g: 0.5849056, b: 0.3448736, a: 0}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -260,7 +295,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4646104345103368547}
         m_TargetAssemblyTypeName: SpawnCircle, Assembly-CSharp
-        m_MethodName: test
+        m_MethodName: select
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

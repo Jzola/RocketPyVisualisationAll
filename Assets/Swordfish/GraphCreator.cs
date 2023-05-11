@@ -28,8 +28,8 @@ public class GraphCreator : GraphCommon
     {
         Initialise();
         graphHandler = gameObject.AddComponent<GraphSpawnHandler>();
-        graphHandler.setSpawnCentre(VRCamera.transform.position);
         graphHandler.spawnCirclePrefab = spawnCirclePrefab;
+        graphHandler.setSpawnCentre(VRCamera.transform.position);
 
         //force the height to where it is visible to player
         float graphHeight = 1.5f;
@@ -40,6 +40,17 @@ public class GraphCreator : GraphCommon
     void Update()
     {
 
+    }
+
+    // Returns bool whether there is a free space in the graph handler for more graphs or not
+    public bool hasFreeSpace()
+    {
+        return graphHandler.hasFreeSpace();
+    }
+
+    public bool canCreateNewGraph()
+    {
+        return graphHandler.hasFreeSpace() && graphHandler.validSpotSelected();
     }
 
     [ContextMenu("Create Graph")]
