@@ -32,6 +32,7 @@ public class GraphCreator : GraphCommon
         //force the height to where it is visible to player
         float playerHeight = 1;
         graphHandler.offsetSpawnCentre(new Vector3(0, playerHeight, 0));
+
     }
 
     // Called every frame

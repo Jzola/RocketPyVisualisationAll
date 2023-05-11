@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using IATK;
 using System;
+using System.Linq;
 
 public class GraphCreatorMenuScript : MonoBehaviour
 {
@@ -29,6 +30,13 @@ public class GraphCreatorMenuScript : MonoBehaviour
     public List<Toggle> graphToggles;
     public List<Toggle> dimensionToggles;
     private MeshRenderer rend;
+    private int dropDownValue;
+    public string dropdownTester="";
+    public List<string> variables;
+    
+    public enum axisdropDowns {xaxis, yaxis, zaxis };
+    public axisdropDowns axisDropdowns = axisdropDowns.xaxis;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -79,10 +87,13 @@ public class GraphCreatorMenuScript : MonoBehaviour
 
         //connect the button to the createGraph method
         createGraphButton.onClick.AddListener(createGraph);
-        
-        
-       //debugText.enabled=true;
-    
+
+
+        //debugText.enabled=true;
+        variables = gCreator.variables;
+        //set a default value for the dropdown testing function
+        dropdownTester = variables[3];
+ 
 
 
 
@@ -111,7 +122,28 @@ public class GraphCreatorMenuScript : MonoBehaviour
         graphTypeChoice.allowSwitchOff = false;
     }
 
-    [ContextMenu("Chexk axis removed")]
+    //show changing of dimensions, and trigger the listener "dimensionChanged"
+    [ContextMenu("Check dimensionChanged")]
+    public void manualDimensionChange()
+    {
+        dimensionsChoice.allowSwitchOff = true;
+        if (dimensionToggles[0].isOn)
+        {
+
+            dimensionToggles[0].isOn = false;
+            dimensionToggles[1].isOn = true;
+        }
+        else
+        {
+            dimensionToggles[1].isOn = false;
+            dimensionToggles[0].isOn = true;
+        }
+
+
+
+        dimensionsChoice.allowSwitchOff = false;
+    }
+    //if the dimension of the graph is 2D, hide the dropdown for the z axis and disable it.
     public void dimensionChanged(bool arg0)
     {
         
@@ -156,6 +188,36 @@ public class GraphCreatorMenuScript : MonoBehaviour
             this.GetComponent<CanvasGroup>().alpha = 1;
         }
 
+    }
+    //test that the dropdowns can be changed via the inspector in desktop mode
+    [ContextMenu("Test Dropdown")]
+    public void dropDownTest()
+    {
+        int value;
+        //make sure the variable exists
+        if (variables.IndexOf(dropdownTester) != -1)
+        {
+            value = variables.IndexOf(dropdownTester);
+        }
+        else//use the default
+        {
+            value = 2;
+        }
+        if (axisDropdowns == axisdropDowns.xaxis)
+        {
+            xaxisDropdown.value = value;
+            axisDropdownItemSelected(xaxisDropdown);
+        }
+        else if(axisDropdowns == axisdropDowns.yaxis)
+        {
+            yaxisDropdown.value = value;
+            axisDropdownItemSelected(yaxisDropdown);
+        }
+        else if (axisDropdowns == axisdropDowns.zaxis)
+        {
+            zaxisDropdown.value = value;
+            axisDropdownItemSelected(zaxisDropdown);
+        }
     }
 
     private void variableDropdownItemSelected(Dropdown variableDropdown)
