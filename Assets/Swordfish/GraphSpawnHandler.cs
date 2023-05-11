@@ -20,7 +20,7 @@ public class GraphSpawnHandler : MonoBehaviour
                                         new Color(0.36f, 0.52f, 0.66f) };   // In Use
 
     // Spawning
-    private float radius = 5;
+    private float radius = 6.5f;
     private int maxGraphsInCircle = 6;
     public float spawnHeight;
     private Vector3 spawnCentre;
