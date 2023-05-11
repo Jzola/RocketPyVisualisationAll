@@ -8,10 +8,7 @@ using System.Linq;
 public class GraphConfigMenuScript : MonoBehaviour
 {
     private GraphConfig gConfig;
-    //variables taken from this graph's graph config.
-    //private string focusID;
-    //private string focusType;
-    //private string focusValue;
+
     public Slider trajectorySlider;
     public Text fIDText;
     public Text fTypeText;
@@ -23,7 +20,7 @@ public class GraphConfigMenuScript : MonoBehaviour
     public Dropdown inputDropdown;
     public Button updateGraphButton;
     private int inputVarIndex;
-    private int xAxisIndex;
+    private int xAxisIndex=2;
     private int yAxisIndex = 3;
     private int zAxisIndex = 1;
 
@@ -52,13 +49,11 @@ public class GraphConfigMenuScript : MonoBehaviour
         {
             inputVarIndex = 2;
         }
-
+        //bring over the axis settings from graph creator, or use default values.
         if(gConfig.xAxis != null){
-            xAxisIndex = gConfig.variables.IndexOf(gConfig.xAxis); }
-        else
-        {
-            xAxisIndex = 2;
+            xAxisIndex = gConfig.variables.IndexOf(gConfig.xAxis); 
         }
+    
         if(gConfig.yAxis != null)
         {
             yAxisIndex = gConfig.variables.IndexOf(gConfig.yAxis);
@@ -67,7 +62,7 @@ public class GraphConfigMenuScript : MonoBehaviour
         {
             zAxisIndex = gConfig.variables.IndexOf(gConfig.zAxis);
         }
-        //
+        //set up the options in the dropdowns, and put the selected value at the default or the one chosen in graph creation
         setUpDropdown(xAxisDropdown, gConfig.variables, xAxisIndex);
         setUpDropdown(yAxisDropdown, gConfig.variables, yAxisIndex);
         setUpDropdown(zAxisDropdown, gConfig.variables, zAxisIndex);
@@ -80,7 +75,7 @@ public class GraphConfigMenuScript : MonoBehaviour
             zAxisDropdown.gameObject.SetActive(false);
         }
 
-        //currently the slider uses the max trajecjectories = 30, but we include 0.
+        //currently the slider uses the max trajecjectories = 30, but we include "1.csv" as 0.
         SetupSlider(trajectorySlider, 29);
         //avoid errors from no fields chosen
         setDefaults();
@@ -90,7 +85,7 @@ public class GraphConfigMenuScript : MonoBehaviour
     }
     private void updateSliderValues()
     {
-        //to be tested in VR
+        //
         int value = (int)trajectorySlider.value;
         //
         gConfig.selectTrajectory(value);
@@ -108,9 +103,10 @@ public class GraphConfigMenuScript : MonoBehaviour
         int value = 0;
         if (focusIDSlider > trajectoriesMax)
             value = 29;
-        //to be tested in Desktop mode
+        //value can be changed manually in inspector mode
         value = focusIDSlider;
-        trajectorySlider.value = value; //should automatically update the listener
+        //changing the value should automatically update the listener
+        trajectorySlider.value = value; 
        
 
     }
