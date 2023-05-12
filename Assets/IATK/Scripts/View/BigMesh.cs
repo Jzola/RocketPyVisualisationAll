@@ -770,7 +770,8 @@ namespace IATK
 
                 saveMesh(this.gameObject, ref countMeshRef, m);
             }
-            PrefabUtility.CreatePrefab("Assets/Prefabs/BigMesh.prefab", this.gameObject);
+            //PrefabUtility.CreatePrefab("Assets/Prefabs/BigMesh.prefab", this.gameObject);
+            PrefabUtility.SaveAsPrefabAsset(this.gameObject, "Assets/Prefabs/BigMesh.prefab");
             
             #endif
         }
@@ -822,7 +823,7 @@ namespace IATK
         // global list of all tweens callbacks
         static List<UpdateTweenDelegate> updateTweens = new List<UpdateTweenDelegate>();
 
-        private bool hasTweens = false;
+        //private bool hasTweens = false;
         
         private void Update()
         {

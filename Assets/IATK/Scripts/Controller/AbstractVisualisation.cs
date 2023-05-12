@@ -274,7 +274,7 @@ namespace IATK
                     {
                         throw new UnityException("'Linkinfield' or 'GraphDimension' is undefined. Please select a linking field or a graph dimension");
                     }
-                    break;                    
+                    //break;                    
 
                 case AbstractVisualisation.GeometryType.Quads:
                     builder.createIndicesPointTopology();

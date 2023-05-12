@@ -15,7 +15,7 @@ public class VisualisationPoints : MonoBehaviour
     private Material pointMat;
     public bool pointsNeedUpdating = false;
     public bool tweenPointsOnUpdate = false;
-    private bool pointsVisible = true;
+    //private bool pointsVisible = true;
     [System.NonSerialized]
     public OutputVariableVisibility valueVisibility;
 

@@ -19,7 +19,7 @@ namespace BarGraph.VittorCloud
         #endregion
 
         #region UnityCallBacks
-        public void Awake()
+        new public void Awake()
         {
             base.Awake();
 
