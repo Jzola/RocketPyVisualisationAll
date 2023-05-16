@@ -5,6 +5,7 @@ using UnityEngine;
 using IATK;
 using BarGraph.VittorCloud;
 using UnityEngine.UI;
+using System.Text;
 
 public class DataPoint : MonoBehaviour
 {
@@ -37,37 +38,44 @@ public class DataPoint : MonoBehaviour
 
         manager = GetComponentInParent<ChartLinkingManager>();
         trajectoryID = Int32.Parse(dataSource.data.name);
-
-        // Get values of data point as a string
-        updateValuesString();
-
     }
 
     public void SetData(CSVDataSource source, Single[] data)
     {
         dataSource = source;
         this.data = data;
-        updateValuesString();
     }
 
     public void updateValuesString()
     {
+        // String builder is more efficient than lots of concatenation
+        StringBuilder raw = new StringBuilder();
+        StringBuilder filtered = new StringBuilder();
         OutputVariableVisibility valueVisibility = GetComponentInParent<VisualisationPoints>().valueVisibility;
+        bool[] visibilities = valueVisibility.getVisibilities();
 
-        rawValuesString = "ID: " + dataSource.GetID() + "\n";
-        filteredValuesString = "ID: " + dataSource.GetID() + "\n";
+        raw.Append("ID: " + dataSource.GetID() + "\n");
+        filtered.Append("ID: " + dataSource.GetID() + "\n");
+
+        //rawValuesString = "ID: " + dataSource.GetID() + "\n";
+        //filteredValuesString = "ID: " + dataSource.GetID() + "\n";
 
         for (var i = 0; i < data.Length; i++)
         {
             string dataLine = dataSource[i].Identifier + ": " + data[i] + "\n";
 
             // If the data has been toggled off, don't add it to the line
-            if (valueVisibility == null || valueVisibility.getVisibilities().Length == 0 || valueVisibility.getVisibility(i))
+            if (valueVisibility == null || visibilities.Length == 0 || visibilities[i])
             {
-                filteredValuesString += dataLine;
+                filtered.Append(dataLine);
+                //filteredValuesString += dataLine;
             }
-            rawValuesString += dataLine;
+            //rawValuesString += dataLine;
+            raw.Append(dataLine);
         }
+
+        filteredValuesString = filtered.ToString();
+        rawValuesString = raw.ToString();
     }
 
     private void OnTriggerEnter(Collider other)

@@ -19,6 +19,7 @@ public class RocketAnimationUI : MonoBehaviour
     private bool loaded = false;
     private RocketAnimation rocket;    
     private DataPoint currentDataPoint;
+    private DataPoint lastDataPoint;
 
     void Update()
     {
@@ -33,7 +34,13 @@ public class RocketAnimationUI : MonoBehaviour
             {
                 foreach (GameObject display in dataDisplays)
                 {
-                    currentDataPoint.updateValuesString();
+                    // Only updates value string if the filter has changed
+                    if (dataVisibility != null && (dataVisibility.filterChanged || currentDataPoint != lastDataPoint))
+                    {
+                        currentDataPoint.updateValuesString();
+                        dataVisibility.filterChanged = false;
+                        lastDataPoint = currentDataPoint;
+                    }
                     // If there is a visibility filter component, it will only show visible data fields
                     if (dataVisibility != null)
                     {

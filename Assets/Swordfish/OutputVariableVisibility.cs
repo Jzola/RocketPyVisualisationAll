@@ -11,6 +11,7 @@ public class OutputVariableVisibility : MonoBehaviour
     private List<CSVDataSource> dataSources;
     private int initialNoOfShownVariables = 11; // The amount of variables to have toggled on, starting in order from the first variable columns
     private bool initialized = false;
+    public bool filterChanged = false;
 
     // Start is called before the first frame update
     void Start()
@@ -48,18 +49,21 @@ public class OutputVariableVisibility : MonoBehaviour
         {
             visibilityFilter[i] = i < amountVisible ? true : false;
         }
+        filterChanged = true;
     }
 
     // Reset and resize the visibility to show all
     public void resetVisibilty()
     {
         initialiseVisiblities(9999); // Impossible number of variables, to ensure everything is visible
+        filterChanged = true;
     }
 
     // Sets visibilityFilter based on given index
     public void setVisibility(int index, bool visible)
     {
         visibilityFilter[index] = visible;
+        filterChanged = true;
     }
 
     // Sets visibilityFilter based on given variable name
@@ -69,6 +73,7 @@ public class OutputVariableVisibility : MonoBehaviour
         if (index != -1)
         {
             visibilityFilter[index] = visible;
+            filterChanged = true;
         }
     }
 

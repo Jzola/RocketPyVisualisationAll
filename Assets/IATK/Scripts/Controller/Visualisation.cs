@@ -206,7 +206,8 @@ namespace IATK
 
             theVisualizationObject.UpdateVisualisation(AbstractVisualisation.PropertyType.None);
 
-            RuntimeEditorLoadAndSaveConfiguration();
+            // DISABLED SINCE IT TAKES UP LOADS OF TIME AND ISN'T USED IN THIS PROJECT
+            //RuntimeEditorLoadAndSaveConfiguration();
 
             key = (GameObject)Instantiate(Resources.Load("Key"));
             key.transform.parent = transform;
