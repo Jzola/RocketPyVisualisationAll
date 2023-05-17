@@ -73,6 +73,16 @@ public class GraphCreator : GraphCommon
                 LoadInputVariables liv = graph.GetComponentInChildren<LoadInputVariables>();
                 liv.folder = "inputData";
                 liv.path = inputFolderPath + inputFolderName + "/";
+
+                // Get bargraph config and set its fields
+                BarGraphConfig barConfig = graph.GetComponentInChildren<BarGraphConfig>();
+                barConfig.inputFolderName = inputFolderName;
+                barConfig.availableInputFolders = availableInputs;
+                barConfig.regenerateInputVars();
+
+                // Set the X axis to the focus variable of the data
+                string axisX = barConfig.getFocusType() == "None" ? liv.axisX : barConfig.getFocusType();
+                liv.axisX = barConfig.avaliableInputVariables.Contains(axisX) ? axisX : liv.axisX;
                 break;
 
 
