@@ -86,7 +86,7 @@ namespace Graph.VittorCloud
 
             // Set the XZ plane to active 
             // This user will use this plane to compare bar heights
-            XZPlane.transform.localScale = new Vector3(XLength + (xOffset*1.5f), XZPlane.transform.localScale.y, ZLength + zOffset);
+            XZPlane.transform.localScale = new Vector3(XLength + (xOffset*0.5f), XZPlane.transform.localScale.y, ZLength + zOffset);
             XZPlane.SetActive(true);
 
             barParent.transform.rotation = transform.rotation;

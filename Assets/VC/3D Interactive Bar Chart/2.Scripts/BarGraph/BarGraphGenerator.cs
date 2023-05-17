@@ -310,13 +310,16 @@ namespace BarGraph.VittorCloud
             Graph.transform.rotation = this.transform.rotation;
             Graph.transform.parent = this.transform;
 
-            float XLength = xStart + ((xMaxSize - 1) * segmentSizeOnXaxis);
-            float YLength = yStart + ((yMaxSize - 1) * segmentSizeOnYaxis);
-            float ZLength = zStart + ((zMaxSize - 1) * segmentSizeOnZaxis);
+            float XLength = Mathf.Max(xStart + ((xMaxSize - 1) * segmentSizeOnXaxis), 1);
+            float YLength = Mathf.Max(yStart + ((yMaxSize - 1) * segmentSizeOnYaxis), 1);
+            float ZLength = Mathf.Max(zStart + ((zMaxSize - 1) * segmentSizeOnZaxis), 1);
+            
+
+
             Graph.setBarScale(barScaleFactor);
             Graph.InitGraphBox(XLength, YLength, ZLength, segmentSizeOnXaxis, segmentSizeOnYaxis, segmentSizeOnZaxis);
             Graph.SetBarRef(barPrefab);
-            Graph.InitXAxis(xMaxSize, xStart, segmentSizeOnXaxis, offsetBetweenXRow, xLength);
+            Graph.InitXAxis(xMaxSize, xStart, segmentSizeOnXaxis, offsetBetweenXRow, XLength);
             Graph.InitYAxis(yMaxSize, yStart, segmentSizeOnYaxis, ListOfDataSet[0].axisY);
             Graph.InitZAxis(zMaxSize, zStart, segmentSizeOnZaxis, offsetBetweenZRow, xStart, segmentSizeOnXaxis);
 
