@@ -78,6 +78,7 @@ public class GraphCreator : GraphCommon
                 BarGraphConfig barConfig = graph.GetComponentInChildren<BarGraphConfig>();
                 barConfig.inputFolderName = inputFolderName;
                 barConfig.availableInputFolders = availableInputs;
+                barConfig.gCreator = this;
                 barConfig.regenerateInputVars();
 
                 // Set the X axis to the focus variable of the data
@@ -120,5 +121,30 @@ public class GraphCreator : GraphCommon
         }
 
         graphHandler.add(graph);
+    }
+
+    // Replace bar graph with a new one using the given input folder.
+    public void replaceBarGraph(GameObject bargraph, string inputFolder)
+    {
+        if (bargraph.GetComponentInChildren<BarGraphConfig>() == null) return;
+
+        // Grab creators current variables to reset back to later
+        string oldInputFolder = inputFolderName;
+        GraphType oldgraphType = graphType;
+
+        // Temporarily set creator to make the new bar graph
+        int ghIndex = graphHandler.remove(bargraph);
+        inputFolderName = inputFolder;
+        graphType = GraphType.BAR;
+
+        // Set handler to put graph in same spot
+        graphHandler.selectCircle(ghIndex);
+
+        // Make graph
+        CreateGraph();
+
+        // Reset creators fields
+        inputFolderName = oldInputFolder;
+        graphType = oldgraphType;
     }
 }

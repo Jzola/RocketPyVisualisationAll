@@ -13,6 +13,8 @@ public class BarGraphConfig : MonoBehaviour
     public List<string> availableInputFolders;
     public List<string> avaliableInputVariables;
 
+    public GraphCreator gCreator;
+
     private GameObject graph;
     // Start is called before the first frame update
     void Start()
@@ -61,5 +63,13 @@ public class BarGraphConfig : MonoBehaviour
             }
         }
         return focusType;
+    }
+
+
+    // Replace the input folder with another. Uses set fields
+    [ContextMenu("ChangeInputGraph")]
+    public void replaceBarGraph()
+    {
+        gCreator.replaceBarGraph(graph, inputFolderName);
     }
 }

@@ -96,16 +96,19 @@ public class GraphSpawnHandler : MonoBehaviour
         return false;
     }
 
-    // Remove a graph from the handler, destroying it
-    public void remove(GameObject graph)
+    // Remove a graph from the handler, destroying it. Returns its index in the handler, else -1
+    public int remove(GameObject graph)
     {
+        int index = -1;
         // If the graph is successfully removed, destroy it and trigger an update.
         if (graphs.Contains(graph))
         {
+            index = graphs.IndexOf(graph);
             graphs[graphs.IndexOf(graph)] = null;
             Destroy(graph);
             flagCircleUpdate();
         }
+        return index;
     }
 
     // Removes and destroys all graphs from the handler
