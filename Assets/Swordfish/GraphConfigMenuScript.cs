@@ -91,26 +91,26 @@ public class GraphConfigMenuScript : MonoBehaviour
         updateGraphButton.onClick.AddListener(applyGraphChanges);
 
     }
+    //to be implemented for testing
     private void toggleDataDisplayController()
     {
         //get canvas and either scale down or scale up
     }
-    //use this if we get time to 
+    
     private void setupDataDisplay()
     {
         //get the number of possible output variables from graph config. Default as of May 2023 is 49 variables
         int noToggles = gConfig.variables.Count;
         //get the scrollview. The canvas is a direct child of the menu object
-        //GameObject content = gameObject.GetComponentsInChildren<Content>
-        int togPosition = 0;
-       // dataToggles.Add(toggle);
-
+     
+        // dataToggles.Add(toggle);
+        int index;
         //add the toggles to the data panel and connect them to a listener that ajdusts variable visibility
         foreach (string vars in gConfig.variables)
         {
             //may need to instantiate first
-            //Toggle toggle = dataScrollViewContent.AddComponent<Toggle>();
-            int index = gConfig.variables.IndexOf(vars);
+            
+             index = gConfig.variables.IndexOf(vars);
             bool[] visibilities = outputConfig.getVisibilities();
             
             GameObject toggle = (GameObject)Instantiate(toggleTemplate);
@@ -137,7 +137,7 @@ public class GraphConfigMenuScript : MonoBehaviour
        
 
     }
-
+    //will activate whenever the toggle value changes
     public void outputVisibilityListener(Toggle tog, int index)
     {
 
@@ -146,8 +146,7 @@ public class GraphConfigMenuScript : MonoBehaviour
     [ContextMenu("Test visibility")]
     public void outputVisibilityTester()
     {
-        //use the index to get the children of the content box
-        //visIndex;
+        //use the index from the inspector to get all the generated children of the content box
         dataToggles[visIndex].GetComponent<Toggle>().isOn = !dataToggles[visIndex].GetComponent<Toggle>().isOn;
         
     }
@@ -217,7 +216,7 @@ public class GraphConfigMenuScript : MonoBehaviour
         inputDropdown.enabled = true;
 
     }
-
+    //update the graph
     private void applyGraphChanges()
     {
         setAllUIInactive();
@@ -232,6 +231,7 @@ public class GraphConfigMenuScript : MonoBehaviour
         setAllUIActive();
     }
 
+    //can be used to set up any dropdown, though may need to have the listener code adjusted to account for behaviour of any new ones.
     private void setUpDropdown(Dropdown dDown, List<string> options, int defaultIndex)
     {
         dDown.options.Clear();

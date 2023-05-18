@@ -309,7 +309,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
         gCreator.CreateGraph();
 
         //decide if we need the debug text. Set to false to disable.
-        debugText.enabled = true;
+        debugText.enabled = false;
 
         //clear the fields OR reset to default.
         xaxisDropdown.value = 2;
