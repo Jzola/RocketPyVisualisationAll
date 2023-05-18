@@ -362,8 +362,6 @@ public class GraphCreatorMenuScript : MonoBehaviour
 
                     graphsCreatable = !graphsCreatable;
 
-                    //send warning to the user.
-                    //
                 }
 
             }
@@ -375,8 +373,9 @@ public class GraphCreatorMenuScript : MonoBehaviour
                     createGraphButton.enabled = false;
                     graphsCreatable = !graphsCreatable;
                 }
+                //otherwise button is already disabled, and no change required.
             }
-            //ensure graphCreation is disabled.
+            
 
         }
 
