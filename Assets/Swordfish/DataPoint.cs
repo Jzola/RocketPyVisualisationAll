@@ -172,7 +172,7 @@ public class DataPoint : MonoBehaviour
             // Set text to display values of data point
             valuesDisplay.GetComponentInChildren<Text>().text = filteredValuesString;
             // Connect the line renderer of the display to the data point
-            valuesDisplay.GetComponentInChildren<ConnectorLink>().SetPointA(transform.position);
+            valuesDisplay.GetComponentInChildren<ConnectorLink>().SetPointA(gameObject);
         }                
     }
 

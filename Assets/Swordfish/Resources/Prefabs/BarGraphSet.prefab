@@ -46,6 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68fabab6e9a5f304d91feb1b2afce8ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputFolderName: Default_Inputs
+  availableInputFolders: []
+  avaliableInputVariables: []
+  gCreator: {fileID: 0}
 --- !u!1 &2748519334069556432
 GameObject:
   m_ObjectHideFlags: 0
@@ -5539,6 +5543,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dataFilesObject: {fileID: 7559326758211916054}
   visibilityFilter: 
+  filterChanged: 0
 --- !u!1 &7559326758236508018
 GameObject:
   m_ObjectHideFlags: 0
