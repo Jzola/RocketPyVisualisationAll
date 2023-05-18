@@ -8,6 +8,7 @@ using System.Linq;
 public class GraphConfigMenuScript : MonoBehaviour
 {
     private GraphConfig gConfig;
+    private OutputVariableVisibility outputConfig;
 
     public Slider trajectorySlider;
     public Text fIDText;
@@ -19,19 +20,26 @@ public class GraphConfigMenuScript : MonoBehaviour
     public Dropdown zAxisDropdown;
     public Dropdown inputDropdown;
     public Button updateGraphButton;
+    public Button toggleDataDisplayVisibility;
     private int inputVarIndex;
     private int xAxisIndex=2;
     private int yAxisIndex = 3;
     private int zAxisIndex = 1;
-
+    //private List<Toggle> dataToggles;
     public int focusIDSlider= -1;
+    public GameObject dataScrollViewContent;
     private int trajectoriesMax = 29;
+    public GameObject toggleTemplate;
+    public int visIndex=0;
+    public List<GameObject> dataToggles;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         //initialize the graph config and text fields
         gConfig = transform.parent.gameObject.GetComponent<GraphConfig>();
+        outputConfig = transform.parent.gameObject.GetComponent<OutputVariableVisibility>();
 
         fIDText.text = gConfig.focusID;
         fTypeText.text = gConfig.focusType;
@@ -39,7 +47,7 @@ public class GraphConfigMenuScript : MonoBehaviour
         fEngineText.text = gConfig.focusEngine;
 
 
-
+        setupDataDisplay();
 
         //get variables and axes already sent from graph creation
         if (gConfig.inputFolderName != null) {
@@ -82,6 +90,66 @@ public class GraphConfigMenuScript : MonoBehaviour
 
         updateGraphButton.onClick.AddListener(applyGraphChanges);
 
+    }
+    private void toggleDataDisplayController()
+    {
+        //get canvas and either scale down or scale up
+    }
+    //use this if we get time to 
+    private void setupDataDisplay()
+    {
+        //get the number of possible output variables from graph config. Default as of May 2023 is 49 variables
+        int noToggles = gConfig.variables.Count;
+        //get the scrollview. The canvas is a direct child of the menu object
+        //GameObject content = gameObject.GetComponentsInChildren<Content>
+        int togPosition = 0;
+       // dataToggles.Add(toggle);
+
+        //add the toggles to the data panel and connect them to a listener that ajdusts variable visibility
+        foreach (string vars in gConfig.variables)
+        {
+            //may need to instantiate first
+            //Toggle toggle = dataScrollViewContent.AddComponent<Toggle>();
+            int index = gConfig.variables.IndexOf(vars);
+            bool[] visibilities = outputConfig.getVisibilities();
+            
+            GameObject toggle = (GameObject)Instantiate(toggleTemplate);
+            //ensure the toggle instantiates according to parent, not world value by setting second argument to false.
+            toggle.transform.SetParent(dataScrollViewContent.transform, false);
+             //set toggle label
+            toggle.GetComponentInChildren<Text>().text = vars;
+
+
+            //add listener
+             toggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate { outputVisibilityListener(toggle.GetComponent<Toggle>(), index); });
+
+            
+            dataToggles.Add(toggle);
+
+            //use the index to determine if the toggle should be on or off at start.
+            if (!visibilities[index])
+            {
+                toggle.GetComponent<Toggle>().isOn = false;
+            }
+
+           
+        }
+       
+
+    }
+
+    public void outputVisibilityListener(Toggle tog, int index)
+    {
+
+        outputConfig.setVisibility(index, tog.isOn);
+    }
+    [ContextMenu("Test visibility")]
+    public void outputVisibilityTester()
+    {
+        //use the index to get the children of the content box
+        //visIndex;
+        dataToggles[visIndex].GetComponent<Toggle>().isOn = !dataToggles[visIndex].GetComponent<Toggle>().isOn;
+        
     }
     private void updateSliderValues()
     {
@@ -127,10 +195,7 @@ public class GraphConfigMenuScript : MonoBehaviour
         slider.value = -1;
         slider.onValueChanged.AddListener(delegate { updateSliderValues(); });
     }
-    private void setupTextFields(string fID, string fType, string fValue)
-    {
-
-    }
+   
     //temporarily disable all UI components
     private void setAllUIInactive()
     {
@@ -162,7 +227,7 @@ public class GraphConfigMenuScript : MonoBehaviour
         //reset text.
         updateFocusText();
 
-        //reset
+        //reset UI
 
         setAllUIActive();
     }

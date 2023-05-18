@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class OutputVariableVisibility : MonoBehaviour
 {
+    //controls the trajectory visualisations in the graph display
     public GameObject dataFilesObject;
+    //List of booleans that show up as toggles in the inspector
     public bool[] visibilityFilter;
 
     private List<CSVDataSource> dataSources;
