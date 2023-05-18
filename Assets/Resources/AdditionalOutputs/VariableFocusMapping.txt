@@ -1,4 +1,4 @@
-Default_Inputs:None
+Default_Inputs:rocket mass (kg)
 BurnOutInputs:burn out (s)
 BurnOutLatest:Burn out time
 MassIncrease:rocket mass (kg)
