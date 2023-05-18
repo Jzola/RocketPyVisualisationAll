@@ -85,7 +85,7 @@ public class GraphConfig : GraphCommon
             // Finds the engine used for the current trajectory
             focusEngine = inputData.getOriginalString(inputData.findCol("motor type"), inputData["motor type"].Data[index] * (inputData["motor type"].MetaData.categoryCount - 1));
             
-            // Getting the focus value from a given focus type, if a valid match was made in the map
+            // Getting the focus value from a given focus type, if a valid match was made in the map. Focus type is the input variable changed.
              if (focusType != "None")
             {
                 try
