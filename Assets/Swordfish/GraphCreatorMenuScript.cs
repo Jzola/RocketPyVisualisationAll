@@ -36,6 +36,9 @@ public class GraphCreatorMenuScript : MonoBehaviour
     
     public enum axisdropDowns {xaxis, yaxis, zaxis };
     public axisdropDowns axisDropdowns = axisdropDowns.xaxis;
+
+    private int interval = 3; //frames for update check
+    private bool graphsCreatable= true;
     
 
     // Start is called before the first frame update
@@ -48,10 +51,9 @@ public class GraphCreatorMenuScript : MonoBehaviour
         GameObject anchor = this.transform.parent.gameObject;
         rend = anchor.GetComponent<MeshRenderer>();
         rend.enabled = false;
-        //anchor.GetComponent<Renderer>.enabled = false;
-        //anchor.transform.localScale = new Vector3(0, 0, 0);
+        //set up variables for the dropdowns using the gCreator
         List<string> variableList = gCreator.variables;
-        //axisDropdown = canvas.GetComponentInChildrenWithTag //cannot get 'WithTag' to work. Understanding needed for Heather to use.
+ 
         //
         xaxisDropdown.options.Clear();
         yaxisDropdown.options.Clear();
@@ -343,6 +345,53 @@ public class GraphCreatorMenuScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //graphsCreatable is set to true during initial setup.
+        //check once every frame interval to see if the GraphCreator spawn circles can be selected/have space
+        if (Time.frameCount % interval == 0)
+        {
+            //are we still allowed to create a graph
+            //check conditions for creating a new graph. IF true make sure button is still enabled.
+            if (allowGraphCreation())
+            {
+                //only change it if needs to be changed to improve performance
+                if (!graphsCreatable)
+                {
+                    //re-enable the create graph button
+                    createGraphButton.enabled = true;
+                    //have some activation indication (colour change or an alert)
+
+                    graphsCreatable = !graphsCreatable;
+
+                    //send warning to the user.
+                    //
+                }
+
+            }
+            //graph creation may need to be disabled.
+            else
+            {
+                if (graphsCreatable)
+                {
+                    createGraphButton.enabled = false;
+                    graphsCreatable = !graphsCreatable;
+                }
+            }
+            //ensure graphCreation is disabled.
+
+        }
+
     }
+
+    private bool allowGraphCreation()
+    {
+        if (gCreator.hasFreeSpace())
+            return true;
+        else if (gCreator.canCreateNewGraph())
+            return true;
+        else
+            return false;
+    }
+    /*This can be checked with GraphCreator.hasFreeSpace() to first check if there’s a free space, if not, 
+     * check GraphCreator.canCreateNewGraph() to see if a new spawn has already been selected, 
+     * if not, warn the user and disable the button.*/
 }
