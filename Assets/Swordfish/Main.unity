@@ -2737,7 +2737,6 @@ GameObject:
   m_Component:
   - component: {fileID: 841604784}
   - component: {fileID: 841604785}
-  - component: {fileID: 841604786}
   m_Layer: 0
   m_Name: Graph Creator
   m_TagString: Untagged
@@ -2790,32 +2789,6 @@ MonoBehaviour:
   VRCamera: {fileID: 8769165772263717265}
   spawnCirclePrefab: {fileID: 4646104345103368571, guid: 5f99256a64a52c340816a95bd5ba2288,
     type: 3}
---- !u!1773428102 &841604786
-ParentConstraint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 841604783}
-  m_Enabled: 1
-  m_Weight: 1
-  m_TranslationAtRest: {x: -0.076285, y: 0.106031, z: -0.2718}
-  m_RotationAtRest: {x: -79.32149, y: 90, z: 0}
-  m_TranslationOffsets:
-  - {x: -0.076285, y: 0.106031, z: -0.2718}
-  m_RotationOffsets:
-  - {x: -79.321495, y: 90, z: 0}
-  m_AffectTranslationX: 1
-  m_AffectTranslationY: 1
-  m_AffectTranslationZ: 1
-  m_AffectRotationX: 1
-  m_AffectRotationY: 1
-  m_AffectRotationZ: 1
-  m_IsContraintActive: 1
-  m_IsLocked: 0
-  m_Sources:
-  - sourceTransform: {fileID: 500999178504971620}
-    weight: 1
 --- !u!1 &870311337
 GameObject:
   m_ObjectHideFlags: 0
@@ -11061,6 +11034,7 @@ GameObject:
   - component: {fileID: 534468498381537340}
   - component: {fileID: 532786478997281266}
   - component: {fileID: 534356261719325754}
+  - component: {fileID: 502754581682604721}
   m_Layer: 0
   m_Name: LeftControllerAlias
   m_TagString: Untagged
@@ -11068,6 +11042,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &502754581682604721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 502754581682604720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98eec280495da2b4d9e288953e257cac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToAttach: {fileID: 841604784}
 --- !u!1 &502899451618409468
 GameObject:
   m_ObjectHideFlags: 0
