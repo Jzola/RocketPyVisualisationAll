@@ -51,7 +51,10 @@ public class DataPoint : MonoBehaviour
         // String builder is more efficient than lots of concatenation
         StringBuilder raw = new StringBuilder();
         StringBuilder filtered = new StringBuilder();
-        OutputVariableVisibility valueVisibility = GetComponentInParent<VisualisationPoints>().valueVisibility;
+        OutputVariableVisibility valueVisibility = GetComponentInParent<VisualisationPoints>()?.valueVisibility;
+
+        if (valueVisibility == null) return;
+
         bool[] visibilities = valueVisibility.getVisibilities();
 
         raw.Append("ID: " + dataSource.GetID() + "\n");

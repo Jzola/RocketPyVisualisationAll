@@ -377,7 +377,7 @@ public class DataFiles : MonoBehaviour
     }
 
     // Update the axis ticks 
-    private void UpdateAxisTicks()
+    public void UpdateAxisTicks()
     {
         if (!visualisation.xDimension.Attribute.Equals("Undefined"))
         {

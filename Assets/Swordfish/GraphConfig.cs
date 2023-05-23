@@ -1,7 +1,9 @@
+using BarGraph.VittorCloud;
 using IATK;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using static IATK.DataSource;
 
@@ -31,6 +33,11 @@ public class GraphConfig : GraphCommon
     public string focusEngine = "None";
     public string focusType = "None"; // Input variable from the all_inputs.csv file
     public string focusValue = "None"; // Value of the input variable for the specific selection
+
+    // Children of the bar graph selector
+    private Transform[] barChildren;
+    private bool barPreviouslySpawned = false; // Used to prevent transform from stacking
+    private bool barNeedsCreating = false;
 
 
     // Start is called before the first frame update
@@ -150,7 +157,7 @@ public class GraphConfig : GraphCommon
 
         // Set the axis variables and update trajectories
         setGraphAxisVariables(graph);
-        Coroutine test = StartCoroutine(updateTrajectories(graph));
+        StartCoroutine(updateTrajectories(graph));
 
         rocketNeedsReset = true;
         rocket.gameObject.SetActive(false);
@@ -193,6 +200,14 @@ public class GraphConfig : GraphCommon
             }
         }
 
+        dataFiles.UpdateAxisTicks();
+
+        if (barNeedsCreating)
+        {
+            removeThirdLevelBarSelector();
+            attachThirdLevelBarSelector();
+        }
+
         graphUpdating = false;
     }
 
@@ -228,6 +243,8 @@ public class GraphConfig : GraphCommon
             dataFiles.DestroyTrajectories();
             dataFiles.setSimulationPath(inputFolderPath, inputFolderName);
             dataFiles.setSimulationFilesCoroutine();
+
+            if (isBarGraphAttached()) barNeedsCreating = true;
         }
 
         focusType = getFocusType();
@@ -238,4 +255,90 @@ public class GraphConfig : GraphCommon
     {
         // TODO: Change the value of the given dataset (e.g. length of rocket, weather condition ...)
     }
+
+    // Resets trajectory filter
+    public void resetFilter()
+    {
+        selectedTrajectory = -1;
+        filter.ResetFilters();
+    }
+
+    // Attach a bar graph high level selector to the scatter graph
+    [ContextMenu("Attach Bar Graph")]
+    public void attachThirdLevelBarSelector()
+    {
+        // Prevent extra graphs from being attached
+        if (isBarGraphAttached()) return;
+
+        GameObject bargraph = Instantiate(Resources.Load<GameObject>("Prefabs/BarGraph"));
+        Destroy(bargraph.GetComponentInChildren<DataFiles>().gameObject);
+        
+        // Add bargraph children to array
+        barChildren = new Transform[bargraph.transform.childCount];
+        for (int i = 0; i < barChildren.Length; i++)
+        {
+            barChildren[i] = bargraph.transform.GetChild(i);
+        }
+
+        // Change the folder input folder
+        bargraph.GetComponentInChildren<DataFiles>().setSimulationPath(inputFolderPath, inputFolderName);
+        LoadInputVariables liv = bargraph.GetComponentInChildren<LoadInputVariables>();
+        liv.folder = "inputData";
+        liv.path = inputFolderPath + inputFolderName + "/";
+
+        // Get input vars to check for input type
+        List<string> avaliableInputVariables = new List<string>(File.ReadLines(Application.dataPath + inputFolderPath + inputFolderName + "/inputData/all_inputs.csv").First().Split(','));
+
+        // Set the X axis to the focus variable of the data
+        string axisX = focusType == "None" ? liv.axisX : focusType;
+        liv.axisX = avaliableInputVariables.Contains(axisX) ? axisX : liv.axisX;
+
+        // Replace blank chart linking manager with the bargraph one
+        GameObject chartLinkMgr = graph.GetComponentInChildren<ThirdLevelChartLinkingManager>().gameObject;
+        
+        // Transform bargraph next to scatter graph
+        bargraph.transform.rotation = chartLinkMgr.transform.rotation;
+        bargraph.transform.position = chartLinkMgr.transform.position + 
+            (barPreviouslySpawned ? new Vector3() : chartLinkMgr.transform.TransformDirection(Vector3.right) * - 4);
+
+
+        //+new Vector3(-4.56f, -0.75f, -0.47f)
+        // Transfer old chartLinkMgr parent/children to new one.
+        bargraph.transform.parent = chartLinkMgr.transform.parent;
+        for (int i = chartLinkMgr.transform.childCount - 1; i >= 0; i--)
+        {
+            chartLinkMgr.transform.GetChild(i).parent = bargraph.transform;
+        }
+        
+        // Delete old manager
+        Destroy(chartLinkMgr);
+
+        // Rename to keep hierachy consistent
+        bargraph.name = "Third-Level";
+        barPreviouslySpawned = true;
+    }
+
+    [ContextMenu("Remove Bar Graph")]
+    // Removes all related gameobjects of the high level bargraph selector
+    public void removeThirdLevelBarSelector()
+    {
+        // Return if it doesn't exist
+        if (!isBarGraphAttached()) return;
+
+        graph.GetComponentInChildren<ThirdLevelChartLinkingManager>().enabled = false;
+        for (int i = 0; i < barChildren.Length; i++)
+        {
+            if (barChildren[i] != null)
+            {
+                DestroyImmediate(barChildren[i].gameObject);
+            }
+        }
+        barChildren = null;
+    }
+
+    public bool isBarGraphAttached()
+    {
+        return graph.GetComponentInChildren<BarGraphGenerator>() != null;
+    }
 }
+

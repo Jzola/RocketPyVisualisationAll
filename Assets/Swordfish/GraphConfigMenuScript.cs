@@ -140,9 +140,9 @@ public class GraphConfigMenuScript : MonoBehaviour
     //will activate whenever the toggle value changes
     public void outputVisibilityListener(Toggle tog, int index)
     {
-
-        outputConfig.setVisibility(index, tog.isOn);
+        outputConfig.setVisibility(tog.GetComponentInChildren<Text>().text, tog.isOn);
     }
+
     [ContextMenu("Test visibility")]
     public void outputVisibilityTester()
     {
