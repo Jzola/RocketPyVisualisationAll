@@ -141,13 +141,14 @@ namespace IATK
                 DestroyImmediate(item);
             }
 
-            //destroy the previous axes
-            Axis[] previousAxes = GetComponentsInChildren<Axis>();
+            // AXES WILL GET DESTROYED ELSEWHERE
+            ////destroy the previous axes
+            //Axis[] previousAxes = GetComponentsInChildren<Axis>();
 
-            foreach (var item in previousAxes)
-            {
-                DestroyImmediate(item.gameObject);
-            }
+            //foreach (var item in previousAxes)
+            //{
+            //    DestroyImmediate(item.gameObject);
+            //}
 
             // COMMENTED OUT TO PREVENT CUSTOM KEY BEING DESTROYED
             ////destroy previous key

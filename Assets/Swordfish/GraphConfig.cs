@@ -155,6 +155,9 @@ public class GraphConfig : GraphCommon
         setInputDataset();
         setGraphDimensions(dimensions);
 
+        // Remove axis ticks and labels, since it won't reflect the points while updating.
+        graph.GetComponentInChildren<DataFiles>().removeAxisLabels();
+
         // Set the axis variables and update trajectories
         setGraphAxisVariables(graph);
         StartCoroutine(updateTrajectories(graph));

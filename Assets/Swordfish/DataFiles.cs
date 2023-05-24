@@ -6,6 +6,7 @@ using System.IO;
 using UnityEngine.UI;
 using System.Linq;
 using System.Text.RegularExpressions;
+using TMPro;
 
 public class DataFiles : MonoBehaviour
 {
@@ -378,13 +379,30 @@ public class DataFiles : MonoBehaviour
         return file;        
     }
 
+    public void removeAxisLabels()
+    {
+        Axis[] axes = transform.parent.GetComponentsInChildren<Axis>();
+        foreach (Axis axis in axes)
+        {
+            axis.DestroyAxisTickLabels();
+            Destroy(axis.GetComponentInChildren<TextContainer>().gameObject);
+        }
+    }
+
     // Update the axis ticks 
     public void UpdateAxisTicks()
     {
+        // Destroys axes directly, since visulation may have changed and lost axes further down.
+        Axis[] oldAxes = transform.parent.GetComponentsInChildren<Axis>();
+        for (int i = 0; i < oldAxes.Length; i++)
+        {
+            Destroy(oldAxes[i].gameObject);
+        }
+
         if (!visualisation.xDimension.Attribute.Equals("Undefined"))
         {
             // Update X axis
-            DestroyImmediate(visualisation.theVisualizationObject.X_AXIS);
+            //DestroyImmediate(visualisation.theVisualizationObject.X_AXIS);
             visualisation.dataSource = files[maxIndexY];
             visualisation.theVisualizationObject.ReplaceAxis(AbstractVisualisation.PropertyType.X);
         }
@@ -392,7 +410,7 @@ public class DataFiles : MonoBehaviour
         if (!visualisation.yDimension.Attribute.Equals("Undefined"))
         {
             // Update Y axis
-            DestroyImmediate(visualisation.theVisualizationObject.Y_AXIS);
+            //DestroyImmediate(visualisation.theVisualizationObject.Y_AXIS);
             visualisation.dataSource = files[maxIndexZ];
             visualisation.theVisualizationObject.ReplaceAxis(AbstractVisualisation.PropertyType.Y);
         }
@@ -400,7 +418,7 @@ public class DataFiles : MonoBehaviour
         if (!visualisation.zDimension.Attribute.Equals("Undefined"))
         {
             // Update Z axis
-            DestroyImmediate(visualisation.theVisualizationObject.Z_AXIS);
+            //DestroyImmediate(visualisation.theVisualizationObject.Z_AXIS);
             visualisation.dataSource = files[maxIndexX];
             visualisation.theVisualizationObject.ReplaceAxis(AbstractVisualisation.PropertyType.Z);
         }
