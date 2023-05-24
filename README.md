@@ -30,10 +30,11 @@ The project has been developed based on the rocket simulation data generated fro
 	 - To show display for data point in trajectory visualisation
 	 - To show display for bar in bar chart
 	 - UI components
-	 - Grabbing the bar chart 
+	 - Grabbing movers/ interactors
  - Primary button (A/X button) = select a data point to select its trajectory as the trajectory to play the animation over 
  - Left thumbstick/ touchpad = movement  
  - Right thumbstick = Rotation
+ - Left grip button = toggle graph creator menu visibility
  - Right grip button = activate pointer to interact with UI components
 
 ## Original Team
