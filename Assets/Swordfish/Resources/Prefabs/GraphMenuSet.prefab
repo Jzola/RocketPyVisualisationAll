@@ -7232,6 +7232,7 @@ MonoBehaviour:
   rocket: {fileID: 1126808854499727477}
   LegendItemPrefab: {fileID: 2593496242551241051}
   outputVariableVisibility: {fileID: 7396836988091437000}
+  trajProgress: 0
 --- !u!1 &1126808854896263545
 GameObject:
   m_ObjectHideFlags: 0
@@ -55456,6 +55457,7 @@ MonoBehaviour:
   variables: []
   inputFolderName: Default_Inputs
   availableInputs: []
+  datafiles: {fileID: 1126808854889797077}
   tweenPointsOnUpdate: 1
   waitForAllPointsToMove: 0
   selectedTrajectory: -1

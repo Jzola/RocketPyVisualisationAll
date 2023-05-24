@@ -38,6 +38,9 @@ public class DataFiles : MonoBehaviour
     private Color trajStartCol = new Color(1f, 0.165f, 0.165f);
     private Color trajEndCol = new Color(0.008f, 0.361f, 0.122f);
 
+    // Traj creation progress, from 0-1
+    public float trajProgress = 0;
+
     private Color[] classifications = new Color[]
     {
         new Color(0.396f, 0.45f, 0.745f, 0.9f),
@@ -83,6 +86,8 @@ public class DataFiles : MonoBehaviour
 
     public IEnumerator setSimulationFiles()
     {
+        trajProgress = 0;
+
         // First find files and create csvDataSource objects
         files = new List<CSVDataSource>();
         CreateCSVDataSource();
@@ -103,6 +108,9 @@ public class DataFiles : MonoBehaviour
                 // Create the trajectory data objects
                 CreateTrajectory(i);
             }
+
+            trajProgress = (float)i / files.Count; // Progress of trajectory
+
             yield return null;
         }
 
@@ -118,6 +126,8 @@ public class DataFiles : MonoBehaviour
             // Add colour coding information to the legend
             UpdateLegend();
         }
+
+        trajProgress = 1;
     }
 
     private void createMaterials()

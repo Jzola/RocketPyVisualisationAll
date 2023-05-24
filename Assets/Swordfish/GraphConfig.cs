@@ -11,6 +11,7 @@ public class GraphConfig : GraphCommon
 {
     public enum GraphType {SCATTER, BAR};
     private GameObject graph;
+    public DataFiles datafiles;
    
     // Animates the points on update if true, teleports if false.
     public bool tweenPointsOnUpdate = true;
@@ -38,7 +39,6 @@ public class GraphConfig : GraphCommon
     private Transform[] barChildren;
     private bool barPreviouslySpawned = false; // Used to prevent transform from stacking
     private bool barNeedsCreating = false;
-
 
     // Start is called before the first frame update
     void Start()
@@ -88,7 +88,7 @@ public class GraphConfig : GraphCommon
             // Sets focus variables
             focusData = filter.FilterSingle(index);
             focusID = focusData.data.name;
-            CSVDataSource inputData = focusData.GetComponentInParent<DataFiles>().input;
+            CSVDataSource inputData = datafiles.input;
             // Finds the engine used for the current trajectory
             focusEngine = inputData.getOriginalString(inputData.findCol("motor type"), inputData["motor type"].Data[index] * (inputData["motor type"].MetaData.categoryCount - 1));
             
@@ -156,7 +156,7 @@ public class GraphConfig : GraphCommon
         setGraphDimensions(dimensions);
 
         // Remove axis ticks and labels, since it won't reflect the points while updating.
-        graph.GetComponentInChildren<DataFiles>().removeAxisLabels();
+        datafiles.removeAxisLabels();
 
         // Set the axis variables and update trajectories
         setGraphAxisVariables(graph);
@@ -172,17 +172,16 @@ public class GraphConfig : GraphCommon
     // Coroutine function for updating trajectories
     private IEnumerator updateTrajectories(GameObject graph)
     {
-        DataFiles dataFiles = graph.GetComponentInChildren<DataFiles>();
         graphUpdating = true;
 
         // Finds and updates all the previous points with the new axes
-        foreach (Transform dataSet in dataFiles.gameObject.transform)
+        foreach (Transform dataSet in datafiles.gameObject.transform)
         {
             VisualisationPoints trajectory = dataSet.GetComponentInChildren<VisualisationPoints>();
             if (trajectory != null)
             {
                 trajectory.tweenPointsOnUpdate = tweenPointsOnUpdate;
-                dataFiles.UpdateTrajectory(trajectory);
+                datafiles.UpdateTrajectory(trajectory);
 
                 // Prevent points from moving during coroutine
                 if (waitForAllPointsToMove) trajectory.pointsNeedUpdating = false;
@@ -193,7 +192,7 @@ public class GraphConfig : GraphCommon
         // Enables the points to move once coroutines are over
         if (waitForAllPointsToMove)
         {
-            foreach (Transform dataSet in dataFiles.gameObject.transform)
+            foreach (Transform dataSet in datafiles.gameObject.transform)
             {
                 VisualisationPoints trajectory = dataSet.GetComponentInChildren<VisualisationPoints>();
                 if (trajectory != null)
@@ -203,8 +202,8 @@ public class GraphConfig : GraphCommon
             }
         }
 
-        dataFiles.UpdateAxisTicks();
-        dataFiles.SetKey();
+        datafiles.UpdateAxisTicks();
+        datafiles.SetKey();
 
         if (barNeedsCreating)
         {
@@ -239,14 +238,12 @@ public class GraphConfig : GraphCommon
     // Changes the input dataset
     public void setInputDataset()
     {
-        DataFiles dataFiles = graph.GetComponentInChildren<DataFiles>();
-        
         // If the path is unchanged, don't make new simulation data
-        if (!dataFiles.getSimulationPath().Equals(inputFolderPath + inputFolderName))
+        if (!datafiles.getSimulationPath().Equals(inputFolderPath + inputFolderName))
         {
-            dataFiles.DestroyTrajectories();
-            dataFiles.setSimulationPath(inputFolderPath, inputFolderName);
-            dataFiles.setSimulationFilesCoroutine();
+            datafiles.DestroyTrajectories();
+            datafiles.setSimulationPath(inputFolderPath, inputFolderName);
+            datafiles.setSimulationFilesCoroutine();
 
             if (isBarGraphAttached()) barNeedsCreating = true;
         }
@@ -285,7 +282,7 @@ public class GraphConfig : GraphCommon
         }
 
         // Change the folder input folder
-        bargraph.GetComponentInChildren<LoadInputVariables>().trajectoryFiles = graph.GetComponentInChildren<DataFiles>();
+        bargraph.GetComponentInChildren<LoadInputVariables>().trajectoryFiles = datafiles;
         LoadInputVariables liv = bargraph.GetComponentInChildren<LoadInputVariables>();
         liv.folder = "inputData";
         liv.path = inputFolderPath + inputFolderName + "/";
@@ -343,6 +340,12 @@ public class GraphConfig : GraphCommon
     public bool isBarGraphAttached()
     {
         return graph.GetComponentInChildren<BarGraphGenerator>() != null;
+    }
+
+    // Gets the progress of the graph creation/ update, between 0 - 1
+    public float getGraphUpdateProgress()
+    {
+        return datafiles.trajProgress;
     }
 }
 
