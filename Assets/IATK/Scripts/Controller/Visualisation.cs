@@ -149,9 +149,10 @@ namespace IATK
                 DestroyImmediate(item.gameObject);
             }
 
-            //destroy previous key
-            if(key!=null)
-            DestroyImmediate(key.gameObject);
+            // COMMENTED OUT TO PREVENT CUSTOM KEY BEING DESTROYED
+            ////destroy previous key
+            //if(key!=null)
+            //DestroyImmediate(key.gameObject);
 
             visualisationType = visualizationType;
 
@@ -209,9 +210,10 @@ namespace IATK
             // DISABLED SINCE IT TAKES UP LOADS OF TIME AND ISN'T USED IN THIS PROJECT
             //RuntimeEditorLoadAndSaveConfiguration();
 
-            key = (GameObject)Instantiate(Resources.Load("Key"));
-            key.transform.parent = transform;
-            key.transform.localPosition = new Vector3(0.15f, 1.165f, 0f);
+            // COMMENTED OUT TO PREVENT CUSTOM KEY BEING OVERLAPPED
+            //key = (GameObject)Instantiate(Resources.Load("Key"));
+            //key.transform.parent = transform;
+            //key.transform.localPosition = new Vector3(0.15f, 1.165f, 0f);
         }
 
         public void updateView(AbstractVisualisation.PropertyType propertyType)

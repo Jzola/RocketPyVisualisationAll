@@ -195,6 +195,8 @@ public class DataFiles : MonoBehaviour
             dataSourceObj.GetComponent<CSVDataSource>().load();
             files.Add(dataSourceObj.GetComponent<CSVDataSource>());
         }
+
+        SetKey();
     }
 
     // Determine the min and max values of each variable from csv file(s)
@@ -405,8 +407,15 @@ public class DataFiles : MonoBehaviour
     }
 
     // Sets the visualisation key text to the launch site latitude and longitude
-    public void SetKey(float lat, float lon)
+    public void SetKey()
     {
+        int latCol = input.findCol("latitude");
+        int lonCol = input.findCol("longitude");
+        float[] row = input.GetRow(input.dataArray, 0);
+
+        float lat = row[latCol];
+        float lon = row[lonCol];
+
         if (visualisation != null)
         {
             string label = "Latitude: " + lat + "\nLongitude: " + lon;

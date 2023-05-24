@@ -12,7 +12,7 @@ namespace IATK
         public TextMeshPro Legend;
 
         private string legend="";
-        
+
         public void UpdateProperties(AbstractVisualisation.PropertyType propertyType, Visualisation v)
         {
             legend = "";

@@ -13,7 +13,7 @@ public class LoadInputVariables : MonoBehaviour
     private List<CSVDataSource> fileData = new List<CSVDataSource>();
     private List<BarGraphDataSet> barData = new List<BarGraphDataSet>();
     [SerializeField]
-    private DataFiles trajectoryFiles;
+    public DataFiles trajectoryFiles;
 
     // Simulation Data
     [System.NonSerialized]
@@ -55,7 +55,7 @@ public class LoadInputVariables : MonoBehaviour
 
         if (trajectoryFiles != null)
         {
-            SetVisKey();
+            trajectoryFiles.SetKey();
         }
     }
 
@@ -193,19 +193,6 @@ public class LoadInputVariables : MonoBehaviour
         string contents = sr.ReadToEnd();
         sr.Close();
         return new TextAsset(contents);
-    }
-
-    // Set the trajectory visualisation key to the launch latitude and longitude
-    private void SetVisKey()
-    {
-        int latCol = fileData[0].findCol("latitude");
-        int lonCol = fileData[0].findCol("longitude");
-        float[] row = fileData[0].GetRow(fileData[0].dataArray, 0);
-
-        float lat = row[latCol];
-        float lon = row[lonCol];
-
-        trajectoryFiles.SetKey(lat, lon);
     }
 
     public List<CSVDataSource> GetDataSource()

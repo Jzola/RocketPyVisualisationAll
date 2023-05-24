@@ -201,6 +201,7 @@ public class GraphConfig : GraphCommon
         }
 
         dataFiles.UpdateAxisTicks();
+        dataFiles.SetKey();
 
         if (barNeedsCreating)
         {
@@ -281,7 +282,7 @@ public class GraphConfig : GraphCommon
         }
 
         // Change the folder input folder
-        bargraph.GetComponentInChildren<DataFiles>().setSimulationPath(inputFolderPath, inputFolderName);
+        bargraph.GetComponentInChildren<LoadInputVariables>().trajectoryFiles = graph.GetComponentInChildren<DataFiles>();
         LoadInputVariables liv = bargraph.GetComponentInChildren<LoadInputVariables>();
         liv.folder = "inputData";
         liv.path = inputFolderPath + inputFolderName + "/";
