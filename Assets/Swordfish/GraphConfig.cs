@@ -282,7 +282,7 @@ public class GraphConfig : GraphCommon
         // Prevent extra graphs from being attached
         if (isBarGraphAttached()) return;
 
-        GameObject bargraph = Instantiate(Resources.Load<GameObject>("Prefabs/BarGraph"));
+        GameObject bargraph = Instantiate(Resources.Load<GameObject>("Prefabs/BarGraph")).GetComponentInChildren<ThirdLevelChartLinkingManager>().gameObject;
         Destroy(bargraph.GetComponentInChildren<DataFiles>().gameObject);
         
         // Add bargraph children to array
@@ -325,8 +325,6 @@ public class GraphConfig : GraphCommon
         // Delete old manager
         Destroy(chartLinkMgr);
 
-        // Rename to keep hierachy consistent
-        bargraph.name = "Third-Level";
         barPreviouslySpawned = true;
     }
 

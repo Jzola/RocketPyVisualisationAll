@@ -1,21 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BarGraphConfigMenuScript : MonoBehaviour
 {
     private BarGraphConfig gConfig;
+    public OutputVariableVisibility outputConfig;
+    public GameObject dataScrollViewContent;
+    public TextAsset variableExtractionFile;
+    public GameObject toggleTemplate;
+
+    private List<string> variables;
+    public List<GameObject> dataToggles;
+
     private bool barSelectorAttached = false;
+
     // Start is called before the first frame update
     void Start()
     {
         //delete button is already handled separately.
         gConfig = transform.parent.gameObject.GetComponent<BarGraphConfig>();
-        
-        //add listener to button to call
-        
 
-        
+        //add listener to button to call
+        // Creates a list of variables from the given file
+        variables = new List<string>();
+        variables.AddRange(variableExtractionFile.text.Substring(0, variableExtractionFile.text.IndexOf(System.Environment.NewLine)).Split(','));
+
+        setupDataDisplay();
     }
 
     // Update is called once per frame
@@ -37,5 +49,50 @@ public class BarGraphConfigMenuScript : MonoBehaviour
         }
     }
 
+    private void setupDataDisplay()
+    {
+        //get the number of possible output variables from graph config. Default as of May 2023 is 49 variables
+        int noToggles = variables.Count;
+        //get the scrollview. The canvas is a direct child of the menu object
 
+        // dataToggles.Add(toggle);
+        int index;
+        //add the toggles to the data panel and connect them to a listener that ajdusts variable visibility
+        foreach (string vars in variables)
+        {
+            //may need to instantiate first
+
+            index = variables.IndexOf(vars);
+            bool[] visibilities = outputConfig.getVisibilities();
+
+            GameObject toggle = (GameObject)Instantiate(toggleTemplate);
+            //ensure the toggle instantiates according to parent, not world value by setting second argument to false.
+            toggle.transform.SetParent(dataScrollViewContent.transform, false);
+            //set toggle label
+            toggle.GetComponentInChildren<Text>().text = vars;
+
+
+            //add listener
+            toggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate { outputVisibilityListener(toggle.GetComponent<Toggle>(), index); });
+
+
+            dataToggles.Add(toggle);
+
+            //use the index to determine if the toggle should be on or off at start.
+            if (!visibilities[index])
+            {
+                toggle.GetComponent<Toggle>().isOn = false;
+            }
+
+
+        }
+
+
+    }
+
+    //will activate whenever the toggle value changes
+    public void outputVisibilityListener(Toggle tog, int index)
+    {
+        outputConfig.setVisibility(tog.GetComponentInChildren<Text>().text, tog.isOn);
+    }
 }

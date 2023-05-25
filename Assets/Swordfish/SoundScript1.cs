@@ -16,7 +16,7 @@ public class SoundScript1 : MonoBehaviour
 
     private void Start()
     {
-        createGraphButton.onClick.AddListener(playSound);
+        //createGraphButton.onClick.AddListener(playSound);
 
     }
     // Update is called once per frame
