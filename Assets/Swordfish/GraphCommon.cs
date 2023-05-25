@@ -10,9 +10,9 @@ public class GraphCommon : MonoBehaviour
 
     // Axes that make up the graph.
     [Header("Axes")]
-    public string xAxis;
-    public string yAxis;
-    public string zAxis;
+    public string xAxis = " Y (m)";
+    public string yAxis = " Z (m)";
+    public string zAxis = " X (m)";
     public int dimensions = 3;
 
     private const string unusedAxisID = "Undefined";
