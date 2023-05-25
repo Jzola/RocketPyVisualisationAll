@@ -22,10 +22,10 @@ public class SoundScript1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (createGraphSound.pitch > 0)
-        {
-            createGraphSound.pitch -= Time.deltaTime * startingPitch / timeToDecrease;
-        }
+        //if (createGraphSound.pitch > 0)
+        //{
+        //    createGraphSound.pitch -= Time.deltaTime * startingPitch / timeToDecrease;
+        //}
     }
     [ContextMenu("Test sound")]
     public void playSound()
@@ -33,9 +33,9 @@ public class SoundScript1 : MonoBehaviour
         if (soundEnabled.isOn)
             createGraphSound.Play();
 
-        if (createGraphSound.pitch > 0)
-        {
-            audioSource.pitch -= Time.deltaTime * startingPitch / timeToDecrease;
-        }
+        //if (createGraphSound.pitch > 0)
+        //{
+        //    createGraphSound.pitch -= Time.deltaTime * startingPitch / timeToDecrease;
+        //}
     }
 }

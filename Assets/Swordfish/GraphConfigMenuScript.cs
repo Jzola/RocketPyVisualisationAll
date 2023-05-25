@@ -43,6 +43,8 @@ public class GraphConfigMenuScript : MonoBehaviour
         gConfig = transform.parent.gameObject.GetComponent<GraphConfig>();
         outputConfig = transform.parent.gameObject.GetComponent<OutputVariableVisibility>();
 
+        //gConfig.getGraphUpdateProgress();
+
         fIDText.text = gConfig.focusID;
         fTypeText.text = gConfig.focusType;
         fValueText.text = gConfig.focusValue;
