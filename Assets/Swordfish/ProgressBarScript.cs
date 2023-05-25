@@ -22,13 +22,10 @@ public class ProgressBarScript : MonoBehaviour
     {
         bar.value = gConfig.getGraphUpdateProgress();
         checkFinished();
-        
     }
+
     public void checkFinished()
     {
-        if(gConfig.getGraphUpdateProgress() == 1.0f)
-        {
-            bar.gameObject.SetActive(false);
-        }
+        bar.gameObject.SetActive(gConfig.getGraphUpdateProgress() != 1.0f);
     }
 }
