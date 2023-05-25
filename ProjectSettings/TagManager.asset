@@ -15,6 +15,7 @@ TagManager:
   - Highlighting
   - Minimize
   - VRHeadset
+  - Audio
   layers:
   - Default
   - TransparentFX
