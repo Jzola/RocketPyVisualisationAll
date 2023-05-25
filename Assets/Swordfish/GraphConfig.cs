@@ -174,6 +174,10 @@ public class GraphConfig : GraphCommon
     {
         graphUpdating = true;
 
+        // Update progress
+        datafiles.trajProgress = 0;
+        int index = 0;
+
         // Finds and updates all the previous points with the new axes
         foreach (Transform dataSet in datafiles.gameObject.transform)
         {
@@ -186,8 +190,15 @@ public class GraphConfig : GraphCommon
                 // Prevent points from moving during coroutine
                 if (waitForAllPointsToMove) trajectory.pointsNeedUpdating = false;
             }
+
+            // Update progress
+            datafiles.trajProgress = (float)index / datafiles.gameObject.transform.childCount; // Progress of trajectory
+            index++;
+
             yield return null;
         }
+
+        datafiles.trajProgress = 1;
 
         // Enables the points to move once coroutines are over
         if (waitForAllPointsToMove)

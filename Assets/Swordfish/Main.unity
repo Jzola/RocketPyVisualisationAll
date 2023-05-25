@@ -2848,13 +2848,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   variableExtractionFile: {fileID: 4900000, guid: ad85bd01f248ec24eb06e2d064086cb9,
     type: 3}
-  xAxis: 
-  yAxis: 
-  zAxis: 
+  xAxis: ' Y (m)'
+  yAxis: ' Z (m)'
+  zAxis: ' X (m)'
   dimensions: 3
-  variables:
-  - 
-  inputFolderName: 
+  variables: []
+  inputFolderName: Default_Inputs
   availableInputs: []
   scatterGraphPrefab: {fileID: 7634332073583643605, guid: 7168fa4484f58784ba8f7e039387cdab,
     type: 3}

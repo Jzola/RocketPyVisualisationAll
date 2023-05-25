@@ -437,6 +437,7 @@ public class DataFiles : MonoBehaviour
     // Sets the visualisation key text to the launch site latitude and longitude
     public void SetKey()
     {
+        if (input == null) return;
         int latCol = input.findCol("latitude");
         int lonCol = input.findCol("longitude");
         float[] row = input.GetRow(input.dataArray, 0);

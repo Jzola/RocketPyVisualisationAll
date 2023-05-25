@@ -11,19 +11,11 @@ public class SoundUpdateScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //we need to find the audio toggle and check it
-        //Graph Creator/MainMenuAnchor/GraphMenuCanvas/AudioToggle
-        GameObject main = transform.parent.gameObject.transform.parent.gameObject;
-
-        //main.transform.Find
+        // Get the sound controller from root
         GameObject toggle = GameObject.FindGameObjectWithTag("Audio");
         soundControl = toggle.GetComponent<Toggle>();
 
-        //get proportion of graph completed.
-        
         createSound.Play();
-
-
     }
 
     // Update is called once per frame
@@ -31,17 +23,12 @@ public class SoundUpdateScript : MonoBehaviour
     {
         if (soundControl.isOn)
         {
-            while(gConfig.getGraphUpdateProgress() < 1.0f ){
+            // Repeats sounds while graph is updating/ generating.
+            if (gConfig.getGraphUpdateProgress() < 1.0f ){
                 createSound.pitch = gConfig.getGraphUpdateProgress() +1;
                 createSound.Play();
             }
             
-        }
-        else
-        {
-            //remove after testing
-            //createSound.pitch = gConfig.getGraphUpdateProgress() + 1;
-            ///createSound.Play();
         }
     }
 
