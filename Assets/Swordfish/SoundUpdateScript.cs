@@ -31,8 +31,11 @@ public class SoundUpdateScript : MonoBehaviour
     {
         if (soundControl.isOn)
         {
-            createSound.pitch = gConfig.getGraphUpdateProgress() +1;
-            createSound.Play();
+            while(gConfig.getGraphUpdateProgress() < 1.0f ){
+                createSound.pitch = gConfig.getGraphUpdateProgress() +1;
+                createSound.Play();
+            }
+            
         }
         else
         {
