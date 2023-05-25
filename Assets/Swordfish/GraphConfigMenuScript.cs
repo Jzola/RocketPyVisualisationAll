@@ -21,6 +21,7 @@ public class GraphConfigMenuScript : MonoBehaviour
     public Dropdown inputDropdown;
     public Button updateGraphButton;
     public Button toggleDataDisplayVisibility;
+    public Button spawnLinkedBarGraphButton;
     private int inputVarIndex;
     private int xAxisIndex=2;
     private int yAxisIndex = 3;
@@ -32,7 +33,8 @@ public class GraphConfigMenuScript : MonoBehaviour
     public GameObject toggleTemplate;
     public int visIndex=0;
     public List<GameObject> dataToggles;
-    
+    private bool barSelectorAttached = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -46,7 +48,7 @@ public class GraphConfigMenuScript : MonoBehaviour
         fValueText.text = gConfig.focusValue;
         fEngineText.text = gConfig.focusEngine;
 
-
+        spawnLinkedBarGraphButton.onClick.AddListener(delegate { spawnLinkedBarGraph(); });
         setupDataDisplay();
 
         //get variables and axes already sent from graph creation
@@ -292,5 +294,20 @@ public class GraphConfigMenuScript : MonoBehaviour
         {
             gConfig.inputFolderName = axisDropdown.options[index].text;
         }
+    }
+    [ContextMenu("Spawn Linked Graph")]
+    public void spawnLinkedBarGraph()
+    {
+        if (!barSelectorAttached)
+        {
+            gConfig.attachThirdLevelBarSelector();
+            
+
+        }
+        else
+        {
+            gConfig.removeThirdLevelBarSelector();
+        }
+        barSelectorAttached = !barSelectorAttached;
     }
 }
