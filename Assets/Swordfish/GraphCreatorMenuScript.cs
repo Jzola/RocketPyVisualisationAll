@@ -82,8 +82,12 @@ public class GraphCreatorMenuScript : MonoBehaviour
 
         
         //add a listener to the graph dimensions options/toggles that disables z axis if 2D is checked, and enables if 3D is checked.
+        //(value changes again automatically if the other toggle is clicked, due to toggle group rules, so we only need one listener)
         
         dimensionToggles[0].onValueChanged.AddListener(dimensionChanged);
+
+        //add a listener to graph type toggles that disables axis if 'bar' is checked, and enables if unchecked
+        graphToggles[0].onValueChanged.AddListener(delegate { graphTypeChanged(); });
 
         setDefaults();
 
@@ -243,7 +247,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
         else
             axesChosen.Remove(axis);
 
-        //TODO: test in VR if the correct axis chosen is filled with the user choice. Otherwise will need to create separate listeners. 
+         
         if (axisDropdown.Equals(xaxisDropdown))
         {
             xaxisChosen = axisDropdown.options[index].text;
@@ -268,14 +272,53 @@ public class GraphCreatorMenuScript : MonoBehaviour
 
 
     }
+    //listener that disables and reenables the axis options when the type of graph is 'bar'.
+    public void graphTypeChanged()
+    {
+        //if the type is 'bar' graph
+        if (graphToggles[0].isOn)
+        {
+            //disable dimension toggles
+            dimensionToggles[0].enabled = false;
+           
+            dimensionToggles[1].enabled = false;
+            dimensionToggles[0].interactable = false;
+            dimensionToggles[1].interactable = false;
+            //disable the axis dropdowns
+            xaxisDropdown.enabled = false;
+            yaxisDropdown.enabled = false;
+            zaxisDropdown.enabled = false;
+            xaxisDropdown.interactable = false;
+            yaxisDropdown.interactable = false;
+            zaxisDropdown.interactable = false;
+
+
+            // xaxisDropdown.gameObject.SetActive(false);
+
+        }
+        else
+        {
+            //enable dimension toggles
+            dimensionToggles[0].enabled = true;
+            dimensionToggles[1].enabled = true;
+            dimensionToggles[0].interactable= true;
+            dimensionToggles[1].interactable = true;
+            //enable the axis dropdowns
+            xaxisDropdown.enabled = true;
+            yaxisDropdown.enabled = true;
+            zaxisDropdown.enabled = true;
+            xaxisDropdown.interactable = true;
+            yaxisDropdown.interactable = true;
+            zaxisDropdown.interactable = true;
+            // xaxisDropdown.gameObject.SetActive(true);
+        }
+    }
     [ContextMenu("Create a graph")]
     public void createGraph()
     {
 
         //can also access Graph Common for variables
 
-        //test z axis disappears
-        //dimensionToggles[0].isOn= true;
         if (dimensionToggles[0].isOn)
         {
             gCreator.dimensions = 2;
