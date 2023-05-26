@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Graph Creator Menu Script</title>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic|Source+Code+Pro:300,400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="../assets/css/bootstrap.css">
+<link rel="stylesheet" href="../assets/css/jquery.bonsai.css">
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/icon-font/icons.css">
+<script type="text/javascript" src="../assets/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript" src="../assets/js/bootstrap.js"></script>
+<script type="text/javascript" src="../assets/js/jquery.bonsai.js"></script>
+
+  </head>
+  <body>
+    <div>
+
+      <!-- Name Title -->
+
+      <h1>Graph Creator Menu Script</h1>
+
+      <!-- Type and Stereotype -->
+
+      <section style="margin-top: .5em;">
+        <span class="alert alert-info">
+          <span class="node-icon staruml-icon icon-UMLClass"></span>
+          UMLClass
+        </span>
+        
+          <span style="margin-left: 10px" class="alert alert-info">«Script»</span>
+        
+      </section>
+
+      <!-- Path -->
+
+      <section style="margin-top: 10px">
+        
+        
+        
+          
+          <span class="label label-info"><a href='cf9c8b720f3815adeccaf3ef6e48c6c4.html'><span class='node-icon staruml-icon icon-Project'></span>RocketVisualisation UML</a></span>
+        
+          <span>::</span>
+          <span class="label label-info"><a href='cb351982efa2753bce8fec8bdd3dd89e.html'><span class='node-icon staruml-icon icon-UMLPackage'></span>Scripts</a></span>
+        
+          <span>::</span>
+          <span class="label label-info"><a href='6135fbcc12bd379d4156044d88948a5b.html'><span class='node-icon staruml-icon icon-UMLClass'></span>«Script»Graph Creator Menu Script</a></span>
+        
+      </section>
+
+      <!-- Diagram -->
+
+      
+
+      <!-- Description -->
+
+      
+      <section>
+        <h3>Description</h3>
+        <div>
+          
+            <p>Used to to set up the UI of the Graph Creator Menu Canvas (filling drop-down lists with data), set up listeners for user controller actions, and accesses the Graph Creator component to actually generate the graphs.</p>
+          
+        </div>
+      </section>
+      
+
+      <!-- Specification -->
+
+      
+
+      <!-- Directed Relationship -->
+
+      
+
+      <!-- Undirected Relationship -->
+
+      
+
+      <!-- Classifier -->
+
+      
+        
+        
+
+
+        
+        
+
+
+        
+        
+
+
+        
+        
+
+
+        
+        
+
+      
+
+      <!-- Interface -->
+
+      
+
+      <!-- Component -->
+
+      
+
+      <!-- Node -->
+
+      
+
+      <!-- Actor -->
+
+      
+
+      <!-- Use Case -->
+
+      
+
+      <!-- Template Parameters -->
+
+      
+
+      <!-- Literals -->
+
+      
+
+      <!-- Attributes -->
+
+      
+      <section>
+        <h3>Attributes</h3>
+        <table class="table table-striped table-bordered">
+          <tr>
+            <th>Visibility</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="0775e50aca0109f2775ccfdc84196d4d.html">gCreator</a></td>
+            <td><a href='398512a8550f7ac2228355138315248e.html'>GraphCreator</a></td>
+            <td><p>Accesses the graph Creator object by a reference in the Unity Inspector. This allows the use of the GraphCreator script methods like CreateGraph as well as access to the variables inherited from Graph Common, such as variable lists and available outputs. </p></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="4ef32e0fdae7a8f1fdd1464ddef8b3f6.html">xaxisDropdown</a></td>
+            <td>Dropdown</td>
+            <td><p>Used to control the x axis variable on the created graph. Is set up during the start() method with variables obtained from gCreator.</p>
+
+<p>Is a public variable so that the Inspector can be used to connect the Drop down game object to the script.</p></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="83f144cf80a2fbd8b7ade42a0dd5b789.html">yaxisDropdown</a></td>
+            <td>Dropdown</td>
+            <td><p>Used to control the y axis variable on the created graph. Is set up during the start() method with variables obtained from gCreator.</p>
+
+<p>Is a public variable so that the Inspector can be used to connect the Drop down game object to the script.</p></td>
+          </tr>
+          
+        </table>
+      </section>
+      
+
+      <!-- Operations -->
+
+      
+      <section>
+        <h3>Operations</h3>
+        <table class="table table-striped table-bordered">
+          <tr>
+            <th>Visibility</th>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="7597cd5f29ffdc8bf2bf132d745457cb.html">Start()</a></td>
+            <td><p>Sets up all of the drop-downs, and configures them will listeners.
+Attaches listeners to all buttons (except for a hide/minimizer button, which is handled separately by a prefab Show/maximize button with it&#39;s own script)</p></td>
+          </tr>
+          
+        </table>
+      </section>
+      
+
+      <!-- Receptions -->
+
+      
+
+      <!-- Extension Points -->
+
+      
+
+      <!-- Parameters -->
+
+      
+
+      <!-- Diagrams -->
+
+      
+      
+
+      <!-- Behavior -->
+
+      
+
+      <!-- Action -->
+
+      
+
+      <!-- Interaction -->
+
+      
+
+      <!-- CombinedFragment -->
+
+      
+
+      <!-- Activity -->
+
+      
+
+      <!-- State Machine -->
+
+      
+
+      <!-- State Machine -->
+
+      
+
+      <!-- State -->
+
+      
+
+      <!-- Vertex -->
+
+      
+
+      <!-- Transition -->
+
+      
+
+      <!-- Data Model (ERD) -->
+
+      
+
+      <!-- Columns (ERD) -->
+
+      
+
+      <!-- Related Entities (ERD) -->
+
+      
+
+      <!-- Data Flows (DFD) -->
+
+      
+
+      <!-- Flows (Flowchart) -->
+
+      
+
+      <!-- Properties -->
+
+      <section>
+        <h3>Properties</h3>
+        
+        <table class="table table-striped table-bordered">
+    <tr>
+        <th width="50%">Name</th>
+        <th width="50%">Value</th>
+    </tr>
+    
+    
+    
+    
+    
+    
+    
+    <tr>
+        <td>name</td>
+        <td>Graph Creator Menu Script</td>
+    </tr>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <tr>
+        <td>stereotype</td>
+        <td>Script</td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>visibility</td>
+        <td>public</td>
+    </tr>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <tr>
+        <td>isAbstract</td>
+        <td><span class='label label-info'>false</span></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>isFinalSpecialization</td>
+        <td><span class='label label-info'>false</span></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>isLeaf</td>
+        <td><span class='label label-info'>false</span></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>isActive</td>
+        <td><span class='label label-info'>false</span></td>
+    </tr>
+    
+    
+    
+</table>                
+
+      </section>
+
+      <!-- Tags -->
+
+      
+
+      <!-- Constraints, Dependencies, Dependants -->
+
+      
+        
+        
+
+
+        
+        
+
+
+        
+        
+
+      
+
+      <!-- Relationships -->
+
+      
+      
+<section class="element-list">
+    <h3>Relationships</h3>
+    <ul class="nav nav-list">
+        
+        <li><a href='b60a642bbf79079ad63594a4a3607360.html'><span class='node-icon staruml-icon icon-UMLAssociation'></span>(Graph Creator Menu Script—GraphMenuCanvas)</a></li>
+        
+        <li><a href='679c5b568a814b85861215fc3f1f71c3.html'><span class='node-icon staruml-icon icon-UMLAssociation'></span>uses (Graph Creator Menu Script—GraphCreator)</a></li>
+        
+    </ul>
+</section>
+
+
+
+      <!-- Owned Elements -->
+
+      
+      
+<section class="element-list">
+    <h3>Owned Elements</h3>
+    <ul class="nav nav-list">
+        
+        <li><a href='b60a642bbf79079ad63594a4a3607360.html'><span class='node-icon staruml-icon icon-UMLAssociation'></span>(Graph Creator Menu Script—GraphMenuCanvas)</a></li>
+        
+        <li><a href='679c5b568a814b85861215fc3f1f71c3.html'><span class='node-icon staruml-icon icon-UMLAssociation'></span>uses (Graph Creator Menu Script—GraphCreator)</a></li>
+        
+    </ul>
+</section>
+
+
+
+    </div>
+  </body>
+</html>
