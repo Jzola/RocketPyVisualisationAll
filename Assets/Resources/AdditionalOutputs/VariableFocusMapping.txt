@@ -1,7 +1,6 @@
 Default_Inputs:rocket mass (kg)
 BurnOuts:burn out (s)
-MassIncrease:rocket mass (kg)
 NozzleInc:Nozzle Distance
-Propellant2:Propellant
+Propellant:Propellant
 WindSpeed:E wind start,E wind end,N wind start,N wind end
 TempLow:temperature
