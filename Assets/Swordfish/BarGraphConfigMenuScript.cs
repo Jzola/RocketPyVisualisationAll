@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,9 @@ public class BarGraphConfigMenuScript : MonoBehaviour
     public GameObject dataScrollViewContent;
     public TextAsset variableExtractionFile;
     public GameObject toggleTemplate;
+    public Dropdown inputVariableDropdown;
+    public int testValue = 2;
+    public Button reconfigButton;
 
     private List<string> variables;
     public List<GameObject> dataToggles;
@@ -27,7 +31,15 @@ public class BarGraphConfigMenuScript : MonoBehaviour
         variables = new List<string>();
         variables.AddRange(variableExtractionFile.text.Substring(0, variableExtractionFile.text.IndexOf(System.Environment.NewLine)).Split(','));
 
+
         setupDataDisplay();
+
+        //set up the variables shown in the input drop down
+        setUpDropdown(inputVariableDropdown, gConfig.availableInputFolders, 2);
+
+        //set up the graph update button with a listener
+        reconfigButton.onClick.AddListener(updateGraph);
+
     }
 
     // Update is called once per frame
@@ -35,18 +47,10 @@ public class BarGraphConfigMenuScript : MonoBehaviour
     {
         
     }
-
-    public void spawnLinkedBarGraph()
+    [ContextMenu("Update graph")]
+   public void updateGraph()
     {
-        if (!barSelectorAttached)
-        {
-            //gConfig.attachthirdlevelbarselector()
-
-        }
-        else
-        {
-            //
-        }
+        gConfig.replaceBarGraph();
     }
 
     private void setupDataDisplay()
@@ -94,5 +98,32 @@ public class BarGraphConfigMenuScript : MonoBehaviour
     public void outputVisibilityListener(Toggle tog, int index)
     {
         outputConfig.setVisibility(tog.GetComponentInChildren<Text>().text, tog.isOn);
+    }
+    private void setUpDropdown(Dropdown dDown, List<string> options, int defaultIndex)
+    {
+        dDown.options.Clear();
+        dDown.AddOptions(options);
+        dDown.value = defaultIndex;
+        dDown.onValueChanged.AddListener(delegate { dropdownItemSelected(dDown); });
+
+    }
+    [ContextMenu("Test Dropdown")]
+    public void testDropdown()
+    {
+        if(testValue < 10)
+        {
+            inputVariableDropdown.value = testValue;
+        }
+    }
+
+    private void dropdownItemSelected(Dropdown axisDropdown)
+    {
+        int index = axisDropdown.value;
+        //do something with text
+        string axis = axisDropdown.options[index].text;
+        if (axisDropdown.Equals(inputVariableDropdown))
+        {
+            gConfig.inputFolderName = axisDropdown.options[index].text;
+        }
     }
 }
