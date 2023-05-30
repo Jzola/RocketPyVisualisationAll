@@ -30,9 +30,8 @@ public class MaximizeButton : MonoBehaviour
     {
         zero = new Vector3(0, 0, 0);
         //get original scale value of this canvas. A canvas or a cube uses a rect transform
-        
         rectThis = transform.gameObject.GetComponent<RectTransform>();      
-        //start at scale
+        //store the starting scale
         originalScaleMaximizer = rectThis.localScale;
 
         //get the original size of the menu to be minimized
@@ -45,9 +44,6 @@ public class MaximizeButton : MonoBehaviour
         //there should only be one button to find.
         maxButton = this.gameObject.GetComponentInChildren<Button>();
         heading = this.gameObject.transform.GetChild(0).GetComponent<Text>();
-
-        //test that we have the right button and text. Will be "Max button" by default, but can be customized.
-        //heading.text = maxButton.name;
 
         //add the listener to both buttons
         otherPanelMinimizeButton.onClick.AddListener(ToggleCanvasVisibility);

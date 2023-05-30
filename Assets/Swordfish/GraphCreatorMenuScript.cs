@@ -33,6 +33,8 @@ public class GraphCreatorMenuScript : MonoBehaviour
     private int dropDownValue;
     public string dropdownTester="";
     public List<string> variables;
+    private int defaultIndex = 1;
+    private string defaultFolder = "Default_Inputs";
     
     public enum axisdropDowns {xaxis, yaxis, zaxis };
     public axisdropDowns axisDropdowns = axisdropDowns.xaxis;
@@ -44,7 +46,15 @@ public class GraphCreatorMenuScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //GraphCreator has access to GraphCommon fields
+        //this folder should always be present
+        String defaultFolder = "Default_Inputs";
+        
+
+        //check where default inputs is, as the folder structure can be changed by adding more datasets.
+        if (gCreator.availableInputs.Contains(defaultFolder))
+        {
+            defaultIndex = gCreator.availableInputs.IndexOf(defaultFolder);
+        }
 
         Canvas canvas = this.GetComponent<Canvas>();
         //get the anchor and make it invisible to start (make it visible when the menu is minimised)
@@ -54,7 +64,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
         //set up variables for the dropdowns using the gCreator
         List<string> variableList = gCreator.variables;
  
-        //
+        //reset dropdowns to remove 'option a' text
         xaxisDropdown.options.Clear();
         yaxisDropdown.options.Clear();
         zaxisDropdown.options.Clear();
@@ -368,17 +378,18 @@ public class GraphCreatorMenuScript : MonoBehaviour
     //some default variables in case no buttons are pushed
     private void setDefaults()
     {
+        
         graphTypeChosen = GraphCreator.GraphType.SCATTER;
-        xaxisChosen = xaxisDropdown.options[2].text;
         //some default axes for the axisdropdown display
         xaxisDropdown.value = 2;
         yaxisDropdown.value = 3;
         zaxisDropdown.value = 1;
         //the *axis chosen variables should show up in the inspector.
         yaxisChosen = yaxisDropdown.options[3].text;
+        xaxisChosen = xaxisDropdown.options[2].text;
         zaxisChosen = zaxisDropdown.options[1].text;
-        variableDropdown.value = 1;
-        inputvariableChosen = variableDropdown.options[1].text;
+        variableDropdown.value = defaultIndex;
+        inputvariableChosen = variableDropdown.options[defaultIndex].text;
         dimensionChosen = 3.ToString();
         gCreator.dimensions = 3;
         
@@ -423,7 +434,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
         }
 
     }
-
+    //check spawn circles have free space/is selected to determine if graph can be created.
     private bool allowGraphCreation()
     {
         if (gCreator.hasFreeSpace())
@@ -433,7 +444,5 @@ public class GraphCreatorMenuScript : MonoBehaviour
         else
             return false;
     }
-    /*This can be checked with GraphCreator.hasFreeSpace() to first check if there’s a free space, if not, 
-     * check GraphCreator.canCreateNewGraph() to see if a new spawn has already been selected, 
-     * if not, warn the user and disable the button.*/
+    
 }
