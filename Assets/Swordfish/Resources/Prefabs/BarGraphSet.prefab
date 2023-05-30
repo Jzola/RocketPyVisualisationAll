@@ -5276,7 +5276,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 0.98039216, g: 0.7176471, b: 0.5411765, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -9908,8 +9908,28 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1479568845981871851, guid: 4e96eb871060a4549a02804724c0c708,
         type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479568845981871851, guid: 4e96eb871060a4549a02804724c0c708,
+        type: 3}
       propertyPath: m_SizeDelta.y
-      value: 60
+      value: 61
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479568845981871851, guid: 4e96eb871060a4549a02804724c0c708,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479568845981871851, guid: 4e96eb871060a4549a02804724c0c708,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479568845981871851, guid: 4e96eb871060a4549a02804724c0c708,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1479568846118115078, guid: 4e96eb871060a4549a02804724c0c708,
         type: 3}
@@ -9974,12 +9994,12 @@ PrefabInstance:
     - target: {fileID: 1479568846445504548, guid: 4e96eb871060a4549a02804724c0c708,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.006
+      value: 0.0059
       objectReference: {fileID: 0}
     - target: {fileID: 1479568846445504548, guid: 4e96eb871060a4549a02804724c0c708,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.006
+      value: 0.0059
       objectReference: {fileID: 0}
     - target: {fileID: 1479568846445504548, guid: 4e96eb871060a4549a02804724c0c708,
         type: 3}
@@ -10045,6 +10065,22 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Config Menu MaximizeCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479568846445504735, guid: 4e96eb871060a4549a02804724c0c708,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e0310c386b09348d9a23f0797e8fbd0b,
+        type: 3}
+    - target: {fileID: 1479568846630117823, guid: 4e96eb871060a4549a02804724c0c708,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479568846630117823, guid: 4e96eb871060a4549a02804724c0c708,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1479568846630117823, guid: 4e96eb871060a4549a02804724c0c708,
         type: 3}
