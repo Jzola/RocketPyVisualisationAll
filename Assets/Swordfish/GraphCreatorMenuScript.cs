@@ -358,7 +358,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
         xaxisDropdown.value = 2;
         yaxisDropdown.value = 3;
         zaxisDropdown.value = 1;
-        variableDropdown.value = 2;
+        variableDropdown.value = 1;
         //test code
         //dimensionChanged(true);
 
@@ -377,8 +377,8 @@ public class GraphCreatorMenuScript : MonoBehaviour
         //the *axis chosen variables should show up in the inspector.
         yaxisChosen = yaxisDropdown.options[3].text;
         zaxisChosen = zaxisDropdown.options[1].text;
-        variableDropdown.value = 2;
-        inputvariableChosen = variableDropdown.options[2].text;
+        variableDropdown.value = 1;
+        inputvariableChosen = variableDropdown.options[1].text;
         dimensionChosen = 3.ToString();
         gCreator.dimensions = 3;
         
