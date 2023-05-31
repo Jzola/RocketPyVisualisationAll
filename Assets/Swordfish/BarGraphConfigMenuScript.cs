@@ -103,7 +103,7 @@ public class BarGraphConfigMenuScript : MonoBehaviour
     {
         dDown.options.Clear();
         dDown.AddOptions(options);
-        dDown.value = defaultIndex;
+        dDown.value = gConfig.availableInputFolders.IndexOf(gConfig.inputFolderName);
         dDown.onValueChanged.AddListener(delegate { dropdownItemSelected(dDown); });
 
     }
