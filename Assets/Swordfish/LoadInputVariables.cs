@@ -57,6 +57,20 @@ public class LoadInputVariables : MonoBehaviour
         {
             trajectoryFiles.SetKey();
         }
+
+        // Remove due to conflicts in VR
+        BarMouseClick[] mouseComp = GetComponentsInChildren<BarMouseClick>();
+        for (int i = 0; i < mouseComp.Length; i++)
+        {
+            mouseComp[i].enabled = false;
+        }
+
+        // Remove due to conflicts in VR
+        Outline[] outlines = GetComponentsInChildren<Outline>();
+        for (int i = 0; i < outlines.Length; i++)
+        {
+            outlines[i].enabled = false;
+        }
     }
 
     // Loads the csv file and creates csvDataSource and BarGraphDataSet objects
