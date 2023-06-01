@@ -6,6 +6,7 @@ using IATK;
 using BarGraph.VittorCloud;
 using UnityEngine.UI;
 using System.Text;
+using Zinnia.Tracking.Collision;
 
 public class DataPoint : MonoBehaviour
 {
@@ -30,6 +31,8 @@ public class DataPoint : MonoBehaviour
 
     private ChartLinkingManager manager;
     private int trajectoryID;
+
+    private int textUpdateDelay = -1; // Used to refresh text after several frames, to resize panel
 
     private void Start()
     {
@@ -151,11 +154,19 @@ public class DataPoint : MonoBehaviour
             selected = false;
             meshRenderer.material = hoverMaterial;
 
-            Destroy(valuesDisplay);
+            valuesDisplay.gameObject.SetActive(false);
         }
         // Was not selected, now select
-        else
+        else if (!selected && valuesDisplay != null)
         {
+            selected = true;
+            updateValuesString();
+            valuesDisplay.gameObject.SetActive(true);
+
+            textUpdateDelay = 1;
+
+            valuesDisplay.GetComponentInChildren<Text>().text = "";
+        } else { 
             selected = true;
             meshRenderer.material = selectedMaterial;
 
@@ -176,7 +187,10 @@ public class DataPoint : MonoBehaviour
             valuesDisplay.GetComponentInChildren<Text>().text = filteredValuesString;
             // Connect the line renderer of the display to the data point
             valuesDisplay.GetComponentInChildren<ConnectorLink>().SetPointA(gameObject);
-        }                
+        }
+
+        // Prevents collision tracker causing crash when reopening panels
+        Destroy(GetComponent<CollisionTrackerDisabledObserver>());
     }
 
     public String GetRawValuesAsString()
@@ -212,5 +226,14 @@ public class DataPoint : MonoBehaviour
     public CSVDataSource getData()
     {
         return dataSource;
+    }
+
+    private void Update()
+    {
+        // Delayed update on text
+        if (textUpdateDelay-- == 0)
+        {
+            valuesDisplay.GetComponentInChildren<Text>().text = filteredValuesString;
+        }
     }
 }
