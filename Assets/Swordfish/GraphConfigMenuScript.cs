@@ -26,7 +26,8 @@ public class GraphConfigMenuScript : MonoBehaviour
     private int xAxisIndex=2;
     private int yAxisIndex = 3;
     private int zAxisIndex = 1;
-    //private List<Toggle> dataToggles;
+    public List<Toggle> dimensionToggles;
+    public ToggleGroup dimensionsChoice;
     public int focusIDSlider= -1;
     public GameObject dataScrollViewContent;
     private int trajectoriesMax = 29;
@@ -79,12 +80,16 @@ public class GraphConfigMenuScript : MonoBehaviour
         setUpDropdown(yAxisDropdown, gConfig.variables, yAxisIndex);
         setUpDropdown(zAxisDropdown, gConfig.variables, zAxisIndex);
         setUpDropdown(inputDropdown, gConfig.availableInputs, inputVarIndex);
-
+        dimensionToggles[0].onValueChanged.AddListener(delegate { dimensionChanged(); });
 
         if (gConfig.dimensions == 2)
         {
             //remove the z axis dropdown if 2d graph.
             zAxisDropdown.gameObject.SetActive(false);
+        }
+        else
+        {
+            zAxisDropdown.gameObject.SetActive(true);
         }
 
         //currently the slider uses the max trajecjectories = 30, but we include "1.csv" as 0.
@@ -220,8 +225,9 @@ public class GraphConfigMenuScript : MonoBehaviour
         inputDropdown.enabled = true;
 
     }
+    [ContextMenu("Apply Changes")]
     //update the graph
-    private void applyGraphChanges()
+    public void applyGraphChanges()
     {
         setAllUIInactive();
 
@@ -264,6 +270,51 @@ public class GraphConfigMenuScript : MonoBehaviour
     void Update()
     {
 
+    }
+
+    //if the dimension of the graph is 2D, hide the dropdown for the z axis and disable it.
+    public void dimensionChanged()
+    {
+
+
+        if (dimensionToggles[0].isOn)
+        {
+            //the 2D option has been selected, so there is no Z axis
+            zAxisDropdown.enabled = false;
+            //completely hides the toggle
+            zAxisDropdown.gameObject.SetActive(false);
+            gConfig.setGraphDimensions(2);
+        }
+        else
+        {
+            zAxisDropdown.enabled = true;
+            //zaxisDropdown.Show();
+            zAxisDropdown.gameObject.SetActive(true);
+            gConfig.setGraphDimensions(3);
+        }
+
+    }
+
+    //show changing of dimensions, and trigger the listener "dimensionChanged"
+    [ContextMenu("Check dimension Changed")]
+    public void manualDimensionChange()
+    {
+        dimensionsChoice.allowSwitchOff = true;
+        if (dimensionToggles[0].isOn)
+        {
+
+            dimensionToggles[0].isOn = false;
+            dimensionToggles[1].isOn = true;
+        }
+        else
+        {
+            dimensionToggles[1].isOn = false;
+            dimensionToggles[0].isOn = true;
+        }
+
+
+
+        dimensionsChoice.allowSwitchOff = false;
     }
     private void dropdownItemSelected(Dropdown axisDropdown)
     {
