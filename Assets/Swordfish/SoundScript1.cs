@@ -33,9 +33,11 @@ public class SoundScript1 : MonoBehaviour
         if (soundEnabled.isOn)
             createGraphSound.Play();
 
-        //if (createGraphSound.pitch > 0)
-        //{
-        //    createGraphSound.pitch -= Time.deltaTime * startingPitch / timeToDecrease;
-        //}
+
+    }
+    [ContextMenu("Toggle sound")]
+    public void toggleSound()
+    {
+        soundEnabled.isOn = !soundEnabled.isOn;
     }
 }

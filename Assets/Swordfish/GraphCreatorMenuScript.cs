@@ -34,12 +34,13 @@ public class GraphCreatorMenuScript : MonoBehaviour
     public string dropdownTester="";
     public List<string> variables;
     private int defaultIndex = 1;
+    private int interval = 3;
     private string defaultFolder = "Default_Inputs";
     
     public enum axisdropDowns {xaxis, yaxis, zaxis };
     public axisdropDowns axisDropdowns = axisdropDowns.xaxis;
 
-    private int interval = 3; //frames for update check
+    
     private bool graphsCreatable= true;
     
 
@@ -123,17 +124,15 @@ public class GraphCreatorMenuScript : MonoBehaviour
         if (graphToggles[0].isOn)
         {
             graphToggles[0].isOn = false;
-            //due to toggle group rules, this should automatically select the other toggle, but just in case.
+            //due to toggle group rules, this should automatically select the other toggle,
             graphToggles[1].isOn = true;
-            
-            //graphTypeChoice.allowSwitchOff = false;
+
         }
         else
         {
             graphToggles[1].isOn = false;
             graphToggles[0].isOn = true;
-            
-            
+ 
         }
         graphTypeChoice.allowSwitchOff = false;
     }
@@ -155,15 +154,12 @@ public class GraphCreatorMenuScript : MonoBehaviour
             dimensionToggles[0].isOn = true;
         }
 
-
-
         dimensionsChoice.allowSwitchOff = false;
     }
     //if the dimension of the graph is 2D, hide the dropdown for the z axis and disable it.
     public void dimensionChanged(bool arg0)
     {
-        
-        
+      
         if (dimensionToggles[0].isOn)
         {
             //the 2D option has been selected, so there is no Z axis
@@ -177,34 +173,9 @@ public class GraphCreatorMenuScript : MonoBehaviour
             //zaxisDropdown.Show();
             zaxisDropdown.gameObject.SetActive(true);
         }
-        
     }
 
-    //to be moved
-    //[ContextMenu("Toggle Menu")]
-    private void toggleMenuVisibility()
-    {
-        RectTransform rt;
-        //this gets the shader/rendering for the anchor. Don't use this With maximizer canvas.
-        rt = GetComponent<RectTransform>();
-        if (rend.enabled == false)
-        {
-            rend.enabled = true;
-            this.GetComponent<CanvasGroup>().alpha = 1;
-            rt = GetComponent<RectTransform>();
-            rt.localScale = new Vector3(0, 0, 0);
-
-        }
-        else
-        {
-            rend.enabled = false;
-            //replace this with a variable taken from the menu's original size, not a hard coded value.
-            rt.localScale= new Vector3((float)0.0050148922, (float)0.00701489206, (float)0.0050148922);
-            //Vector3(0.0050148922,0.00701489206,0.0050148922)
-            this.GetComponent<CanvasGroup>().alpha = 1;
-        }
-
-    }
+    
     //test that the dropdowns can be changed via the inspector in desktop mode
     [ContextMenu("Test Dropdown")]
     public void dropDownTest()
@@ -235,7 +206,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
             axisDropdownItemSelected(zaxisDropdown);
         }
     }
-
+    //change the input variable. Will be used in createGraph.
     private void variableDropdownItemSelected(Dropdown variableDropdown)
     {
         int index = variableDropdown.value;
@@ -358,7 +329,6 @@ public class GraphCreatorMenuScript : MonoBehaviour
         //gCreator input variable required
         gCreator.inputFolderName = inputvariableChosen;
 
-        //needs to be tested in VR
         gCreator.CreateGraph();
 
         //decide if we need the debug text. Set to false to disable.
@@ -412,12 +382,9 @@ public class GraphCreatorMenuScript : MonoBehaviour
                 {
                     //re-enable the create graph button
                     createGraphButton.enabled = true;
-                    //have some activation indication (colour change or an alert)
-
                     graphsCreatable = !graphsCreatable;
 
                 }
-
             }
             //graph creation may need to be disabled.
             else
@@ -429,8 +396,6 @@ public class GraphCreatorMenuScript : MonoBehaviour
                 }
                 //otherwise button is already disabled, and no change required.
             }
-            
-
         }
 
     }

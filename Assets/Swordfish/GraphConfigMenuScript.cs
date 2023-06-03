@@ -80,17 +80,26 @@ public class GraphConfigMenuScript : MonoBehaviour
         setUpDropdown(yAxisDropdown, gConfig.variables, yAxisIndex);
         setUpDropdown(zAxisDropdown, gConfig.variables, zAxisIndex);
         setUpDropdown(inputDropdown, gConfig.availableInputs, inputVarIndex);
-        dimensionToggles[0].onValueChanged.AddListener(delegate { dimensionChanged(); });
-
+        //set dimension toggles up.
         if (gConfig.dimensions == 2)
-        {
+        {        
+            dimensionsChoice.allowSwitchOff = true;
+            dimensionToggles[1].isOn = false;
+            dimensionToggles[0].isOn = true;
+
+            dimensionsChoice.allowSwitchOff = false;
             //remove the z axis dropdown if 2d graph.
             zAxisDropdown.gameObject.SetActive(false);
+            dimensionsChoice.allowSwitchOff = false;
         }
         else
         {
             zAxisDropdown.gameObject.SetActive(true);
         }
+
+        dimensionToggles[0].onValueChanged.AddListener(delegate { dimensionChanged(); });
+
+      
 
         //currently the slider uses the max trajecjectories = 30, but we include "1.csv" as 0.
         SetupSlider(trajectorySlider, 29);
@@ -98,13 +107,9 @@ public class GraphConfigMenuScript : MonoBehaviour
         setDefaults();
 
         updateGraphButton.onClick.AddListener(applyGraphChanges);
+  
+    }
 
-    }
-    //to be implemented for testing
-    private void toggleDataDisplayController()
-    {
-        //get canvas and either scale down or scale up
-    }
     
     private void setupDataDisplay()
     {
@@ -131,7 +136,6 @@ public class GraphConfigMenuScript : MonoBehaviour
 
             //add listener
              toggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate { outputVisibilityListener(toggle.GetComponent<Toggle>(), index); });
-
             
             dataToggles.Add(toggle);
 
@@ -186,6 +190,7 @@ public class GraphConfigMenuScript : MonoBehaviour
 
 
     }
+    //Checks the graphConfig focus values and updates the text fields.
     private void updateFocusText()
     {
         fIDText.text = gConfig.focusID;
@@ -193,10 +198,9 @@ public class GraphConfigMenuScript : MonoBehaviour
         fValueText.text = gConfig.focusValue;
         fEngineText.text = gConfig.focusEngine;
     }
+    //Sets up the slider with the range, and adds the listener
     private void SetupSlider(Slider slider, int valRange)
     {
-        //
-
         slider.minValue = -1;
         slider.maxValue = valRange;
         slider.wholeNumbers = true;
@@ -237,7 +241,6 @@ public class GraphConfigMenuScript : MonoBehaviour
         updateFocusText();
 
         //reset UI
-
         setAllUIActive();
     }
 
@@ -276,7 +279,6 @@ public class GraphConfigMenuScript : MonoBehaviour
     public void dimensionChanged()
     {
 
-
         if (dimensionToggles[0].isOn)
         {
             //the 2D option has been selected, so there is no Z axis
@@ -296,9 +298,10 @@ public class GraphConfigMenuScript : MonoBehaviour
     }
 
     //show changing of dimensions, and trigger the listener "dimensionChanged"
-    [ContextMenu("Check dimension Changed")]
+    [ContextMenu("Change dimension")]
     public void manualDimensionChange()
     {
+        //allows the toggle rule to be disabled in order to manipulate the isOn values.
         dimensionsChoice.allowSwitchOff = true;
         if (dimensionToggles[0].isOn)
         {
@@ -312,8 +315,6 @@ public class GraphConfigMenuScript : MonoBehaviour
             dimensionToggles[0].isOn = true;
         }
 
-
-
         dimensionsChoice.allowSwitchOff = false;
     }
     private void dropdownItemSelected(Dropdown axisDropdown)
@@ -323,7 +324,6 @@ public class GraphConfigMenuScript : MonoBehaviour
         //do something with text
         string axis = axisDropdown.options[index].text;
 
-        //TODO: test in VR if the correct axis chosen is filled with the user choice. Otherwise will need to create separate listeners.
         if (axisDropdown.Equals(xAxisDropdown))
         {
 
@@ -334,7 +334,6 @@ public class GraphConfigMenuScript : MonoBehaviour
         else if (axisDropdown.Equals(yAxisDropdown))
         {
             gConfig.yAxis = axisDropdown.options[index].text;
-
 
         }
 
@@ -354,7 +353,6 @@ public class GraphConfigMenuScript : MonoBehaviour
         if (!barSelectorAttached)
         {
             gConfig.attachThirdLevelBarSelector();
-            
 
         }
         else

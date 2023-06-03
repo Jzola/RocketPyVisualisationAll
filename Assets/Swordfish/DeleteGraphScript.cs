@@ -4,8 +4,6 @@ using UnityEngine.UI;
 public class DeleteGraphScript : MonoBehaviour
 {
     private GraphConfig gConfig;
-    //private GraphConfig scatterConfig;
-    //private BarGraphConfig barConfig;
     public Button confirmButton;
     public Button cancelButton;
     public Button launchButton;
