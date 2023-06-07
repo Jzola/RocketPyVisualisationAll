@@ -129,9 +129,9 @@ namespace IATK
                             labelText.alignment = TextAlignmentOptions.MidlineLeft;
                             labelText.GetComponent<RectTransform>().pivot = new Vector2(0, 0.5f);
                             // Set pivot on the container as well, otherwise it doesn't actually update in play mode
-                            TextContainer container = child.GetComponent<TextContainer>();
-                            container.anchorPosition = TextContainerAnchors.Custom;
-                            container.pivot = new Vector2(0, 0.5f);
+                            //TextContainer container = child.GetComponent<TextContainer>();
+                            //container.anchorPosition = TextContainerAnchors.Custom;
+                            //container.pivot = new Vector2(0, 0.5f);
                         }
                         else if (child.gameObject.name.Contains("Tick"))
                         {
@@ -144,8 +144,8 @@ namespace IATK
                     SetXLocalPosition(axisTickLabelHolder.transform, 0);
                     attributeLabel.alignment = TextAlignmentOptions.Top;  
                     attributeLabel.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
-                    attributeLabel.GetComponent<TextContainer>().anchorPosition = TextContainerAnchors.Custom;
-                    attributeLabel.GetComponent<TextContainer>().pivot = new Vector2(0.5f, 0.5f);
+                    //attributeLabel.GetComponent<TextContainer>().anchorPosition = TextContainerAnchors.Custom;
+                    //attributeLabel.GetComponent<TextContainer>().pivot = new Vector2(0.5f, 0.5f);
                     UpdateLength(visualisationReference.width);
                     break;
                     
