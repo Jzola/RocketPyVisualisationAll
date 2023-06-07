@@ -281,6 +281,13 @@ public class ThirdLevelChartLinkingManager : ChartLinkingManager
         rt.sizeDelta = new Vector2(rt.sizeDelta.x, height);
     }
 
+    [ContextMenu("Toggle Highlighting Menu")]
+    // Unity editor toggle for highlighting ui
+    public void toggleHighlight()
+    {
+        ShowHighlightingUI(!doHighlighting);
+    }
+
     public void ShowHighlightingUI(bool isOn)
     {
         doHighlighting = isOn;

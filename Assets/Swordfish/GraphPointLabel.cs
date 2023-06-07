@@ -20,10 +20,10 @@ public class GraphPointLabel : MonoBehaviour
     }
     private void OnMouseEnter()
     {
-        if (axisType == AxisType.X)
-            manager.BarXLabelHover(point.index);
-        else if (axisType == AxisType.Z)
-            manager.BarZLabelHover(point.index);
+        //if (axisType == AxisType.X)
+        //    manager.BarXLabelHover(point.index);
+        //else if (axisType == AxisType.Z)
+        //    manager.BarZLabelHover(point.index);
     }
 
     private void OnTriggerEnter(Collider other)
