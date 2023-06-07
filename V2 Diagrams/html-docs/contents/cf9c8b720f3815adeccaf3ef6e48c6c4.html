@@ -60,7 +60,9 @@ The Main Scene holds all of the top level /parent components required to run the
 -Parent GameObjects have an aggregation relationship with Child Objects.
 -Components use a composition relationship with the GameOBject they are placed on.
 -Game Objects have a composition relationship to their needed scripts (when used as components)
--Scripts that depend on other scripts have a dependency relationship </p>
+-Scripts that depend on other scripts , or other GameObjects that they are not components of, have a dependency relationship </p>
+
+<p>Not all objects can fit in the same diagram, so where relationships have been split, the root component is grey, and any leaf components that are expanded elsewhere are in yellow</p>
           
         </div>
       </section>
@@ -286,8 +288,6 @@ The Main Scene holds all of the top level /parent components required to run the
 <section class="element-list">
     <h3>Owned Elements</h3>
     <ul class="nav nav-list">
-        
-        <li><a href='594af663de577680f35b13183109d675.html'><span class='node-icon staruml-icon icon-UMLModel'></span>Components</a></li>
         
         <li><a href='886a2e4298f760d4601eea0899d6cf97.html'><span class='node-icon staruml-icon icon-UMLModel'></span>Main Scene</a></li>
         
