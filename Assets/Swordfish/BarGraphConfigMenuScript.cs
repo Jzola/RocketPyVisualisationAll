@@ -18,7 +18,6 @@ public class BarGraphConfigMenuScript : MonoBehaviour
     private List<string> variables;
     public List<GameObject> dataToggles;
 
-    private bool barSelectorAttached = false;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +25,6 @@ public class BarGraphConfigMenuScript : MonoBehaviour
         //delete button is already handled separately.
         gConfig = transform.parent.gameObject.GetComponent<BarGraphConfig>();
 
-        //add listener to button to call
         // Creates a list of variables from the given file
         variables = new List<string>();
         variables.AddRange(variableExtractionFile.text.Substring(0, variableExtractionFile.text.IndexOf(System.Environment.NewLine)).Split(','));
@@ -59,7 +57,7 @@ public class BarGraphConfigMenuScript : MonoBehaviour
         int noToggles = variables.Count;
         //get the scrollview. The canvas is a direct child of the menu object
 
-        // dataToggles.Add(toggle);
+        
         int index;
         //add the toggles to the data panel and connect them to a listener that ajdusts variable visibility
         foreach (string vars in variables)
@@ -119,8 +117,7 @@ public class BarGraphConfigMenuScript : MonoBehaviour
     private void dropdownItemSelected(Dropdown axisDropdown)
     {
         int index = axisDropdown.value;
-        //do something with text
-        string axis = axisDropdown.options[index].text;
+        
         if (axisDropdown.Equals(inputVariableDropdown))
         {
             gConfig.inputFolderName = axisDropdown.options[index].text;

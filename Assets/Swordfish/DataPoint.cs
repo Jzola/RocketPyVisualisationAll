@@ -133,7 +133,7 @@ public class DataPoint : MonoBehaviour
         }
     }
 
-    // TODO for testing on PC only
+    // for testing on PC only
     private void OnMouseEnter()
     {
        // manager.HighlightID(trajectoryID);
