@@ -319,7 +319,7 @@ public class GraphConfig : GraphCommon
         bargraph.transform.parent = chartLinkMgr.transform.parent;
         for (int i = chartLinkMgr.transform.childCount - 1; i >= 0; i--)
         {
-            chartLinkMgr.transform.GetChild(i).parent = bargraph.transform;
+            chartLinkMgr.transform.GetChild(i).SetParent(bargraph.transform);
         }
         
         // Delete old manager

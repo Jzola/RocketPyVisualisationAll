@@ -258,7 +258,7 @@ namespace Graph.VittorCloud
 
                 GameObject grouptemp = GameObject.Instantiate(horizontalGroup, transform.position, transform.rotation);
 
-                grouptemp.transform.parent = barParent.transform;
+                grouptemp.transform.SetParent(barParent.transform);
                 grouptemp.transform.localPosition = pos + new Vector3((zRowOffset * i), 0, 0);
 
                 grouptemp.GetComponent<RectTransform>().sizeDelta = new Vector2(XLength, YLength);
