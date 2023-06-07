@@ -32379,6 +32379,78 @@
 				},
 				{
 					"_type": "UMLClass",
+					"_id": "AAAAAAGIlIWy7HllbXg=",
+					"_parent": {
+						"$ref": "AAAAAAGHvBKquXHlJQ4="
+					},
+					"name": "LinkTransform",
+					"stereotype": "Script",
+					"attributes": [
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlIX3TXlqq78=",
+							"_parent": {
+								"$ref": "AAAAAAGIlIWy7HllbXg="
+							},
+							"name": "objectToAttach",
+							"type": {
+								"$ref": "AAAAAAGHuADWkUzdeps="
+							}
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlIZPHXlvLfU=",
+							"_parent": {
+								"$ref": "AAAAAAGIlIWy7HllbXg="
+							},
+							"name": "offsetPos",
+							"visibility": "private",
+							"type": "Vector3"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlIaaHXl1ctY=",
+							"_parent": {
+								"$ref": "AAAAAAGIlIWy7HllbXg="
+							},
+							"name": "offsetUp",
+							"visibility": "private",
+							"type": "Vector3"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlIbW7nl76fI=",
+							"_parent": {
+								"$ref": "AAAAAAGIlIWy7HllbXg="
+							},
+							"name": "offsetFwd",
+							"visibility": "private",
+							"type": ""
+						}
+					],
+					"operations": [
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlIcf3HmAUVY=",
+							"_parent": {
+								"$ref": "AAAAAAGIlIWy7HllbXg="
+							},
+							"name": "Start",
+							"documentation": "Get offsets"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlIdm/XmEscU=",
+							"_parent": {
+								"$ref": "AAAAAAGIlIWy7HllbXg="
+							},
+							"name": "Update",
+							"documentation": "Apply offsets to this transform and set the other objects pos and rotation"
+						}
+					]
+				},
+				{
+					"_type": "UMLClass",
 					"_id": "AAAAAAGIgKeYnCjDxPE=",
 					"_parent": {
 						"$ref": "AAAAAAGHvBKquXHlJQ4="
@@ -32646,7 +32718,231 @@
 						"$ref": "AAAAAAGHvBKquXHlJQ4="
 					},
 					"name": "OutputVariableVisibility",
-					"stereotype": "Script"
+					"stereotype": "Script",
+					"attributes": [
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlJjXnnpZpgA=",
+							"_parent": {
+								"$ref": "AAAAAAGIk9bNvqKXHEw="
+							},
+							"name": "dataFilesObject",
+							"type": ""
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlJkoJnpd6K4=",
+							"_parent": {
+								"$ref": "AAAAAAGIk9bNvqKXHEw="
+							},
+							"name": "visibilityFilter",
+							"type": "bool"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlJmr9XpiSig=",
+							"_parent": {
+								"$ref": "AAAAAAGIk9bNvqKXHEw="
+							},
+							"name": "dataSources",
+							"visibility": "private",
+							"type": {
+								"$ref": "AAAAAAGIgXEp0NR78xY="
+							},
+							"multiplicity": "*"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlJnvfXpodLA=",
+							"_parent": {
+								"$ref": "AAAAAAGIk9bNvqKXHEw="
+							},
+							"name": "initialNoOfShownVariables",
+							"visibility": "private",
+							"type": "int"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlJpxVnpwx2A=",
+							"_parent": {
+								"$ref": "AAAAAAGIk9bNvqKXHEw="
+							},
+							"name": "initialized",
+							"visibility": "private",
+							"type": "bool"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlJq+F3p2VI4=",
+							"_parent": {
+								"$ref": "AAAAAAGIk9bNvqKXHEw="
+							},
+							"name": "filterChanged",
+							"type": "bool"
+						}
+					],
+					"operations": [
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlJt3pnp7z4U=",
+							"_parent": {
+								"$ref": "AAAAAAGIk9bNvqKXHEw="
+							},
+							"name": "Start",
+							"documentation": "Initialise the data"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlJu3z3qADlA=",
+							"_parent": {
+								"$ref": "AAAAAAGIk9bNvqKXHEw="
+							},
+							"name": "Update",
+							"documentation": "initiliseData if it failed before"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlJwktnqFWuY=",
+							"_parent": {
+								"$ref": "AAAAAAGIk9bNvqKXHEw="
+							},
+							"name": "initialiseVisibilities",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGIlJxchnqJlW4=",
+									"_parent": {
+										"$ref": "AAAAAAGIlJwktnqFWuY="
+									},
+									"name": "amountVisible",
+									"type": "int"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlJypQXqOOVA=",
+							"_parent": {
+								"$ref": "AAAAAAGIk9bNvqKXHEw="
+							},
+							"name": "resetVisibility"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlJ0Cx3qSbGM=",
+							"_parent": {
+								"$ref": "AAAAAAGIk9bNvqKXHEw="
+							},
+							"name": "setVisibility",
+							"documentation": "Sets visibilityFilter based on given index",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGIlJ1ZJ3qXVi4=",
+									"_parent": {
+										"$ref": "AAAAAAGIlJ0Cx3qSbGM="
+									},
+									"name": "index",
+									"type": "int"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGIlJ2DXnqcelc=",
+									"_parent": {
+										"$ref": "AAAAAAGIlJ0Cx3qSbGM="
+									},
+									"name": "visible",
+									"type": "bool"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlJ39x3qhZ/U=",
+							"_parent": {
+								"$ref": "AAAAAAGIk9bNvqKXHEw="
+							},
+							"name": "setVisibility",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGIlJ477nql+gM=",
+									"_parent": {
+										"$ref": "AAAAAAGIlJ39x3qhZ/U="
+									},
+									"name": "varName",
+									"type": "string"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGIlJ597nqq0hE=",
+									"_parent": {
+										"$ref": "AAAAAAGIlJ39x3qhZ/U="
+									},
+									"name": "visible",
+									"type": "bool"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlJ7JdXqvcWM=",
+							"_parent": {
+								"$ref": "AAAAAAGIk9bNvqKXHEw="
+							},
+							"name": "getVisibility",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGIlJ8ynnqzLwA=",
+									"_parent": {
+										"$ref": "AAAAAAGIlJ7JdXqvcWM="
+									},
+									"name": "index",
+									"type": "int"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlJ9nD3q4w4Y=",
+							"_parent": {
+								"$ref": "AAAAAAGIk9bNvqKXHEw="
+							},
+							"name": "getVisibility",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGIlJ+oJnq8dlo=",
+									"_parent": {
+										"$ref": "AAAAAAGIlJ9nD3q4w4Y="
+									},
+									"name": "varName",
+									"type": ""
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlKAE7nrA/uk=",
+							"_parent": {
+								"$ref": "AAAAAAGIk9bNvqKXHEw="
+							},
+							"name": "getVisibilities",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGIlKBUbnrECzc=",
+									"_parent": {
+										"$ref": "AAAAAAGIlKAE7nrA/uk="
+									},
+									"name": "bool",
+									"type": "",
+									"direction": "return"
+								}
+							]
+						}
+					]
 				},
 				{
 					"_type": "UMLClass",
@@ -32655,7 +32951,283 @@
 						"$ref": "AAAAAAGHvBKquXHlJQ4="
 					},
 					"name": "RocketAnimation",
-					"stereotype": "Script"
+					"stereotype": "Script",
+					"attributes": [
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlKmrKHrulsY=",
+							"_parent": {
+								"$ref": "AAAAAAGIgW1+hMswj/Y="
+							},
+							"name": "dataObjects",
+							"type": {
+								"$ref": "AAAAAAGIgWmBjcCMgHo="
+							}
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlKoSqHrzvKg=",
+							"_parent": {
+								"$ref": "AAAAAAGIgW1+hMswj/Y="
+							},
+							"name": "lineList",
+							"type": "LineRenderer",
+							"multiplicity": "*"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlKp273r3i30=",
+							"_parent": {
+								"$ref": "AAAAAAGIgW1+hMswj/Y="
+							},
+							"name": "lineRenderer",
+							"visibility": "private",
+							"type": "LineRenderer"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlKs8x3r+Y+U=",
+							"_parent": {
+								"$ref": "AAAAAAGIgW1+hMswj/Y="
+							},
+							"name": "points",
+							"visibility": "private",
+							"type": "Vector3",
+							"multiplicity": "*"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlKu1tnsG09Y=",
+							"_parent": {
+								"$ref": "AAAAAAGIgW1+hMswj/Y="
+							},
+							"name": "index",
+							"visibility": "private",
+							"type": "int"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlKvzt3sM1EE=",
+							"_parent": {
+								"$ref": "AAAAAAGIgW1+hMswj/Y="
+							},
+							"name": "pointsGOs",
+							"visibility": "private",
+							"type": ""
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlKy2QHsR8II=",
+							"_parent": {
+								"$ref": "AAAAAAGIgW1+hMswj/Y="
+							},
+							"name": "speed",
+							"visibility": "private",
+							"type": "float"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlKzz2HsXPow=",
+							"_parent": {
+								"$ref": "AAAAAAGIgW1+hMswj/Y="
+							},
+							"name": "playing",
+							"visibility": "private",
+							"type": "bool"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlK1HOHsdEfM=",
+							"_parent": {
+								"$ref": "AAAAAAGIgW1+hMswj/Y="
+							},
+							"name": "percent",
+							"visibility": "private",
+							"type": ""
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlLAxUXsi2F8=",
+							"_parent": {
+								"$ref": "AAAAAAGIgW1+hMswj/Y="
+							},
+							"name": "pctChange",
+							"visibility": "private",
+							"type": "float"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlLCqGHsoZpg=",
+							"_parent": {
+								"$ref": "AAAAAAGIgW1+hMswj/Y="
+							},
+							"name": "animationUI",
+							"type": {
+								"$ref": "AAAAAAGIlKlph3rpRYY="
+							}
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlLDyjXstyNA=",
+							"_parent": {
+								"$ref": "AAAAAAGIgW1+hMswj/Y="
+							},
+							"name": "load",
+							"visibility": "private",
+							"type": "bool"
+						}
+					],
+					"operations": [
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlKj3yXrk158=",
+							"_parent": {
+								"$ref": "AAAAAAGIgW1+hMswj/Y="
+							},
+							"name": "Start",
+							"documentation": "Set up the rotation"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlLF2pXszTVg=",
+							"_parent": {
+								"$ref": "AAAAAAGIgW1+hMswj/Y="
+							},
+							"name": "Update",
+							"documentation": "During first frame, load trajectory points from line renderer and set rocket starting position.\nIf the rocket hasn't reached final data point, keep moving along trajectory.\n If the user has moved the slider, move rocket accordingly"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlLITWHs68vE=",
+							"_parent": {
+								"$ref": "AAAAAAGIgW1+hMswj/Y="
+							},
+							"name": "resetAnimation",
+							"documentation": " Reset the rocket animation back to the beginning data point"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlLJeUXs/Woc=",
+							"_parent": {
+								"$ref": "AAAAAAGIgW1+hMswj/Y="
+							},
+							"name": "sliderChanged",
+							"documentation": " When the user moves along the slider, move the rocket accordingly.",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGIlLKBv3tDfVg=",
+									"_parent": {
+										"$ref": "AAAAAAGIlLJeUXs/Woc="
+									},
+									"name": "pct",
+									"type": "float"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlLLZV3tJsbE=",
+							"_parent": {
+								"$ref": "AAAAAAGIgW1+hMswj/Y="
+							},
+							"name": "getCurrentDataPoint",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGIlLMW+HtNHOA=",
+									"_parent": {
+										"$ref": "AAAAAAGIlLLZV3tJsbE="
+									},
+									"name": "Parameter1",
+									"type": {
+										"$ref": "AAAAAAGIlE88lFkp5nk="
+									},
+									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlLNrcHtSHZ0=",
+							"_parent": {
+								"$ref": "AAAAAAGIgW1+hMswj/Y="
+							},
+							"name": "setSelectedTrajectory",
+							"documentation": "Set the trajectory that the rocket is animated across based on its index of data source in the editor",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGIlLPopntXhg4=",
+									"_parent": {
+										"$ref": "AAAAAAGIlLNrcHtSHZ0="
+									},
+									"name": "selectedIndex",
+									"type": "int"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlLRXoXtdTCw=",
+							"_parent": {
+								"$ref": "AAAAAAGIgW1+hMswj/Y="
+							},
+							"name": "setSelectedTrajectory",
+							"documentation": "Set the trajectory that the rocket is animated across based on the user selecting a trajectory's data point",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGIlLSm33tid5Q=",
+									"_parent": {
+										"$ref": "AAAAAAGIlLRXoXtdTCw="
+									},
+									"name": "trajectory",
+									"type": "GameObject"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlLVvb3tnfp8=",
+							"_parent": {
+								"$ref": "AAAAAAGIgW1+hMswj/Y="
+							},
+							"name": "setPlaying",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGIlLWiZntrO9s=",
+									"_parent": {
+										"$ref": "AAAAAAGIlLVvb3tnfp8="
+									},
+									"name": "play",
+									"type": "bool"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlLYlRntw7EI=",
+							"_parent": {
+								"$ref": "AAAAAAGIgW1+hMswj/Y="
+							},
+							"name": "GetRocketAnimationUI",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGIlLZet3t03Q8=",
+									"_parent": {
+										"$ref": "AAAAAAGIlLYlRntw7EI="
+									},
+									"name": "Parameter1",
+									"type": {
+										"$ref": "AAAAAAGIlKlph3rpRYY="
+									}
+								}
+							]
+						}
+					]
 				},
 				{
 					"_type": "UMLClass",
@@ -33133,73 +33705,346 @@
 				},
 				{
 					"_type": "UMLClass",
-					"_id": "AAAAAAGIlIWy7HllbXg=",
+					"_id": "AAAAAAGIlKDY7nrJpUQ=",
 					"_parent": {
 						"$ref": "AAAAAAGHvBKquXHlJQ4="
 					},
-					"name": "LinkTransform",
+					"name": "ProgressBarScript",
+					"documentation": "Script designed to  set progress bar based on trajectory completion",
 					"stereotype": "Script",
 					"attributes": [
 						{
 							"_type": "UMLAttribute",
-							"_id": "AAAAAAGIlIX3TXlqq78=",
+							"_id": "AAAAAAGIlKHIxnrP2I8=",
 							"_parent": {
-								"$ref": "AAAAAAGIlIWy7HllbXg="
+								"$ref": "AAAAAAGIlKDY7nrJpUQ="
 							},
-							"name": "objectToAttach",
+							"name": "bar",
+							"type": "Slider"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlKIclnrUj1I=",
+							"_parent": {
+								"$ref": "AAAAAAGIlKDY7nrJpUQ="
+							},
+							"name": "gConfig",
 							"type": {
-								"$ref": "AAAAAAGHuADWkUzdeps="
+								"$ref": "AAAAAAGHvP/iQ3w7NDY="
 							}
-						},
-						{
-							"_type": "UMLAttribute",
-							"_id": "AAAAAAGIlIZPHXlvLfU=",
-							"_parent": {
-								"$ref": "AAAAAAGIlIWy7HllbXg="
-							},
-							"name": "offsetPos",
-							"visibility": "private",
-							"type": "Vector3"
-						},
-						{
-							"_type": "UMLAttribute",
-							"_id": "AAAAAAGIlIaaHXl1ctY=",
-							"_parent": {
-								"$ref": "AAAAAAGIlIWy7HllbXg="
-							},
-							"name": "offsetUp",
-							"visibility": "private",
-							"type": "Vector3"
-						},
-						{
-							"_type": "UMLAttribute",
-							"_id": "AAAAAAGIlIbW7nl76fI=",
-							"_parent": {
-								"$ref": "AAAAAAGIlIWy7HllbXg="
-							},
-							"name": "offsetFwd",
-							"visibility": "private",
-							"type": ""
 						}
 					],
 					"operations": [
 						{
 							"_type": "UMLOperation",
-							"_id": "AAAAAAGIlIcf3HmAUVY=",
+							"_id": "AAAAAAGIlKLmrXraO3M=",
 							"_parent": {
-								"$ref": "AAAAAAGIlIWy7HllbXg="
+								"$ref": "AAAAAAGIlKDY7nrJpUQ="
 							},
-							"name": "Start",
-							"documentation": "Get offsets"
+							"name": "Start"
 						},
 						{
 							"_type": "UMLOperation",
-							"_id": "AAAAAAGIlIdm/XmEscU=",
+							"_id": "AAAAAAGIlKNTrnrfL28=",
 							"_parent": {
-								"$ref": "AAAAAAGIlIWy7HllbXg="
+								"$ref": "AAAAAAGIlKDY7nrJpUQ="
 							},
 							"name": "Update",
-							"documentation": "Apply offsets to this transform and set the other objects pos and rotation"
+							"documentation": "Updates the progress. If finished, will set the game object to be inactive."
+						}
+					]
+				},
+				{
+					"_type": "UMLClass",
+					"_id": "AAAAAAGIlKlph3rpRYY=",
+					"_parent": {
+						"$ref": "AAAAAAGHvBKquXHlJQ4="
+					},
+					"name": "RocketAnimationUI",
+					"stereotype": "Script",
+					"attributes": [
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlLdRD3t4pLU=",
+							"_parent": {
+								"$ref": "AAAAAAGIlKlph3rpRYY="
+							},
+							"name": "trajectorySourceUIDropdown",
+							"type": "Dropdown"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlLeZtXt9Evc=",
+							"_parent": {
+								"$ref": "AAAAAAGIlKlph3rpRYY="
+							},
+							"name": "trajectoryUISlider",
+							"type": "Slider"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlLfSzXuCA5o=",
+							"_parent": {
+								"$ref": "AAAAAAGIlKlph3rpRYY="
+							},
+							"name": "dataDisplays",
+							"type": "GameObject",
+							"multiplicity": "*"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlLgXIXuIxYA=",
+							"_parent": {
+								"$ref": "AAAAAAGIlKlph3rpRYY="
+							},
+							"name": "dataVisibility",
+							"type": {
+								"$ref": "AAAAAAGIk9bNvqKXHEw="
+							}
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlLiJj3uNGRM=",
+							"_parent": {
+								"$ref": "AAAAAAGIlKlph3rpRYY="
+							},
+							"name": "loaded",
+							"visibility": "private",
+							"type": "bool"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlLjBL3uT00M=",
+							"_parent": {
+								"$ref": "AAAAAAGIlKlph3rpRYY="
+							},
+							"name": "rocket",
+							"visibility": "private",
+							"type": {
+								"$ref": "AAAAAAGIgW1+hMswj/Y="
+							}
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlLlfoHudmis=",
+							"_parent": {
+								"$ref": "AAAAAAGIlKlph3rpRYY="
+							},
+							"name": "currentDataPoint",
+							"type": {
+								"$ref": "AAAAAAGIlE88lFkp5nk="
+							}
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlLm5J3uiG0Q=",
+							"_parent": {
+								"$ref": "AAAAAAGIlKlph3rpRYY="
+							},
+							"name": "lastDataPoint",
+							"visibility": "private",
+							"type": {
+								"$ref": "AAAAAAGIlE88lFkp5nk="
+							}
+						}
+					],
+					"operations": [
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlLkVaHuZ0CU=",
+							"_parent": {
+								"$ref": "AAAAAAGIlKlph3rpRYY="
+							},
+							"name": "Update"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlLqMznupCrs=",
+							"_parent": {
+								"$ref": "AAAAAAGIlKlph3rpRYY="
+							},
+							"name": "InitialLoad",
+							"documentation": "Setup dropdown UI with list of data source associated with the visualisation that the rocket is from\n\nGet data files from the DataFiles component of the visualisation"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlLs6z3uvAnc=",
+							"_parent": {
+								"$ref": "AAAAAAGIlKlph3rpRYY="
+							},
+							"name": "playAnimation",
+							"documentation": "Plays/resumes the rocket animation"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlLuGh3u0S7o=",
+							"_parent": {
+								"$ref": "AAAAAAGIlKlph3rpRYY="
+							},
+							"name": "pauseAnimation"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlLvCB3u4hR0=",
+							"_parent": {
+								"$ref": "AAAAAAGIlKlph3rpRYY="
+							},
+							"name": "resetAnimation",
+							"documentation": " Reset the animation to the beginning"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlLwJx3u9ZpU=",
+							"_parent": {
+								"$ref": "AAAAAAGIlKlph3rpRYY="
+							},
+							"name": "updateSelectedTrajectory",
+							"documentation": "Update the trajectory that the rocket is on based on the dropdown value"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlLxwV3vCU50=",
+							"_parent": {
+								"$ref": "AAAAAAGIlKlph3rpRYY="
+							},
+							"name": "getPercentSlider",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGIlLzZCHvGLGg=",
+									"_parent": {
+										"$ref": "AAAAAAGIlLxwV3vCU50="
+									},
+									"name": "Parameter1",
+									"type": "Slider"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlL0QiHvKuDI=",
+							"_parent": {
+								"$ref": "AAAAAAGIlKlph3rpRYY="
+							},
+							"name": "getDropdown",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGIlL1CEHvOPv4=",
+									"_parent": {
+										"$ref": "AAAAAAGIlL0QiHvKuDI="
+									},
+									"name": "ddown",
+									"type": "Dropdown"
+								}
+							]
+						}
+					]
+				},
+				{
+					"_type": "UMLClass",
+					"_id": "AAAAAAGIlL3vD3vTGm8=",
+					"_parent": {
+						"$ref": "AAAAAAGHvBKquXHlJQ4="
+					},
+					"name": "RotateParent",
+					"stereotype": "Script",
+					"attributes": [
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlL5EUXvYNWk=",
+							"_parent": {
+								"$ref": "AAAAAAGIlL3vD3vTGm8="
+							},
+							"name": "rotSpeed",
+							"type": "float"
+						}
+					],
+					"operations": [
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlL6NoHvdKfo=",
+							"_parent": {
+								"$ref": "AAAAAAGIlL3vD3vTGm8="
+							},
+							"name": "OnMouseDrag",
+							"documentation": "Rotate the parent"
+						}
+					]
+				},
+				{
+					"_type": "UMLClass",
+					"_id": "AAAAAAGIlL97eXvpPVo=",
+					"_parent": {
+						"$ref": "AAAAAAGHvBKquXHlJQ4="
+					},
+					"name": "ScaleOnDistance",
+					"stereotype": "Script",
+					"attributes": [
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlL/E0Hvu26s=",
+							"_parent": {
+								"$ref": "AAAAAAGIlL97eXvpPVo="
+							},
+							"name": "otherObject",
+							"type": "GameObject"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlMAC+HvzJPU=",
+							"_parent": {
+								"$ref": "AAAAAAGIlL97eXvpPVo="
+							},
+							"name": "objectZLength",
+							"type": "GameObject"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlMBH2Hv4aGM=",
+							"_parent": {
+								"$ref": "AAAAAAGIlL97eXvpPVo="
+							},
+							"name": "maxScale",
+							"type": "float"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlMB/MXv98C8=",
+							"_parent": {
+								"$ref": "AAAAAAGIlL97eXvpPVo="
+							},
+							"name": "minScale",
+							"type": "float"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlMC3UXwCQUY=",
+							"_parent": {
+								"$ref": "AAAAAAGIlL97eXvpPVo="
+							},
+							"name": "maxDistance",
+							"type": "float"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGIlMD0cXwHLaI=",
+							"_parent": {
+								"$ref": "AAAAAAGIlL97eXvpPVo="
+							},
+							"name": "distance",
+							"type": "float"
+						}
+					],
+					"operations": [
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGIlMEoCHwMUSo=",
+							"_parent": {
+								"$ref": "AAAAAAGIlL97eXvpPVo="
+							},
+							"name": "Update",
+							"documentation": "If an object is provided for z length, use that number instead. Otherwise, get distance between this object and the other object.\nCalculate the scale using set variables\nSet scale of this object."
 						}
 					]
 				}

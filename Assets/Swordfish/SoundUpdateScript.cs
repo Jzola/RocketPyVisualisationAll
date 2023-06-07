@@ -15,7 +15,7 @@ public class SoundUpdateScript : MonoBehaviour
         GameObject toggle = GameObject.FindGameObjectWithTag("Audio");
         soundControl = toggle.GetComponent<Toggle>();
 
-        createSound.Play();
+        //createSound.Play();
     }
 
     // Update is called once per frame

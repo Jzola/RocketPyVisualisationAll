@@ -66,7 +66,7 @@ public class showDataToggleCanvas : MonoBehaviour
             displayRect.localScale = zero;
             
         }
-        //otherwise if the data
+        //otherwise if the data panel should be shown
         else if(shown && !parentResizedSmall)
         {
             //put it back
