@@ -334,6 +334,12 @@ public class DataFiles : MonoBehaviour
         Text variableName = LegendItemPrefab.GetComponentInChildren<Text>();
         variableName.text = input.getDimensions()[flightStageIndexes[0]].Identifier;
         float yPos = LegendItemPrefab.GetComponent<RectTransform>().rect.height * 1.5f;
+
+        // Destroy all legend items except the first and the header
+        for (int i = LegendItemPrefab.transform.parent.childCount - 1; i > 1; i--)
+        {
+            Destroy(LegendItemPrefab.transform.parent.GetChild(i).gameObject);
+        }
         
         // Get the name of each variable used for colour coding
         for (int i = 1; i < flightStageIndexes.Length; i++)
@@ -343,7 +349,7 @@ public class DataFiles : MonoBehaviour
 
             // Create the new legend item object
             GameObject newItem = Instantiate(LegendItemPrefab);
-            newItem.transform.parent = LegendItemPrefab.transform.parent;
+            newItem.transform.SetParent(LegendItemPrefab.transform.parent);
             newItem.transform.localScale = LegendItemPrefab.transform.localScale;
             newItem.transform.position = LegendItemPrefab.transform.position;
             newItem.transform.rotation = LegendItemPrefab.transform.rotation;
@@ -395,7 +401,7 @@ public class DataFiles : MonoBehaviour
         foreach (Axis axis in axes)
         {
             axis.DestroyAxisTickLabels();
-            Destroy(axis.GetComponentInChildren<TextContainer>().gameObject);
+            Destroy(axis.GetComponentInChildren<TextMeshPro>().gameObject);
         }
     }
 

@@ -54,6 +54,7 @@ MonoBehaviour:
   LabelContainer: {fileID: 3467204268799218527}
   barMesh: {fileID: 3270554238577673876}
   barClickEvents: {fileID: 310001845}
+  labelScale: 0.06
 --- !u!1 &3270554238577673879
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,7 +238,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6738895825266935465}
   - component: {fileID: 8344189090961293617}
-  - component: {fileID: 168650589587102243}
   - component: {fileID: 7473894391948850259}
   m_Layer: 0
   m_Name: Text (TMP)
@@ -306,14 +306,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!222 &168650589587102243
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8151584931677106830}
-  m_CullTransparentMesh: 0
 --- !u!114 &7473894391948850259
 MonoBehaviour:
   m_ObjectHideFlags: 0

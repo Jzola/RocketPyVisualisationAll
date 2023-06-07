@@ -138,7 +138,7 @@ namespace BarGraph.VittorCloud
                 return;
 
             GameObject bar = GameObject.Instantiate(barRef, transform.position, transform.rotation);
-            bar.transform.parent = ListOfGroups[zIndex].transform;
+            bar.transform.SetParent(ListOfGroups[zIndex].transform);
             //Vector3 pos = new Vector3(ListOfXPoint[xIndex].transform.position.x, 0, ListOfZPoints[zIndex].transform.position.z);
             Vector3 pos = new Vector3(ListOfXPoint[xIndex].transform.localPosition.x, 0, 0);
             bar.transform.localPosition = pos;
