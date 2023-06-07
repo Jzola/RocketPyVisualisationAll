@@ -55,6 +55,14 @@
             <p>This site allows users to explore the existing UML for the RocketPyVRSimulation program.
 Main Scene Top Level
 The Main Scene holds all of the top level /parent components required to run the  simulation</p>
+
+<p>Conventions Used: 
+-Parent GameObjects have an aggregation relationship with Child Objects.
+-Components use a composition relationship with the GameOBject they are placed on.
+-Game Objects have a composition relationship to their needed scripts (when used as components)
+-Scripts that depend on other scripts , or other GameObjects that they are not components of, have a dependency relationship </p>
+
+<p>Not all objects can fit in the same diagram, so where relationships have been split, the root component is grey, and any leaf components that are expanded elsewhere are in yellow</p>
           
         </div>
       </section>
@@ -281,8 +289,6 @@ The Main Scene holds all of the top level /parent components required to run the
     <h3>Owned Elements</h3>
     <ul class="nav nav-list">
         
-        <li><a href='594af663de577680f35b13183109d675.html'><span class='node-icon staruml-icon icon-UMLModel'></span>Components</a></li>
-        
         <li><a href='886a2e4298f760d4601eea0899d6cf97.html'><span class='node-icon staruml-icon icon-UMLModel'></span>Main Scene</a></li>
         
         <li><a href='1d14f28bdaf83ebc8d2158c5188a482b.html'><span class='node-icon staruml-icon icon-UMLPackage'></span>ComponentsGameObjects</a></li>
@@ -294,6 +300,10 @@ The Main Scene holds all of the top level /parent components required to run the
         <li><a href='4b4d0778e9c0a721f6f1d537f1de75d6.html'><span class='node-icon staruml-icon icon-UMLPackage'></span>VittorCloud</a></li>
         
         <li><a href='3937df196797485f12ea732eb5000987.html'><span class='node-icon staruml-icon icon-UMLPackage'></span>Unity</a></li>
+        
+        <li><a href='1d8b87b0f22c609c1cec96585d088d02.html'><span class='node-icon staruml-icon icon-UMLPackage'></span>VRTK</a></li>
+        
+        <li><a href='e3aaf1b0fee13fe974c5b98fe9b00382.html'><span class='node-icon staruml-icon icon-UMLPackage'></span>CameraVRControls</a></li>
         
     </ul>
 </section>
