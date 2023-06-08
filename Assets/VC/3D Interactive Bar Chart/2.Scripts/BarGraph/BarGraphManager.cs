@@ -326,10 +326,11 @@ namespace BarGraph.VittorCloud
 
         public void SetBarProperties(BarProperty barProperty)
         {
-            barProperty.barClickEvents.PointerDownOnBar += OnBarPointerDown;
-            barProperty.barClickEvents.PointerUpOnBar += OnBarPointerUp;
-            barProperty.barClickEvents.PointerEnterOnBar += OnBarPointerEnter;
-            barProperty.barClickEvents.PointerExitOnBar += OnBarPointerExit;
+            // COMMENTED OUT SINCE IT ISN'T NEEDED FOR THIS PROJECT
+            //barProperty.barClickEvents.PointerDownOnBar += OnBarPointerDown;
+            //barProperty.barClickEvents.PointerUpOnBar += OnBarPointerUp;
+            //barProperty.barClickEvents.PointerEnterOnBar += OnBarPointerEnter;
+            //barProperty.barClickEvents.PointerExitOnBar += OnBarPointerExit;
         }
         #endregion
 
