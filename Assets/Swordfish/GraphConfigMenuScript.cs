@@ -35,6 +35,7 @@ public class GraphConfigMenuScript : MonoBehaviour
     public int visIndex=0;
     public List<GameObject> dataToggles;
     private bool barSelectorAttached = false;
+    private bool updating = false;
 
 
     // Start is called before the first frame update
@@ -177,6 +178,7 @@ public class GraphConfigMenuScript : MonoBehaviour
 
 
     }
+    //can be used in desktop mode
     [ContextMenu("Slider Testing")]
     public void updateSliderValuesTesting()
     {
@@ -211,37 +213,45 @@ public class GraphConfigMenuScript : MonoBehaviour
     //temporarily disable all UI components
     private void setAllUIInactive()
     {
-        trajectorySlider.enabled = false;
-        xAxisDropdown.enabled = false;
-        yAxisDropdown.enabled = false;
-        zAxisDropdown.enabled = false;
-        inputDropdown.enabled = false;
+        trajectorySlider.interactable = false;
+        dimensionToggles[0].interactable = false;
+        dimensionToggles[1].interactable = false;
+        xAxisDropdown.interactable = false;
+        yAxisDropdown.interactable = false;
+        zAxisDropdown.interactable = false;
+        inputDropdown.interactable = false;
+        updateGraphButton.interactable = false;
 
     }
 
     //re-enable all UI components
     private void setAllUIActive()
     {
-        trajectorySlider.enabled = true;
-        xAxisDropdown.enabled = true;
-        yAxisDropdown.enabled = true;
-        zAxisDropdown.enabled = true;
-        inputDropdown.enabled = true;
+        trajectorySlider.interactable = true;
+        updateGraphButton.interactable = true;
+        dimensionToggles[0].interactable = true;
+        dimensionToggles[1].interactable = true;
+        xAxisDropdown.interactable = true;
+        yAxisDropdown.interactable = true;
+        zAxisDropdown.interactable = true;
+        inputDropdown.interactable = true;
+
 
     }
     [ContextMenu("Apply Changes")]
     //update the graph
     public void applyGraphChanges()
     {
+        updating = true;
         setAllUIInactive();
+        
 
         gConfig.UpdateGraph();
 
-        //reset text.
-        updateFocusText();
+        
 
-        //reset UI
-        setAllUIActive();
+        //reset UI now happens in update.
+        //setAllUIActive();
     }
 
     //can be used to set up any dropdown, though may need to have the listener code adjusted to account for behaviour of any new ones.
@@ -272,7 +282,20 @@ public class GraphConfigMenuScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (updating)
+        {
+            if (gConfig.getGraphUpdateProgress() < 1.0f)
+            {
+                //do nothing, graph is still updating.
+            }
+            else
+            {
+                updating = false;
+                //reset text.
+                updateFocusText();
+                setAllUIActive();
+            }
+    }
     }
 
     //if the dimension of the graph is 2D, hide the dropdown for the z axis and disable it.
