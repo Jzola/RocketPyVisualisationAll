@@ -105,8 +105,8 @@ public class VisualisationPoints : MonoBehaviour
                 // Checks if points are where they should be, on the vertices
                 if (Vector3.Distance(dataPoints[i].transform.localPosition, vertices[i]) > minDist)
                 {
-                    float speed = distance * 0.9f;
-                    float minSpeed = 0.2f;
+                    float speed = distance * 3f;
+                    float minSpeed = 0.3f;
 
                     // Moves towards the target spot, based on given speed and time.
                     dataPoints[i].transform.localPosition = Vector3.MoveTowards(dataPoints[i].transform.localPosition, vertices[i], (speed > minSpeed ? speed : minSpeed) * Time.deltaTime);

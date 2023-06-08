@@ -36498,7 +36498,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 20}
+  m_SizeDelta: {x: 86.9, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6862034150885303419
 MonoBehaviour:
@@ -38047,7 +38047,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4791463561176770399}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 8287003401488686737}
@@ -38055,8 +38055,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 40, y: 20}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 15, y: 20}
+  m_SizeDelta: {x: 126.6, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5548849559208586790
 CanvasRenderer:
@@ -56550,7 +56550,7 @@ MonoBehaviour:
   availableInputs: []
   datafiles: {fileID: 1126808854889797077}
   tweenPointsOnUpdate: 1
-  waitForAllPointsToMove: 0
+  waitForAllPointsToMove: 1
   selectedTrajectory: -1
   focusID: None
   focusEngine: None
@@ -65510,6 +65510,16 @@ PrefabInstance:
       propertyPath: m_Colors.m_DisabledColor.r
       value: 0.3301887
       objectReference: {fileID: 0}
+    - target: {fileID: 6673674371490472290, guid: 89d4e8f17d6550d4da44ac26fdacec05,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 6673674371490472290, guid: 89d4e8f17d6550d4da44ac26fdacec05,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89d4e8f17d6550d4da44ac26fdacec05, type: 3}
 --- !u!224 &2581376006747168508 stripped
@@ -66840,6 +66850,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8380573991959532007}
     m_Modifications:
+    - target: {fileID: 3596147650920283979, guid: 7e32ef2b8a10f4b4684d8cc34b0fdb7d,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 3596147650920283979, guid: 7e32ef2b8a10f4b4684d8cc34b0fdb7d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -20
+      objectReference: {fileID: 0}
     - target: {fileID: 3623495813013651311, guid: 7e32ef2b8a10f4b4684d8cc34b0fdb7d,
         type: 3}
       propertyPath: m_Colors.m_DisabledColor.a
@@ -68739,6 +68759,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8380573991959532007}
     m_Modifications:
+    - target: {fileID: 968201848534108526, guid: 0ea8bafb48b5e3b428adf1bc66927a6f,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 968201848534108526, guid: 0ea8bafb48b5e3b428adf1bc66927a6f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -20
+      objectReference: {fileID: 0}
     - target: {fileID: 2795842740983202701, guid: 0ea8bafb48b5e3b428adf1bc66927a6f,
         type: 3}
       propertyPath: m_Name
@@ -69039,7 +69069,7 @@ PrefabInstance:
     - target: {fileID: 5644372891203786985, guid: 90fed8b5a8d108e4080fe3cb584830a3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.3
+      value: -2.636
       objectReference: {fileID: 0}
     - target: {fileID: 5644372891203786985, guid: 90fed8b5a8d108e4080fe3cb584830a3,
         type: 3}
@@ -69064,12 +69094,12 @@ PrefabInstance:
     - target: {fileID: 5644372891203786985, guid: 90fed8b5a8d108e4080fe3cb584830a3,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 7.1900005
+      value: 6.997
       objectReference: {fileID: 0}
     - target: {fileID: 5644372891203786985, guid: 90fed8b5a8d108e4080fe3cb584830a3,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -3.18
+      value: -3.293
       objectReference: {fileID: 0}
     - target: {fileID: 5644372891203786985, guid: 90fed8b5a8d108e4080fe3cb584830a3,
         type: 3}
