@@ -15,7 +15,7 @@ public class MaximizeButton : MonoBehaviour
     //Will need to use the inspector to drag and drop the components.
     public GameObject otherPanel;
     public Button otherPanelMinimizeButton;
-    
+
     private bool maximizedStatus = true;
 
     //the original size of the canvas, for restoring the menu.
@@ -30,7 +30,7 @@ public class MaximizeButton : MonoBehaviour
     {
         zero = new Vector3(0, 0, 0);
         //get original scale value of this canvas. A canvas or a cube uses a rect transform
-        rectThis = transform.gameObject.GetComponent<RectTransform>();      
+        rectThis = transform.gameObject.GetComponent<RectTransform>();
         //store the starting scale
         originalScaleMaximizer = rectThis.localScale;
 
@@ -50,8 +50,8 @@ public class MaximizeButton : MonoBehaviour
         maxButton.onClick.AddListener(ToggleCanvasVisibility);
 
 
-        
-         
+
+
     }
     [ContextMenu("Toggle Panel Size")]
     public void ToggleCanvasVisibility()
@@ -66,6 +66,7 @@ public class MaximizeButton : MonoBehaviour
         }
         else
         {
+          //the panel is small, expand it back to original size, and minimise this object (maximizer canvas).
             rectThis.localScale = zero;
             rectThat.localScale = originalScaleOtherPanel;
             maximizedStatus = true;
@@ -73,7 +74,7 @@ public class MaximizeButton : MonoBehaviour
 
     }
 
-    //purely for visual reasons, ensure that the heading fits in the panel 
+    //purely for visual reasons, ensure that the heading fits in the panel
     string fixPanelTextLength(int stringLength, string heading)
     {
 
@@ -84,6 +85,6 @@ public class MaximizeButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

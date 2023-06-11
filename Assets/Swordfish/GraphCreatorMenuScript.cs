@@ -11,7 +11,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
 {
     //references to create graph and graph config will be required
     public GraphCreator gCreator;
-    
+
     public Dropdown xaxisDropdown;
     public Dropdown yaxisDropdown;
     public Dropdown zaxisDropdown;
@@ -36,20 +36,20 @@ public class GraphCreatorMenuScript : MonoBehaviour
     private int defaultIndex = 1;
     private int interval = 3;
     private string defaultFolder = "Default_Inputs";
-    
+
     public enum axisdropDowns {xaxis, yaxis, zaxis };
     public axisdropDowns axisDropdowns = axisdropDowns.xaxis;
 
-    
+
     private bool graphsCreatable= true;
-    
+
 
     // Start is called before the first frame update
     void Start()
     {
         //this folder should always be present
         String defaultFolder = "Default_Inputs";
-        
+
 
         //check where default inputs is, as the folder structure can be changed by adding more datasets.
         if (gCreator.availableInputs.Contains(defaultFolder))
@@ -58,13 +58,13 @@ public class GraphCreatorMenuScript : MonoBehaviour
         }
 
         Canvas canvas = this.GetComponent<Canvas>();
-        //get the anchor and make it invisible to start (make it visible when the menu is minimised)
+        //get the anchor and make it invisible to start
         GameObject anchor = this.transform.parent.gameObject;
         rend = anchor.GetComponent<MeshRenderer>();
         rend.enabled = false;
         //set up variables for the dropdowns using the gCreator
         List<string> variableList = gCreator.variables;
- 
+
         //reset dropdowns to remove 'option a' text
         xaxisDropdown.options.Clear();
         yaxisDropdown.options.Clear();
@@ -75,7 +75,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
         yaxisDropdown.AddOptions(variableList);
         zaxisDropdown.AddOptions(variableList);
 
-        //create listeners. 
+        //assign listeners.
         xaxisDropdown.onValueChanged.AddListener(delegate { axisDropdownItemSelected(xaxisDropdown); });
         yaxisDropdown.onValueChanged.AddListener(delegate { axisDropdownItemSelected(yaxisDropdown); });
         zaxisDropdown.onValueChanged.AddListener(delegate { axisDropdownItemSelected(zaxisDropdown); });
@@ -83,7 +83,6 @@ public class GraphCreatorMenuScript : MonoBehaviour
 
         //populate the variable drop down menu
         variableDropdown.options.Clear();
-        //we want the default_inputs chosen to start with.
         variableDropdown.AddOptions(gCreator.availableInputs);
 
         variableDropdown.onValueChanged.AddListener(delegate { variableDropdownItemSelected(variableDropdown); });
@@ -91,13 +90,12 @@ public class GraphCreatorMenuScript : MonoBehaviour
         debugText.text = "";
         debugText.enabled = false; //if not using the debug text, set to false.
 
-        
+
         //add a listener to the graph dimensions options/toggles that disables z axis if 2D is checked, and enables if 3D is checked.
         //(value changes again automatically if the other toggle is clicked, due to toggle group rules, so we only need one listener)
-        
         dimensionToggles[0].onValueChanged.AddListener(dimensionChanged);
 
-        //add a listener to graph type toggles that disables axis if 'bar' is checked, and enables if unchecked
+        //add a listener to graph type toggles that disables z axis if 'bar' is checked, and enables if unchecked
         graphToggles[0].onValueChanged.AddListener(delegate { graphTypeChanged(); });
 
         setDefaults();
@@ -105,12 +103,10 @@ public class GraphCreatorMenuScript : MonoBehaviour
         //connect the button to the createGraph method
         createGraphButton.onClick.AddListener(createGraph);
 
-
-        //debugText.enabled=true;
         variables = gCreator.variables;
         //set a default value for the dropdown testing function
         dropdownTester = variables[3];
- 
+
 
 
 
@@ -132,7 +128,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
         {
             graphToggles[1].isOn = false;
             graphToggles[0].isOn = true;
- 
+
         }
         graphTypeChoice.allowSwitchOff = false;
     }
@@ -159,7 +155,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
     //if the dimension of the graph is 2D, hide the dropdown for the z axis and disable it.
     public void dimensionChanged(bool arg0)
     {
-      
+
         if (dimensionToggles[0].isOn)
         {
             //the 2D option has been selected, so there is no Z axis
@@ -175,7 +171,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
         }
     }
 
-    
+
     //test that the dropdowns can be changed via the inspector in desktop mode
     [ContextMenu("Test Dropdown")]
     public void dropDownTest()
@@ -211,14 +207,13 @@ public class GraphCreatorMenuScript : MonoBehaviour
     {
         int index = variableDropdown.value;
         inputvariableChosen = variableDropdown.options[index].text;
-        
+
     }
 
-    [ContextMenu("Choose Axis")] 
+    [ContextMenu("Choose Axis")]
     private void axisDropdownItemSelected(Dropdown axisDropdown)
     {
-        
-        
+
         int index = axisDropdown.value;
         //do something with text
         string axis = axisDropdown.options[index].text;
@@ -228,25 +223,22 @@ public class GraphCreatorMenuScript : MonoBehaviour
         else
             axesChosen.Remove(axis);
 
-         
+
         if (axisDropdown.Equals(xaxisDropdown))
         {
             xaxisChosen = axisDropdown.options[index].text;
             debugText.text += "x axis" + axisDropdown.options[index].text;
         }
-            
         else if (axisDropdown.Equals(yaxisDropdown))
         {
             yaxisChosen = axisDropdown.options[index].text;
             debugText.text += "y axis " + axisDropdown.options[index].text;
         }
-
         else
         {
             zaxisChosen = axisDropdown.options[index].text;
             debugText.text += "z axis " + axisDropdown.options[index].text;
         }
-            
 
         //show that axes are added (optional)
         debugText.enabled = false;
@@ -261,7 +253,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
         {
             //disable dimension toggles
             dimensionToggles[0].enabled = false;
-           
+
             dimensionToggles[1].enabled = false;
             dimensionToggles[0].interactable = false;
             dimensionToggles[1].interactable = false;
@@ -273,8 +265,6 @@ public class GraphCreatorMenuScript : MonoBehaviour
             yaxisDropdown.interactable = false;
             zaxisDropdown.interactable = false;
 
-
-            // xaxisDropdown.gameObject.SetActive(false);
 
         }
         else
@@ -291,14 +281,12 @@ public class GraphCreatorMenuScript : MonoBehaviour
             xaxisDropdown.interactable = true;
             yaxisDropdown.interactable = true;
             zaxisDropdown.interactable = true;
-            // xaxisDropdown.gameObject.SetActive(true);
         }
     }
     [ContextMenu("Create a graph")]
     public void createGraph()
     {
 
-        //can also access Graph Common for variables
 
         if (dimensionToggles[0].isOn)
         {
@@ -334,13 +322,12 @@ public class GraphCreatorMenuScript : MonoBehaviour
         //decide if we need the debug text. Set to false to disable.
         debugText.enabled = false;
 
-        //clear the fields OR reset to default.
+        //reset to default.
         xaxisDropdown.value = 2;
         yaxisDropdown.value = 3;
         zaxisDropdown.value = 1;
         variableDropdown.value = 1;
-        //test code
-        //dimensionChanged(true);
+
 
 
 
@@ -348,7 +335,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
     //some default variables in case no buttons are pushed
     private void setDefaults()
     {
-        
+
         graphTypeChosen = GraphCreator.GraphType.SCATTER;
         //some default axes for the axisdropdown display
         xaxisDropdown.value = 2;
@@ -362,7 +349,7 @@ public class GraphCreatorMenuScript : MonoBehaviour
         inputvariableChosen = variableDropdown.options[defaultIndex].text;
         dimensionChosen = 3.ToString();
         gCreator.dimensions = 3;
-        
+
 
 
     }
@@ -373,7 +360,6 @@ public class GraphCreatorMenuScript : MonoBehaviour
         //check once every frame interval to see if the GraphCreator spawn circles can be selected/have space
         if (Time.frameCount % interval == 0)
         {
-            //are we still allowed to create a graph
             //check conditions for creating a new graph. IF true make sure button is still enabled.
             if (allowGraphCreation())
             {
@@ -409,5 +395,5 @@ public class GraphCreatorMenuScript : MonoBehaviour
         else
             return false;
     }
-    
+
 }

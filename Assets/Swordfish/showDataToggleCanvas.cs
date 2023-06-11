@@ -35,7 +35,7 @@ public class showDataToggleCanvas : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     [ContextMenu("Toggle data vis menu")]
     public void toggleDisplay()
@@ -47,12 +47,12 @@ public class showDataToggleCanvas : MonoBehaviour
 
         }
         else {
-            //show
+            //show data toggle panel and reset the scrollview to the top
             displayRect.localScale = originalSize;
             ScrollRect srect = dataToggleDisplay.GetComponentInChildren<ScrollRect>();
             ScrollToTop(srect);
 
-        } 
+        }
         shown = !shown;
     }
     public void graphConfigHidden()
@@ -64,9 +64,9 @@ public class showDataToggleCanvas : MonoBehaviour
         {
             //hide
             displayRect.localScale = zero;
-            
+
         }
-        //otherwise if the data panel should be shown
+        //otherwise if the data panel should be shown again because the graph config has been made original sized.
         else if(shown && !parentResizedSmall)
         {
             //put it back
@@ -74,7 +74,7 @@ public class showDataToggleCanvas : MonoBehaviour
             ScrollRect srect = dataToggleDisplay.GetComponentInChildren<ScrollRect>();
             ScrollToTop(srect);
         }
-        
+
     }
 
     public void ScrollToTop(ScrollRect scrollRect)

@@ -41,17 +41,18 @@ public class GraphConfigMenuScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //initialize the graph config and text fields
+        //initialize the graph config, the data visibility control panel and text fields
         gConfig = transform.parent.gameObject.GetComponent<GraphConfig>();
         outputConfig = transform.parent.gameObject.GetComponent<OutputVariableVisibility>();
 
-        //gConfig.getGraphUpdateProgress();
+        //set up the text fields based on information gathered from Graph Config
 
         fIDText.text = gConfig.focusID;
         fTypeText.text = gConfig.focusType;
         fValueText.text = gConfig.focusValue;
         fEngineText.text = gConfig.focusEngine;
 
+        //add a listener to the button
         spawnLinkedBarGraphButton.onClick.AddListener(delegate { spawnLinkedBarGraph(); });
         setupDataDisplay();
 
@@ -83,7 +84,7 @@ public class GraphConfigMenuScript : MonoBehaviour
         setUpDropdown(inputDropdown, gConfig.availableInputs, inputVarIndex);
         //set dimension toggles up.
         if (gConfig.dimensions == 2)
-        {        
+        {
             dimensionsChoice.allowSwitchOff = true;
             dimensionToggles[1].isOn = false;
             dimensionToggles[0].isOn = true;
@@ -97,10 +98,10 @@ public class GraphConfigMenuScript : MonoBehaviour
         {
             zAxisDropdown.gameObject.SetActive(true);
         }
-
+        //add a listener to the toggles (only one is required due to toggle group rules)
         dimensionToggles[0].onValueChanged.AddListener(delegate { dimensionChanged(); });
 
-      
+
 
         //currently the slider uses the max trajecjectories = 30, but we include "1.csv" as 0.
         SetupSlider(trajectorySlider, 29);
@@ -108,36 +109,36 @@ public class GraphConfigMenuScript : MonoBehaviour
         setDefaults();
 
         updateGraphButton.onClick.AddListener(applyGraphChanges);
-  
+
     }
 
-    
+
     private void setupDataDisplay()
     {
         //get the number of possible output variables from graph config. Default as of May 2023 is 49 variables
         int noToggles = gConfig.variables.Count;
         //get the scrollview. The canvas is a direct child of the menu object
-     
+
         // dataToggles.Add(toggle);
         int index;
         //add the toggles to the data panel and connect them to a listener that ajdusts variable visibility
         foreach (string vars in gConfig.variables)
         {
             //may need to instantiate first
-            
+
              index = gConfig.variables.IndexOf(vars);
             bool[] visibilities = outputConfig.getVisibilities();
-            
+
             GameObject toggle = (GameObject)Instantiate(toggleTemplate);
             //ensure the toggle instantiates according to parent, not world value by setting second argument to false.
             toggle.transform.SetParent(dataScrollViewContent.transform, false);
              //set toggle label
             toggle.GetComponentInChildren<Text>().text = vars;
 
-
             //add listener
              toggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate { outputVisibilityListener(toggle.GetComponent<Toggle>(), index); });
-            
+
+            //add to list of toggles to allow comparing to index
             dataToggles.Add(toggle);
 
             //use the index to determine if the toggle should be on or off at start.
@@ -146,14 +147,15 @@ public class GraphConfigMenuScript : MonoBehaviour
                 toggle.GetComponent<Toggle>().isOn = false;
             }
 
-           
+
         }
-       
+
 
     }
     //will activate whenever the toggle value changes
     public void outputVisibilityListener(Toggle tog, int index)
     {
+      //matches to the variable name to set the status
         outputConfig.setVisibility(tog.GetComponentInChildren<Text>().text, tog.isOn);
     }
 
@@ -162,13 +164,13 @@ public class GraphConfigMenuScript : MonoBehaviour
     {
         //use the index from the inspector to get all the generated children of the content box
         dataToggles[visIndex].GetComponent<Toggle>().isOn = !dataToggles[visIndex].GetComponent<Toggle>().isOn;
-        
+
     }
     private void updateSliderValues()
     {
         //
         int value = (int)trajectorySlider.value;
-        //
+        //use gconfig to access the selectTrajectory method
         gConfig.selectTrajectory(value);
         //update the focus
         fIDText.text = gConfig.focusID;
@@ -187,7 +189,7 @@ public class GraphConfigMenuScript : MonoBehaviour
             value = 29;
         //value can be changed manually in inspector mode
         value = focusIDSlider;
-        //changing the value should automatically update the listener
+        //changing the value should automatically trigger the listener to show it is working
         trajectorySlider.value = value;
 
 
@@ -209,7 +211,7 @@ public class GraphConfigMenuScript : MonoBehaviour
         slider.value = -1;
         slider.onValueChanged.AddListener(delegate { updateSliderValues(); });
     }
-   
+
     //temporarily disable all UI components
     private void setAllUIInactive()
     {
@@ -244,14 +246,9 @@ public class GraphConfigMenuScript : MonoBehaviour
     {
         updating = true;
         setAllUIInactive();
-        
 
         gConfig.UpdateGraph();
 
-        
-
-        //reset UI now happens in update.
-        //setAllUIActive();
     }
 
     //can be used to set up any dropdown, though may need to have the listener code adjusted to account for behaviour of any new ones.
@@ -313,7 +310,7 @@ public class GraphConfigMenuScript : MonoBehaviour
         else
         {
             zAxisDropdown.enabled = true;
-            //zaxisDropdown.Show();
+            //bring the toggle back
             zAxisDropdown.gameObject.SetActive(true);
             gConfig.setGraphDimensions(3);
         }
@@ -344,7 +341,7 @@ public class GraphConfigMenuScript : MonoBehaviour
     {
 
         int index = axisDropdown.value;
-        //do something with text
+        //used in debugging
         string axis = axisDropdown.options[index].text;
 
         if (axisDropdown.Equals(xAxisDropdown))
@@ -373,6 +370,7 @@ public class GraphConfigMenuScript : MonoBehaviour
     [ContextMenu("Spawn Linked Graph")]
     public void spawnLinkedBarGraph()
     {
+      //spawn a bar graph that matches the settings in gconfig
         if (!barSelectorAttached)
         {
             gConfig.attachThirdLevelBarSelector();

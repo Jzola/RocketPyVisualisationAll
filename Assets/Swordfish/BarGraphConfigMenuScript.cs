@@ -22,7 +22,7 @@ public class BarGraphConfigMenuScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //delete button is already handled separately.
+        //delete button is already handled separately, we only need the config GameObject.
         gConfig = transform.parent.gameObject.GetComponent<BarGraphConfig>();
 
         // Creates a list of variables from the given file
@@ -43,7 +43,7 @@ public class BarGraphConfigMenuScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     [ContextMenu("Update graph")]
    public void updateGraph()
@@ -55,14 +55,11 @@ public class BarGraphConfigMenuScript : MonoBehaviour
     {
         //get the number of possible output variables from graph config. Default as of May 2023 is 49 variables
         int noToggles = variables.Count;
-        //get the scrollview. The canvas is a direct child of the menu object
 
-        
         int index;
         //add the toggles to the data panel and connect them to a listener that ajdusts variable visibility
         foreach (string vars in variables)
         {
-            //may need to instantiate first
 
             index = variables.IndexOf(vars);
             bool[] visibilities = outputConfig.getVisibilities();
@@ -73,10 +70,8 @@ public class BarGraphConfigMenuScript : MonoBehaviour
             //set toggle label
             toggle.GetComponentInChildren<Text>().text = vars;
 
-
             //add listener
             toggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate { outputVisibilityListener(toggle.GetComponent<Toggle>(), index); });
-
 
             dataToggles.Add(toggle);
 
@@ -117,7 +112,7 @@ public class BarGraphConfigMenuScript : MonoBehaviour
     private void dropdownItemSelected(Dropdown axisDropdown)
     {
         int index = axisDropdown.value;
-        
+
         if (axisDropdown.Equals(inputVariableDropdown))
         {
             gConfig.inputFolderName = axisDropdown.options[index].text;

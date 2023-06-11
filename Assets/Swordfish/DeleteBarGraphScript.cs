@@ -16,14 +16,14 @@ public class DeleteBarGraphScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+      //gconfig is required for access to the delete graph function
         gConfig = transform.parent.gameObject.GetComponent<BarGraphConfig>();
-       
+
         //get the delete panel's viewing size
         rect = transform.gameObject.GetComponent<RectTransform>();
         deletePanelBigScale = rect.localScale;
 
         //minimize the delete panel
-
         toggleDeletePanelVisibility();
 
         //set up the button listeners
@@ -38,7 +38,8 @@ public class DeleteBarGraphScript : MonoBehaviour
         gConfig.deleteGraph();
     }
 
-    [ContextMenu("Test panel")]
+    //resize the panel depending on if the initial delete button was pushed, or cancelled
+    [ContextMenu("Test panel resize")]
     public void toggleDeletePanelVisibility()
     {
         if (launched)
@@ -56,6 +57,6 @@ public class DeleteBarGraphScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

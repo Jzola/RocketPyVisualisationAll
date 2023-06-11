@@ -7,7 +7,7 @@ public class ProgressBarScript : MonoBehaviour
 {
     public Slider bar;
     public GraphConfig gConfig;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +26,7 @@ public class ProgressBarScript : MonoBehaviour
 
     public void checkFinished()
     {
+      //if finished, deactivate the object (will be ivisible and not interactable)
         bar.gameObject.SetActive(gConfig.getGraphUpdateProgress() != 1.0f);
     }
 }

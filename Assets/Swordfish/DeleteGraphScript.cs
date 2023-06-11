@@ -15,14 +15,13 @@ public class DeleteGraphScript : MonoBehaviour
     void Start()
     {
         gConfig = transform.parent.gameObject.GetComponent<GraphConfig>();
-        
+
 
         //get the delete panel's viewing size
         rect = transform.gameObject.GetComponent<RectTransform>();
         deletePanelBigScale = rect.localScale;
 
         //minimize the delete panel
-
         toggleDeletePanelVisibility();
 
         //set up the button listeners
@@ -36,7 +35,7 @@ public class DeleteGraphScript : MonoBehaviour
     {
         gConfig.DeleteGraph();
     }
-
+    //will show or hide the delete confirmation panel. Can be accessed in desktop mode
     [ContextMenu("Test panel")]
     public void toggleDeletePanelVisibility()
     {
@@ -55,6 +54,6 @@ public class DeleteGraphScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
