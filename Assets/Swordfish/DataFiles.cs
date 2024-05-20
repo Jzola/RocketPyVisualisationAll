@@ -25,8 +25,9 @@ public class DataFiles : MonoBehaviour
     private int maxIndexZ = 0;
 
     // Simulation files
+    [SerializeField]
     private string folder = "Default_Inputs";
-    private string path = "/Resources/AdditionalOutputs/";
+    private string path = "/Resources/StudyData/";
     private List<CSVDataSource> files;
     [System.NonSerialized]
     public CSVDataSource input;
@@ -290,21 +291,21 @@ public class DataFiles : MonoBehaviour
 
         // Create the VisualisationPoints object for this trajectory
         GameObject point = new GameObject();
-        point.SetActive(false);
+        /*point.SetActive(false);
         point.AddComponent<VisualisationPoints>();
         point.GetComponent<VisualisationPoints>().setVisualisationMesh(mesh);
         point.GetComponent<VisualisationPoints>().setDataPointPrefab(dataPointPrefab);
         point.GetComponent<VisualisationPoints>().setPointMaterial(mat);
         point.GetComponent<VisualisationPoints>().valueVisibility = outputVariableVisibility;
         point.transform.SetParent(files[fileIndex].transform, false);
-        point.SetActive(true);
+        point.SetActive(true);*/
 
         // Get the flight stage times for the trajectory
         // -1 because index starts at 0, but trajectory ID starts at 1.
         float[] stageTimes = input.GetCols(flightStageIndexes, (files[fileIndex].GetID()-1));
 
         // Create the data points for trajectory
-        point.GetComponent<VisualisationPoints>().CreatePoints(stageTimes, colourCol, dataPointMats);
+        //point.GetComponent<VisualisationPoints>().CreatePoints(stageTimes, colourCol, dataPointMats);
     }
 
     // Updates an existing trajectory using its visualisationpoints component

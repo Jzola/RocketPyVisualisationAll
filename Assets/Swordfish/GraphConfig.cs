@@ -11,7 +11,10 @@ public class GraphConfig : GraphCommon
 {
     public enum GraphType {SCATTER, BAR};
     private GameObject graph;
-    public DataFiles datafiles;
+    public GameObject VisualisationsParent;
+    //public DataFiles datafiles;
+
+    private List<DataFiles> datafilesList;
    
     // Animates the points on update if true, teleports if false.
     public bool tweenPointsOnUpdate = true;
@@ -42,9 +45,10 @@ public class GraphConfig : GraphCommon
 
     // Start is called before the first frame update
     void Start()
-    {
+    {    
         Initialise();
 
+        datafilesList = VisualisationsParent.GetComponentsInChildren<DataFiles>().ToList();
         graph = transform.parent.gameObject;
         filter = graph.GetComponentInChildren<Filtering>();
         rocket = graph.GetComponentInChildren<RocketAnimation>();
@@ -57,7 +61,7 @@ public class GraphConfig : GraphCommon
         if (!variablesInitialised)
         {
             // Sets the axis variables of the graph, once the graph is made
-            Visualisation visualisation = graph.GetComponentInChildren<Visualisation>();
+            List<Visualisation> visualisation = VisualisationsParent.GetComponentsInChildren<Visualisation>().ToList();
             if (visualisation != null)
             {
                 setGraphAxisVariables(graph);
@@ -88,42 +92,45 @@ public class GraphConfig : GraphCommon
             // Sets focus variables
             focusData = filter.FilterSingle(index);
             focusID = focusData.data.name;
-            CSVDataSource inputData = datafiles.input;
-            // Finds the engine used for the current trajectory
-            focusEngine = inputData.getOriginalString(inputData.findCol("motor type"), inputData["motor type"].Data[index] * (inputData["motor type"].MetaData.categoryCount - 1));
-            
-            // Getting the focus value from a given focus type, if a valid match was made in the map. Focus type is the input variable changed.
-             if (focusType != "None")
+            foreach (DataFiles datafiles in datafilesList)
             {
-                try
-                {
-                    if (focusType.Contains(","))
-                    {
-                        string[] focusTypes = focusType.Split(',');
-                        focusValue = "";
-                        string sep = ", ";
+                CSVDataSource inputData = datafiles.input;
+                // Finds the engine used for the current trajectory
+                focusEngine = inputData.getOriginalString(inputData.findCol("motor type"), inputData["motor type"].Data[index] * (inputData["motor type"].MetaData.categoryCount - 1));
 
-                        // Finds and concatonates the focus values
-                        foreach (string type in focusTypes)
-                        {
-                            DimensionData data = inputData[type];
-                            focusValue += (data.MetaData.minValue + (data.Data[index] * (data.MetaData.maxValue - data.MetaData.minValue))).ToString(); // Un-normalise the focus data
-                            focusValue += sep;
-                        }
-                        focusValue = focusValue.Substring(0, focusValue.Length - sep.Length);
-                    } else
+                // Getting the focus value from a given focus type, if a valid match was made in the map. Focus type is the input variable changed.
+                if (focusType != "None")
+                {
+                    try
                     {
-                        // Finds and sets the focus value
-                        DimensionData data = inputData[focusType];
-                        focusValue = (data.MetaData.minValue + (data.Data[index] * (data.MetaData.maxValue - data.MetaData.minValue))).ToString(); // Un-normalise the focus data
+                        if (focusType.Contains(","))
+                        {
+                            string[] focusTypes = focusType.Split(',');
+                            focusValue = "";
+                            string sep = ", ";
+
+                            // Finds and concatonates the focus values
+                            foreach (string type in focusTypes)
+                            {
+                                DimensionData data = inputData[type];
+                                focusValue += (data.MetaData.minValue + (data.Data[index] * (data.MetaData.maxValue - data.MetaData.minValue))).ToString(); // Un-normalise the focus data
+                                focusValue += sep;
+                            }
+                            focusValue = focusValue.Substring(0, focusValue.Length - sep.Length);
+                        }
+                        else
+                        {
+                            // Finds and sets the focus value
+                            DimensionData data = inputData[focusType];
+                            focusValue = (data.MetaData.minValue + (data.Data[index] * (data.MetaData.maxValue - data.MetaData.minValue))).ToString(); // Un-normalise the focus data
+                        }
+                    }
+                    catch (System.Exception e)
+                    {
+                        Debug.Log(e);
                     }
                 }
-                catch (System.Exception e)
-                {
-                    Debug.Log(e);
-                }
-            }            
-
+            }
             RocketAnimationUI rocketUI = graph.GetComponentInChildren<RocketAnimationUI>();
             rocketUI.getDropdown().SetValueWithoutNotify(index);
             rocketUI.updateSelectedTrajectory();
@@ -156,7 +163,8 @@ public class GraphConfig : GraphCommon
         setGraphDimensions(dimensions);
 
         // Remove axis ticks and labels, since it won't reflect the points while updating.
-        datafiles.removeAxisLabels();
+        foreach (DataFiles datafiles in datafilesList)
+            datafiles.removeAxisLabels();
 
         // Set the axis variables and update trajectories
         setGraphAxisVariables(graph);
@@ -174,54 +182,56 @@ public class GraphConfig : GraphCommon
     {
         graphUpdating = true;
 
-        // Update progress
-        datafiles.trajProgress = 0;
-        int index = 0;
-
-        // Finds and updates all the previous points with the new axes
-        foreach (Transform dataSet in datafiles.gameObject.transform)
+        foreach (DataFiles datafiles in datafilesList)
         {
-            VisualisationPoints trajectory = dataSet.GetComponentInChildren<VisualisationPoints>();
-            if (trajectory != null)
-            {
-                trajectory.tweenPointsOnUpdate = tweenPointsOnUpdate;
-                datafiles.UpdateTrajectory(trajectory);
-
-                // Prevent points from moving during coroutine
-                if (waitForAllPointsToMove) trajectory.pointsNeedUpdating = false;
-            }
-
             // Update progress
-            datafiles.trajProgress = (float)index / datafiles.gameObject.transform.childCount; // Progress of trajectory
-            index++;
+            datafiles.trajProgress = 0;
+            int index = 0;
 
-            yield return null;
-        }
-
-        datafiles.trajProgress = 1;
-
-        // Enables the points to move once coroutines are over
-        if (waitForAllPointsToMove)
-        {
+            // Finds and updates all the previous points with the new axes
             foreach (Transform dataSet in datafiles.gameObject.transform)
             {
                 VisualisationPoints trajectory = dataSet.GetComponentInChildren<VisualisationPoints>();
                 if (trajectory != null)
                 {
-                    trajectory.pointsNeedUpdating = trajectory.tweenPointsOnUpdate;
+                    trajectory.tweenPointsOnUpdate = tweenPointsOnUpdate;
+                    datafiles.UpdateTrajectory(trajectory);
+
+                    // Prevent points from moving during coroutine
+                    if (waitForAllPointsToMove) trajectory.pointsNeedUpdating = false;
+                }
+
+                // Update progress
+                datafiles.trajProgress = (float)index / datafiles.gameObject.transform.childCount; // Progress of trajectory
+                index++;
+
+                yield return null;
+            }
+
+            datafiles.trajProgress = 1;
+
+            // Enables the points to move once coroutines are over
+            if (waitForAllPointsToMove)
+            {
+                foreach (Transform dataSet in datafiles.gameObject.transform)
+                {
+                    VisualisationPoints trajectory = dataSet.GetComponentInChildren<VisualisationPoints>();
+                    if (trajectory != null)
+                    {
+                        trajectory.pointsNeedUpdating = trajectory.tweenPointsOnUpdate;
+                    }
                 }
             }
+
+            datafiles.UpdateAxisTicks();
+            datafiles.SetKey();
+
+            if (barNeedsCreating)
+            {
+                removeThirdLevelBarSelector();
+                attachThirdLevelBarSelector();
+            }
         }
-
-        datafiles.UpdateAxisTicks();
-        datafiles.SetKey();
-
-        if (barNeedsCreating)
-        {
-            removeThirdLevelBarSelector();
-            attachThirdLevelBarSelector();
-        }
-
         graphUpdating = false;
     }
 
@@ -249,16 +259,18 @@ public class GraphConfig : GraphCommon
     // Changes the input dataset
     public void setInputDataset()
     {
-        // If the path is unchanged, don't make new simulation data
-        if (!datafiles.getSimulationPath().Equals(inputFolderPath + inputFolderName))
+        foreach (DataFiles datafiles in datafilesList)
         {
-            datafiles.DestroyTrajectories();
-            datafiles.setSimulationPath(inputFolderPath, inputFolderName);
-            datafiles.setSimulationFilesCoroutine();
+            // If the path is unchanged, don't make new simulation data
+            if (!datafiles.getSimulationPath().Equals(inputFolderPath + inputFolderName))
+            {
+                datafiles.DestroyTrajectories();
+                datafiles.setSimulationPath(inputFolderPath, inputFolderName);
+                datafiles.setSimulationFilesCoroutine();
 
-            if (isBarGraphAttached()) barNeedsCreating = true;
+                if (isBarGraphAttached()) barNeedsCreating = true;
+            }
         }
-
         focusType = getFocusType();
     }
 
@@ -279,7 +291,7 @@ public class GraphConfig : GraphCommon
     [ContextMenu("Attach Bar Graph")]
     public void attachThirdLevelBarSelector()
     {
-        // Prevent extra graphs from being attached
+        /*// Prevent extra graphs from being attached
         if (isBarGraphAttached()) return;
 
         GameObject bargraph = Instantiate(Resources.Load<GameObject>("Prefabs/BarGraph")).GetComponentInChildren<ThirdLevelChartLinkingManager>().gameObject;
@@ -325,7 +337,8 @@ public class GraphConfig : GraphCommon
         // Delete old manager
         Destroy(chartLinkMgr);
 
-        barPreviouslySpawned = true;
+        barPreviouslySpawned = true;*/
+        return;
     }
 
     [ContextMenu("Remove Bar Graph")]
@@ -354,7 +367,13 @@ public class GraphConfig : GraphCommon
     // Gets the progress of the graph creation/ update, between 0 - 1
     public float getGraphUpdateProgress()
     {
-        return datafiles.trajProgress;
+        float progress = 1;
+        foreach (DataFiles datafiles in datafilesList)
+        {
+            if (datafiles.trajProgress < progress)
+                progress = datafiles.trajProgress;
+        }
+        return progress;
     }
 }
 
