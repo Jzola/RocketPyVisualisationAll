@@ -10,12 +10,17 @@ using TMPro;
 
 public class DataFiles : MonoBehaviour
 {
-    public Visualisation visualisation;  // IATK visualisation object
+    //public Visualisation visualisation;  // IATK visualisation object
+    public GameObject visualisationObject;
+    [SerializeField]
+    private GameObject visualisationPrefab;
     public GameObject dataPointPrefab;   // Prefab for trajectory data points
     [SerializeField]
     private RocketAnimation rocket;
     [SerializeField]
     private GameObject LegendItemPrefab;
+
+    private List<Visualisation> visualisations;
 
     // Dimension axis information
     private float[] dimensionMin;
@@ -27,6 +32,8 @@ public class DataFiles : MonoBehaviour
     // Simulation files
     [SerializeField]
     private string folder = "Default_Inputs";
+    [SerializeField]
+    private string rocketId;
     private string path = "/Resources/StudyData/";
     private List<CSVDataSource> files;
     [System.NonSerialized]
@@ -68,11 +75,11 @@ public class DataFiles : MonoBehaviour
     public void setSimulationPath(string path, string folder)
     {
         // Use old data if new data paths isn't found
-        if (Directory.Exists(Application.dataPath + path + folder))
+        /*if (Directory.Exists(Application.dataPath + path + folder))
         {
             this.path = path;
             this.folder = folder;
-        }
+        }*/
     }
 
     public string getSimulationPath()
@@ -104,7 +111,7 @@ public class DataFiles : MonoBehaviour
             // Rescale the values based upon global min/max
             files[i].repopulate(dimensionMin, dimensionMax);
 
-            if (visualisation != null)
+            if (visualisationObject != null)
             {
                 // Create the trajectory data objects
                 CreateTrajectory(i);
@@ -115,14 +122,14 @@ public class DataFiles : MonoBehaviour
             yield return null;
         }
 
-        if (visualisation != null)
+        if (visualisationObject != null)
         {
             // After all trajectories have been created, update axis ticks
             UpdateAxisTicks();
 
             // After final view has loaded, delete it from the visualisation object as
             // all trajectory data is in visualisationPoints and visualisationLines objects .
-            visualisation.destroyView();
+            //visualisation.destroyView();
 
             // Add colour coding information to the legend
             UpdateLegend();
@@ -165,8 +172,8 @@ public class DataFiles : MonoBehaviour
     private void CreateCSVDataSource()
     {
         // Makes sure to sort the files properly
-        string[] filePaths = Directory.GetFiles(Application.dataPath + (path + folder), "*.csv").OrderBy(f => Regex.Replace(f, "[0-9]+", match => match.Value.PadLeft(5, '0'))).ToArray();
-        string[] inputFile = Directory.GetFiles(Application.dataPath + (path + folder + "/inputData"), "*.csv");
+        string[] filePaths = Directory.GetFiles(Application.dataPath + (path + rocketId + '/' + folder), "*.csv").OrderBy(f => Regex.Replace(f, "[0-9]+", match => match.Value.PadLeft(5, '0'))).ToArray();
+        string[] inputFile = Directory.GetFiles(Application.dataPath + (path + rocketId + '/' + folder + "/inputData"), "*.csv");
 
         GameObject inputDataObj = new GameObject("InputData");
         inputDataObj.transform.SetParent(this.transform, false);
@@ -263,8 +270,11 @@ public class DataFiles : MonoBehaviour
     private void CreateTrajectory(int fileIndex)
     {
         // Create the BigMesh object for respective trajectory.
+        Visualisation visualisation = Instantiate(visualisationPrefab, visualisationObject.transform).GetComponent<Visualisation>();
+        //Visualisation visualisation = visualisationObject.AddComponent<Visualisation>();
+        visualisation.geometry = AbstractVisualisation.GeometryType.Points;
         visualisation.dataSource = files[fileIndex];
-        visualisation.CreateVisualisation(AbstractVisualisation.VisualisationTypes.SCATTERPLOT);
+        visualisation.CreateVisualisation(AbstractVisualisation.VisualisationTypes.SCATTERPLOT);       
         BigMesh mesh = visualisation.theVisualizationObject.viewList[0].BigMesh;
 
         // Create a randomly coloured material to use for the VisualisationLine and VisualisationPoints objects
@@ -274,7 +284,7 @@ public class DataFiles : MonoBehaviour
         mat.color = color;
 
         // Create the VisualisationLine object for this trajectory
-        GameObject line = new GameObject();
+        /*GameObject line = new GameObject();
         line.SetActive(false);
         line.AddComponent<VisualisationLine>();
         line.GetComponent<VisualisationLine>().setVisualisationMesh(mesh);
@@ -287,10 +297,10 @@ public class DataFiles : MonoBehaviour
         if (rocket != null)
         {
             rocket.lineList.Add(line.GetComponent<LineRenderer>());
-        } 
+        }*/
 
         // Create the VisualisationPoints object for this trajectory
-        GameObject point = new GameObject();
+        //GameObject point = new GameObject();
         /*point.SetActive(false);
         point.AddComponent<VisualisationPoints>();
         point.GetComponent<VisualisationPoints>().setVisualisationMesh(mesh);
@@ -311,7 +321,7 @@ public class DataFiles : MonoBehaviour
     // Updates an existing trajectory using its visualisationpoints component
     public void UpdateTrajectory(VisualisationPoints visualisationPoints)
     {
-        // Create the BigMesh object for respective trajectory.
+        /*// Create the BigMesh object for respective trajectory.
         visualisation.dataSource = visualisationPoints.GetComponentInParent<CSVDataSource>();
         visualisation.CreateVisualisation(AbstractVisualisation.VisualisationTypes.SCATTERPLOT);
         BigMesh mesh = visualisation.theVisualizationObject.viewList[0].BigMesh;
@@ -323,7 +333,7 @@ public class DataFiles : MonoBehaviour
         visualisationPoints.updatePoints();
 
         // Removes the mesh from the ingame scene
-        DestroyImmediate(mesh.gameObject);
+        DestroyImmediate(mesh.gameObject);*/
     }
 
     // Adds the colour coding information to the visualisation legend
@@ -409,7 +419,7 @@ public class DataFiles : MonoBehaviour
     // Update the axis ticks 
     public void UpdateAxisTicks()
     {
-        // Destroys axes directly, since visulation may have changed and lost axes further down.
+        /*// Destroys axes directly, since visulation may have changed and lost axes further down.
         Axis[] oldAxes = transform.parent.GetComponentsInChildren<Axis>();
         for (int i = 0; i < oldAxes.Length; i++)
         {
@@ -438,13 +448,13 @@ public class DataFiles : MonoBehaviour
             //DestroyImmediate(visualisation.theVisualizationObject.Z_AXIS);
             visualisation.dataSource = files[maxIndexX];
             visualisation.theVisualizationObject.ReplaceAxis(AbstractVisualisation.PropertyType.Z);
-        }
+        }*/
     }
 
     // Sets the visualisation key text to the launch site latitude and longitude
     public void SetKey()
     {
-        if (input == null) return;
+        /*if (input == null) return;
         int latCol = input.findCol("latitude");
         int lonCol = input.findCol("longitude");
         float[] row = input.GetRow(input.dataArray, 0);
@@ -456,12 +466,12 @@ public class DataFiles : MonoBehaviour
         {
             string label = "Latitude: " + lat + "\nLongitude: " + lon;
             visualisation.SetKey(label, 0.4f);
-        }
+        }*/
     }
 
         public void SetKey(string label)
     {
-        visualisation.SetKey(label, 0.4f);
+        //visualisation.SetKey(label, 0.4f);
     }
 
 
@@ -483,7 +493,7 @@ public class DataFiles : MonoBehaviour
 
         // After final view has loaded, delete it from the visualisation object as
         // all trajectory data is in visualisationPoints and visualisationLines objects .
-        visualisation.destroyView();
+        //visualisation.destroyView();
 
         // Add colour coding information to the legend
         UpdateLegend();
