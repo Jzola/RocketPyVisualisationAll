@@ -56,14 +56,14 @@ public class VisualisationPoints : MonoBehaviour
 
             // Add the correct material
             // If it is the final data point of the trajectory, set it to the impact material
-            if (i == (vertices.Length-1))
+            /*if (i == (vertices.Length-1))
             {
                 point.GetComponent<MeshRenderer>().material = materials[materials.Length-1];
             }
             else
             {
                 point.GetComponent<MeshRenderer>().material = materials[CalcColor(point, flightStageTimes, i, colourCol)];
-            }
+            }*/
         }
     }
 

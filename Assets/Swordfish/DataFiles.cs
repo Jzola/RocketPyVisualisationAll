@@ -89,7 +89,7 @@ public class DataFiles : MonoBehaviour
 
     public void setSimulationFilesCoroutine()
     {
-        StartCoroutine(setSimulationFiles());   
+        StartCoroutine(setSimulationFiles());
     }
 
     public IEnumerator setSimulationFiles()
@@ -132,7 +132,7 @@ public class DataFiles : MonoBehaviour
             //visualisation.destroyView();
 
             // Add colour coding information to the legend
-            UpdateLegend();
+            //UpdateLegend();
         }
 
         trajProgress = 1;
@@ -277,6 +277,8 @@ public class DataFiles : MonoBehaviour
         visualisation.CreateVisualisation(AbstractVisualisation.VisualisationTypes.SCATTERPLOT);       
         BigMesh mesh = visualisation.theVisualizationObject.viewList[0].BigMesh;
 
+        files[fileIndex].transform.SetParent(visualisation.transform);
+
         // Create a randomly coloured material to use for the VisualisationLine and VisualisationPoints objects
         var rand = new System.Random();
         Material mat = new Material(Shader.Find("Standard"));
@@ -284,7 +286,7 @@ public class DataFiles : MonoBehaviour
         mat.color = color;
 
         // Create the VisualisationLine object for this trajectory
-        /*GameObject line = new GameObject();
+        GameObject line = new GameObject();
         line.SetActive(false);
         line.AddComponent<VisualisationLine>();
         line.GetComponent<VisualisationLine>().setVisualisationMesh(mesh);
@@ -297,25 +299,25 @@ public class DataFiles : MonoBehaviour
         if (rocket != null)
         {
             rocket.lineList.Add(line.GetComponent<LineRenderer>());
-        }*/
+        }
 
-        // Create the VisualisationPoints object for this trajectory
-        //GameObject point = new GameObject();
-        /*point.SetActive(false);
+        /*// Create the VisualisationPoints object for this trajectory
+        GameObject point = new GameObject();
+        point.SetActive(false);
         point.AddComponent<VisualisationPoints>();
         point.GetComponent<VisualisationPoints>().setVisualisationMesh(mesh);
         point.GetComponent<VisualisationPoints>().setDataPointPrefab(dataPointPrefab);
         point.GetComponent<VisualisationPoints>().setPointMaterial(mat);
         point.GetComponent<VisualisationPoints>().valueVisibility = outputVariableVisibility;
         point.transform.SetParent(files[fileIndex].transform, false);
-        point.SetActive(true);*/
+        point.SetActive(true);
 
         // Get the flight stage times for the trajectory
         // -1 because index starts at 0, but trajectory ID starts at 1.
         float[] stageTimes = input.GetCols(flightStageIndexes, (files[fileIndex].GetID()-1));
 
         // Create the data points for trajectory
-        //point.GetComponent<VisualisationPoints>().CreatePoints(stageTimes, colourCol, dataPointMats);
+        point.GetComponent<VisualisationPoints>().CreatePoints(stageTimes, colourCol, dataPointMats);*/
     }
 
     // Updates an existing trajectory using its visualisationpoints component

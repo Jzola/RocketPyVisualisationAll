@@ -146,10 +146,10 @@ public class RocketAnimation : MonoBehaviour
     // Get the current DataPoint object that the trajectory is at
     public DataPoint getCurrentDataPoint()
     {        
-        if (index < pointsGOs.Count)
+        /*if (index < pointsGOs.Count)
         {
             return pointsGOs[index].GetComponent<DataPoint>();
-        }
+        }*/
         return null;
     }
 
@@ -167,7 +167,7 @@ public class RocketAnimation : MonoBehaviour
         points.AddRange(pos);
         resetAnimation();
 
-        pointsGOs = dataObjects.GetFiles()[selectedIndex].GetComponentInChildren<VisualisationPoints>().DataPoints();
+        //pointsGOs = dataObjects.GetFiles()[selectedIndex].GetComponentInChildren<VisualisationPoints>().DataPoints();
 
         // Trajectory source dropdown is not null
         if (animationUI)

@@ -19,7 +19,7 @@ public class DataPoint : MonoBehaviour
     private CSVDataSource dataSource;
     private bool selected = false;
 
-    private MeshRenderer meshRenderer;
+    //private MeshRenderer meshRenderer;
 
     // Original material of DataPoint on instantiation
     private Material originalMaterial;
@@ -36,8 +36,8 @@ public class DataPoint : MonoBehaviour
 
     private void Start()
     {
-        meshRenderer = GetComponent<MeshRenderer>();
-        originalMaterial = meshRenderer.material;
+       /* meshRenderer = GetComponent<MeshRenderer>();
+        originalMaterial = meshRenderer.material;*/
 
         manager = GetComponentInParent<ChartLinkingManager>();
         trajectoryID = Int32.Parse(dataSource.data.name);
@@ -95,15 +95,15 @@ public class DataPoint : MonoBehaviour
             //manager.HighlightID(trajectoryID);
             if (!selected)
             {
-                previousMaterial = meshRenderer.material;
+                /*previousMaterial = meshRenderer.material;
                 // Change to Hover colour
-                meshRenderer.material = hoverMaterial;
+                meshRenderer.material = hoverMaterial;*/
             } else
             {
                 // Selected DataPoints remain highlighted and not overridden by the chart linking highlighting
                 if (manager.GetDoHighlighting())
                 {
-                    meshRenderer.material = selectedMaterial;
+                    //meshRenderer.material = selectedMaterial;
                 }
             }            
         }
@@ -120,15 +120,15 @@ public class DataPoint : MonoBehaviour
                 if (!manager.GetDoHighlighting())
                 {
                     // Change back to original colour
-                    meshRenderer.material = originalMaterial;
+                    //meshRenderer.material = originalMaterial;
                 } 
                 else
                 {
-                    meshRenderer.material = previousMaterial;
+                    //meshRenderer.material = previousMaterial;
                 }
             } else
             {
-                meshRenderer.material = selectedMaterial;
+                //meshRenderer.material = selectedMaterial;
             }
         }
     }
@@ -152,7 +152,7 @@ public class DataPoint : MonoBehaviour
         if (selected)
         {
             selected = false;
-            meshRenderer.material = hoverMaterial;
+            //meshRenderer.material = hoverMaterial;
 
             valuesDisplay.gameObject.SetActive(false);
         }
@@ -168,7 +168,7 @@ public class DataPoint : MonoBehaviour
             valuesDisplay.GetComponentInChildren<Text>().text = "";
         } else { 
             selected = true;
-            meshRenderer.material = selectedMaterial;
+            //meshRenderer.material = selectedMaterial;
 
             updateValuesString();
 
@@ -205,7 +205,7 @@ public class DataPoint : MonoBehaviour
 
     public void ResetMaterial()
     {
-        meshRenderer.material = originalMaterial;
+        //meshRenderer.material = originalMaterial;
     }
 
     public Material GetOriginalMaterial()
@@ -220,7 +220,7 @@ public class DataPoint : MonoBehaviour
 	
     public void SetMaterial(Color colour)
     {
-        meshRenderer.material.color = colour;
+        //meshRenderer.material.color = colour;
     }
 
     public CSVDataSource getData()
