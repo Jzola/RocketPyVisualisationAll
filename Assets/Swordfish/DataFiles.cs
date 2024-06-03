@@ -23,8 +23,8 @@ public class DataFiles : MonoBehaviour
     private List<Visualisation> visualisations;
 
     // Dimension axis information
-    private float[] dimensionMin;
-    private float[] dimensionMax;
+    public float[] dimensionMin { get; set; }
+    public float[] dimensionMax { get; set; }
     private int maxIndexX = 0;
     private int maxIndexY = 0;
     private int maxIndexZ = 0;
@@ -69,7 +69,7 @@ public class DataFiles : MonoBehaviour
     private void Start()
     {
         createMaterials();
-        setSimulationFilesCoroutine();
+        //setSimulationFilesCoroutine();
     }
 
     public void setSimulationPath(string path, string folder)
@@ -92,7 +92,7 @@ public class DataFiles : MonoBehaviour
         StartCoroutine(setSimulationFiles());
     }
 
-    public IEnumerator setSimulationFiles()
+    public void initialiseDataSet()
     {
         trajProgress = 0;
 
@@ -104,7 +104,10 @@ public class DataFiles : MonoBehaviour
         dimensionMax = new float[files[0].DimensionCount];
 
         GetMinMax();
+    }
 
+    public IEnumerator setSimulationFiles()
+    {       
         // For each data file, create the trajectory within the visualisation object.
         for (int i = 0; i < files.Count; i++)
         {
@@ -499,6 +502,12 @@ public class DataFiles : MonoBehaviour
 
         // Add colour coding information to the legend
         UpdateLegend();
+    }
+
+    public void scaleData(float[] min, float[] max)
+    {
+        foreach (CSVDataSource file in files)
+            file.repopulate(min, max);
     }
 
     // Deletes all children (trajectories, points, etc) of this object.
