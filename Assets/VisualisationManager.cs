@@ -7,6 +7,8 @@ public class VisualisationManager : MonoBehaviour
 {
     private List<Visualisation> visualisations;
     private List<DataFiles> files;
+    private List<string> scenarios;
+    private string currentScenario;
 
     private float[] globalMin;
     private float[] globalMax;
@@ -20,6 +22,28 @@ public class VisualisationManager : MonoBehaviour
 
         createVisualisations();
 
+        scenarios = new List<string>();
+        //TODO: Load scenario names from directory
+        //for now use hard coded names
+        scenarios.Add("Scenario1");
+        scenarios.Add("Scenario2");
+
+        //Default to first scenario
+        currentScenario = scenarios[0];
+
+    }
+
+    public void RemakeVisualisations()
+    {
+        foreach (DataFiles file in files)
+        {
+            file.DestroyTrajectories();
+            file.setScenario(currentScenario);
+        }
+            
+        initialiseData();
+
+        createVisualisations();
     }
 
     private void initialiseData()
@@ -55,5 +79,11 @@ public class VisualisationManager : MonoBehaviour
             file.dimensionMax = globalMax;
             file.setSimulationFilesCoroutine();
         }
+    }
+
+    public void ChangeScenario(int scenario)
+    {
+        currentScenario = scenarios[scenario];
+        RemakeVisualisations();
     }
 }

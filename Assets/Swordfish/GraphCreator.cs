@@ -68,7 +68,7 @@ public class GraphCreator : GraphCommon
                 graph = Instantiate(barGraphPrefab);
 
                 // Change the folder input folder
-                graph.GetComponentInChildren<DataFiles>().setSimulationPath(inputFolderPath, inputFolderName);
+                //graph.GetComponentInChildren<DataFiles>().setSimulationPath(inputFolderPath, inputFolderName);
                 LoadInputVariables liv = graph.GetComponentInChildren<LoadInputVariables>();
                 liv.folder = "inputData";
                 liv.path = inputFolderPath + inputFolderName + "/";
@@ -91,7 +91,7 @@ public class GraphCreator : GraphCommon
                 setGraphAxisVariables(graph);
 
                 // Change the folder input folder
-                graph.GetComponentInChildren<DataFiles>().setSimulationPath(inputFolderPath, inputFolderName);
+                //graph.GetComponentInChildren<DataFiles>().setSimulationPath(inputFolderPath, inputFolderName);
 
                 // Sets the variables for the graph config. The config will still automatically get these variables after creations,
                 // but the inspector window won't update without this happening before being fully instantiated

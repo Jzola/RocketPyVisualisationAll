@@ -19,8 +19,8 @@ public class DataFiles : MonoBehaviour
     private RocketAnimation rocket;
     [SerializeField]
     private GameObject LegendItemPrefab;
-
-    private List<Visualisation> visualisations;
+    [SerializeField]
+    private ScenarioController scenarioController;
 
     // Dimension axis information
     public float[] dimensionMin { get; set; }
@@ -31,7 +31,7 @@ public class DataFiles : MonoBehaviour
 
     // Simulation files
     [SerializeField]
-    private string folder = "Default_Inputs";
+    private string scenario = "Scenario1";
     [SerializeField]
     private string rocketId;
     private string path = "/Resources/StudyData/";
@@ -69,22 +69,28 @@ public class DataFiles : MonoBehaviour
     private void Start()
     {
         createMaterials();
+        scenario = scenarioController.CurrentScenario;
         //setSimulationFilesCoroutine();
-    }
+    }  
 
-    public void setSimulationPath(string path, string folder)
+    /*public void setSimulationPath(string path, string scenario)
     {
         // Use old data if new data paths isn't found
-        /*if (Directory.Exists(Application.dataPath + path + folder))
+        if (Directory.Exists(Application.dataPath + path + scenario))
         {
             this.path = path;
-            this.folder = folder;
-        }*/
+            this.scenario = scenario;
+        }
+    }*/
+
+    public void setScenario(string scenario)
+    {
+        this.scenario = scenario;
     }
 
     public string getSimulationPath()
     {
-        return path + folder;
+        return path + scenario;
     }
 
     public void setSimulationFilesCoroutine()
@@ -175,8 +181,8 @@ public class DataFiles : MonoBehaviour
     private void CreateCSVDataSource()
     {
         // Makes sure to sort the files properly
-        string[] filePaths = Directory.GetFiles(Application.dataPath + (path + rocketId + '/' + folder), "*.csv").OrderBy(f => Regex.Replace(f, "[0-9]+", match => match.Value.PadLeft(5, '0'))).ToArray();
-        string[] inputFile = Directory.GetFiles(Application.dataPath + (path + rocketId + '/' + folder + "/inputData"), "*.csv");
+        string[] filePaths = Directory.GetFiles(Application.dataPath + (path + rocketId + '/' + scenario), "*.csv").OrderBy(f => Regex.Replace(f, "[0-9]+", match => match.Value.PadLeft(5, '0'))).ToArray();
+        string[] inputFile = Directory.GetFiles(Application.dataPath + (path + rocketId + '/' + scenario + "/inputData"), "*.csv");
 
         GameObject inputDataObj = new GameObject("InputData");
         inputDataObj.transform.SetParent(this.transform, false);
@@ -273,7 +279,7 @@ public class DataFiles : MonoBehaviour
     private void CreateTrajectory(int fileIndex)
     {
         // Create the BigMesh object for respective trajectory.
-        Visualisation visualisation = Instantiate(visualisationPrefab, visualisationObject.transform).GetComponent<Visualisation>();
+        Visualisation visualisation = Instantiate(visualisationPrefab, transform).GetComponent<Visualisation>();
         //Visualisation visualisation = visualisationObject.AddComponent<Visualisation>();
         visualisation.geometry = AbstractVisualisation.GeometryType.Points;
         visualisation.dataSource = files[fileIndex];

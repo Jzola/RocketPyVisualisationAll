@@ -265,7 +265,7 @@ public class GraphConfig : GraphCommon
             if (!datafiles.getSimulationPath().Equals(inputFolderPath + inputFolderName))
             {
                 datafiles.DestroyTrajectories();
-                datafiles.setSimulationPath(inputFolderPath, inputFolderName);
+                //datafiles.setSimulationPath(inputFolderPath, inputFolderName);
                 datafiles.setSimulationFilesCoroutine();
 
                 if (isBarGraphAttached()) barNeedsCreating = true;

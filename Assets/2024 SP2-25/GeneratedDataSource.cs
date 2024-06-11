@@ -5,6 +5,7 @@ using IATK;
 
 public class GeneratedDataSource : DataSource
 {
+    public List<float> data; 
     public override bool IsLoaded
     {
         get { return DimensionCount > 0; }
