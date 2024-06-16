@@ -19,8 +19,6 @@ public class DataFiles : MonoBehaviour
     private RocketAnimation rocket;
     [SerializeField]
     private GameObject LegendItemPrefab;
-    [SerializeField]
-    private ScenarioController scenarioController;
 
     // Dimension axis information
     public float[] dimensionMin { get; set; }
@@ -69,7 +67,6 @@ public class DataFiles : MonoBehaviour
     private void Start()
     {
         createMaterials();
-        scenario = scenarioController.CurrentScenario;
         //setSimulationFilesCoroutine();
     }  
 
@@ -108,8 +105,6 @@ public class DataFiles : MonoBehaviour
 
         dimensionMin = new float[files[0].DimensionCount];
         dimensionMax = new float[files[0].DimensionCount];
-
-        GetMinMax();
     }
 
     public IEnumerator setSimulationFiles()
@@ -228,7 +223,7 @@ public class DataFiles : MonoBehaviour
     }
 
     // Determine the min and max values of each variable from csv file(s)
-    private void GetMinMax()
+    public void GetMinMax()
     {
         // TODO
         // INEFFICIENT?? TEMP FIX 
@@ -524,8 +519,5 @@ public class DataFiles : MonoBehaviour
             Destroy(child.gameObject);
         }
         rocket.lineList.Clear();
-
-        // Makes sure the filters have been reset
-        GetComponentInParent<ThirdLevelChartLinkingManager>().GetComponentInChildren<FilteringUI>().reload();
     }
 }

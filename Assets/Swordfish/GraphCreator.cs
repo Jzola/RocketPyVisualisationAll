@@ -95,16 +95,16 @@ public class GraphCreator : GraphCommon
 
                 // Sets the variables for the graph config. The config will still automatically get these variables after creations,
                 // but the inspector window won't update without this happening before being fully instantiated
-                GraphConfig graphConfig = graph.GetComponentInChildren<GraphConfig>();
-                graphConfig.variableExtractionFile = variableExtractionFile;
-                graphConfig.variables = variables;
-                graphConfig.dimensions = dimensions;
-                graphConfig.xAxis = xAxis;
-                graphConfig.yAxis = yAxis;
-                graphConfig.zAxis = zAxis;
-                graphConfig.inputFolderName = inputFolderName;
-                graphConfig.availableInputs = availableInputs;
-                graphConfig.focusType = graphConfig.getFocusType();
+                // GraphConfig graphConfig = graph.GetComponentInChildren<GraphConfig>();
+                // graphConfig.variableExtractionFile = variableExtractionFile;
+                // graphConfig.variables = variables;
+                // graphConfig.dimensions = dimensions;
+                // graphConfig.xAxis = xAxis;
+                // graphConfig.yAxis = yAxis;
+                // graphConfig.zAxis = zAxis;
+                // graphConfig.inputFolderName = inputFolderName;
+                // graphConfig.availableInputs = availableInputs;
+                // graphConfig.focusType = graphConfig.getFocusType();
                 break;
 
 

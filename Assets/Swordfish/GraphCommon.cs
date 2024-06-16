@@ -56,12 +56,15 @@ public class GraphCommon : MonoBehaviour
     public void setGraphAxisVariables(GameObject graph)
     {
         // Sets the axes for the graph instance
-        Visualisation visualisation = graph.GetComponentInChildren<Visualisation>();
+        Visualisation[] visualisations = graph.GetComponentsInChildren<Visualisation>();
 
         // Sets dimensions based on chosen number and if the axes are valid
-        visualisation.xDimension = variables.Contains(xAxis) ? xAxis : unusedAxisID;
-        visualisation.yDimension = dimensions >= 2 && variables.Contains(yAxis) ?  yAxis  : unusedAxisID;
-        visualisation.zDimension = dimensions >= 3 && variables.Contains(zAxis) ?  zAxis  : unusedAxisID;
+        foreach (Visualisation visualisation in visualisations)
+        {
+            visualisation.xDimension = variables.Contains(xAxis) ? xAxis : unusedAxisID;
+            visualisation.yDimension = dimensions >= 2 && variables.Contains(yAxis) ?  yAxis  : unusedAxisID;
+            visualisation.zDimension = dimensions >= 3 && variables.Contains(zAxis) ?  zAxis  : unusedAxisID;
+        }       
     }
 
     // Get the focus variable for which input changes between simulations, acquired from the variablefocusmapping file

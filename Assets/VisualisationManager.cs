@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using IATK;
+using System;
 
 public class VisualisationManager : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class VisualisationManager : MonoBehaviour
     {
         files = new List<DataFiles>(GetComponentsInChildren<DataFiles>());
 
-        initialiseData();
+        StartCoroutine(initialiseData());
 
         createVisualisations();
 
@@ -33,7 +34,7 @@ public class VisualisationManager : MonoBehaviour
 
     }
 
-    public void RemakeVisualisations()
+    public IEnumerator RemakeVisualisations()
     {
         foreach (DataFiles file in files)
         {
@@ -41,17 +42,25 @@ public class VisualisationManager : MonoBehaviour
             file.setScenario(currentScenario);
         }
             
-        initialiseData();
+        StartCoroutine(initialiseData());
 
         createVisualisations();
+
+        yield return null;
     }
 
-    private void initialiseData()
+    private IEnumerator initialiseData()
     {
         foreach (DataFiles file in files)
         {
             file.initialiseDataSet();
-
+            
+            //Currently using preset values for min max to increase performance
+            // globalMin = [0, 0, 0,]
+            // globalMax = [0, 0, 0,]
+            //Leaving this here in case it is needed later
+            //Dynamically find the min and max of each dimension across all datasets    
+            file.GetMinMax();
             if (globalMin == null)
             {
                 globalMin = file.dimensionMin;
@@ -69,6 +78,7 @@ public class VisualisationManager : MonoBehaviour
                 if (file.dimensionMax[i] > globalMax[i])
                     globalMax[i] = file.dimensionMax[i];
         }
+        yield return null;
     }
 
     private void createVisualisations()
@@ -84,6 +94,6 @@ public class VisualisationManager : MonoBehaviour
     public void ChangeScenario(int scenario)
     {
         currentScenario = scenarios[scenario];
-        RemakeVisualisations();
+        StartCoroutine(RemakeVisualisations());
     }
 }

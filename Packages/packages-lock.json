@@ -1,11 +1,5 @@
 {
   "dependencies": {
-    "com.monitor1394.xcharts": {
-      "version": "file:D:/ICT Project 2024-SP2-25/XCharts/XCharts",
-      "depth": 0,
-      "source": "local",
-      "dependencies": {}
-    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,
