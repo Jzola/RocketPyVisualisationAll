@@ -24,10 +24,10 @@ public class SoundUpdateScript : MonoBehaviour
         if (soundControl.isOn)
         {
             // Repeats sounds while graph is updating/ generating.
-            if (gConfig.getGraphUpdateProgress() < 1.0f ){
-                createSound.pitch = gConfig.getGraphUpdateProgress() +1;
-                createSound.Play();
-            }
+            // if (gConfig.getGraphUpdateProgress() < 1.0f ){
+            //     createSound.pitch = gConfig.getGraphUpdateProgress() +1;
+            //     createSound.Play();
+            // }
             
         }
     }
@@ -35,7 +35,7 @@ public class SoundUpdateScript : MonoBehaviour
     [ContextMenu("SoundTest")]
     public void increasePitch()
     {
-        createSound.pitch = gConfig.getGraphUpdateProgress() + 1;
-        createSound.Play();
+        // createSound.pitch = gConfig.getGraphUpdateProgress() + 1;
+        // createSound.Play();
     }
 }
