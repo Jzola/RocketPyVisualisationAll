@@ -23,9 +23,6 @@ public class DataFiles : MonoBehaviour
     // Dimension axis information
     public float[] dimensionMin { get; set; }
     public float[] dimensionMax { get; set; }
-    private int maxIndexX = 0;
-    private int maxIndexY = 0;
-    private int maxIndexZ = 0;
 
     // Simulation files
     [SerializeField]
@@ -249,22 +246,6 @@ public class DataFiles : MonoBehaviour
                 if (files[i].getDimensions()[j].MetaData.maxValue > dimensionMax[j])
                 {
                     dimensionMax[j] = files[i].getDimensions()[j].MetaData.maxValue;
-
-                    // TODO VERY inelegant solution
-                    // Finding the file indexes which have the largest x,y,z values so we
-                    // can set the axis ticks correctly
-                    if (j == 1)
-                    {
-                        maxIndexX = i;
-                    }
-                    else if (j == 2)
-                    {
-                        maxIndexY = i;
-                    }
-                    else if (j == 3)
-                    {
-                        maxIndexZ = i;
-                    }
                 }
             }
         }

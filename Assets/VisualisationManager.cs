@@ -19,9 +19,9 @@ public class VisualisationManager : MonoBehaviour
     {
         files = new List<DataFiles>(GetComponentsInChildren<DataFiles>());
 
-        StartCoroutine(initialiseData());
+        initialiseData();
 
-        createVisualisations();
+        StartCoroutine(createVisualisations());
 
         scenarios = new List<string>();
         //TODO: Load scenario names from directory
@@ -34,7 +34,7 @@ public class VisualisationManager : MonoBehaviour
 
     }
 
-    public IEnumerator RemakeVisualisations()
+    public void RemakeVisualisations()
     {
         foreach (DataFiles file in files)
         {
@@ -42,24 +42,17 @@ public class VisualisationManager : MonoBehaviour
             file.setScenario(currentScenario);
         }
             
-        StartCoroutine(initialiseData());
+        initialiseData();
 
-        createVisualisations();
-
-        yield return null;
+        StartCoroutine(createVisualisations());
     }
 
-    private IEnumerator initialiseData()
+    private void initialiseData()
     {
         foreach (DataFiles file in files)
         {
             file.initialiseDataSet();
-            
-            //Currently using preset values for min max to increase performance
-            // globalMin = [0, 0, 0,]
-            // globalMax = [0, 0, 0,]
-            //Leaving this here in case it is needed later
-            //Dynamically find the min and max of each dimension across all datasets    
+            //Dynamically find the min and max of each dimension across all datasets
             file.GetMinMax();
             if (globalMin == null)
             {
@@ -78,10 +71,9 @@ public class VisualisationManager : MonoBehaviour
                 if (file.dimensionMax[i] > globalMax[i])
                     globalMax[i] = file.dimensionMax[i];
         }
-        yield return null;
     }
 
-    private void createVisualisations()
+    private IEnumerator createVisualisations()
     {
         foreach (DataFiles file in files)
         {
@@ -89,11 +81,12 @@ public class VisualisationManager : MonoBehaviour
             file.dimensionMax = globalMax;
             file.setSimulationFilesCoroutine();
         }
+        yield return null;
     }
 
     public void ChangeScenario(int scenario)
     {
         currentScenario = scenarios[scenario];
-        StartCoroutine(RemakeVisualisations());
+        RemakeVisualisations();
     }
 }
