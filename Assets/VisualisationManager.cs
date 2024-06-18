@@ -38,7 +38,9 @@ public class VisualisationManager : MonoBehaviour
     {
         foreach (DataFiles file in files)
         {
+            //Remove all the old trajectories so new ones can be created
             file.DestroyTrajectories();
+            //Update the scenario to load the appropriate data
             file.setScenario(currentScenario);
         }
             
@@ -53,6 +55,7 @@ public class VisualisationManager : MonoBehaviour
         {
             file.initialiseDataSet();
             //Dynamically find the min and max of each dimension across all datasets
+            //Needed to normalise all the data to the same scale for comparison
             file.GetMinMax();
             if (globalMin == null)
             {
@@ -77,6 +80,7 @@ public class VisualisationManager : MonoBehaviour
     {
         foreach (DataFiles file in files)
         {
+            //Set the min and max of each datafile to the global min and max so it can all be normalised to the same scale
             file.dimensionMin = globalMin;
             file.dimensionMax = globalMax;
             file.setSimulationFilesCoroutine();
@@ -84,6 +88,7 @@ public class VisualisationManager : MonoBehaviour
         yield return null;
     }
 
+    //Change the current scenario to the specified index in the scenarios array
     public void ChangeScenario(int scenario)
     {
         currentScenario = scenarios[scenario];

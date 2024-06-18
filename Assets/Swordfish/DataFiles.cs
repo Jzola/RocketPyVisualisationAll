@@ -10,19 +10,21 @@ using TMPro;
 
 public class DataFiles : MonoBehaviour
 {
-    //public Visualisation visualisation;  // IATK visualisation object
-    public GameObject visualisationObject;
+    //public Visualisation visualisation;  // IATK visualisation object - Using multiple visualisation objects now. Leaving this as it is used by other functions and may be needed later
     [SerializeField]
     private GameObject visualisationPrefab;
-    public GameObject dataPointPrefab;   // Prefab for trajectory data points
+    //public GameObject dataPointPrefab;   // Prefab for trajectory data points - Not using in this version for now
     [SerializeField]
     private RocketAnimation rocket;
-    [SerializeField]
-    private GameObject LegendItemPrefab;
+    // [SerializeField]
+    // private GameObject LegendItemPrefab; // Not using for now
 
     // Dimension axis information
     public float[] dimensionMin { get; set; }
     public float[] dimensionMax { get; set; }
+    private int maxIndexX = 0;
+    private int maxIndexY = 0;
+    private int maxIndexZ = 0;
 
     // Simulation files
     [SerializeField]
@@ -33,7 +35,6 @@ public class DataFiles : MonoBehaviour
     private List<CSVDataSource> files;
     [System.NonSerialized]
     public CSVDataSource input;
-    public OutputVariableVisibility outputVariableVisibility; // GraphConfig Component
 
     // Colour Coding
     //[SerializeField]
@@ -112,62 +113,40 @@ public class DataFiles : MonoBehaviour
             // Rescale the values based upon global min/max
             files[i].repopulate(dimensionMin, dimensionMax);
 
-            if (visualisationObject != null)
-            {
-                // Create the trajectory data objects
-                CreateTrajectory(i);
-            }
+            CreateTrajectory(i);
+
+
+            //No longer have a single visualisation object so cannot perform this check
+            // if (visualisation != null)
+            // {
+            //     // Create the trajectory data objects
+            //     CreateTrajectory(i);
+            // }
 
             trajProgress = (float)i / files.Count; // Progress of trajectory
 
             yield return null;
         }
 
-        if (visualisationObject != null)
-        {
-            // After all trajectories have been created, update axis ticks
-            UpdateAxisTicks();
 
-            // After final view has loaded, delete it from the visualisation object as
-            // all trajectory data is in visualisationPoints and visualisationLines objects .
-            //visualisation.destroyView();
+        //Previous version destroyed IATK visualisation after generating the graph
+        //Removing this as data points are no longer being created
+        // if (visualisation != null)
+        // {
+        //     // After all trajectories have been created, update axis ticks
+        //     UpdateAxisTicks();
 
-            // Add colour coding information to the legend
-            //UpdateLegend();
-        }
+        //     // After final view has loaded, delete it from the visualisation object as
+        //     // all trajectory data is in visualisationPoints and visualisationLines objects .
+        //     visualisation.destroyView();
+
+        //     // Add colour coding information to the legend
+        //     UpdateLegend();
+        // }
 
         trajProgress = 1;
     }
 
-    private void createMaterials()
-    {
-        // Create the material objects
-        dataPointMats = new Material[]
-        {
-            new Material(Shader.Find("Standard")),
-            new Material(Shader.Find("Standard")),
-            new Material(Shader.Find("Standard")),
-            new Material(Shader.Find("Standard")),
-            new Material(Shader.Find("Standard")),
-            new Material(Shader.Find("Standard")),
-            new Material(Shader.Find("Standard")),
-            new Material(Shader.Find("Standard")),
-        };
-
-        // Set the material colours
-        for (int i = 0; i < dataPointMats.Length; i++)
-        {
-            dataPointMats[i].SetFloat("_Mode", 3);
-            dataPointMats[i].SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
-            dataPointMats[i].SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-            // dataPointMats[i].SetInt("_ZWrite", 0);
-            dataPointMats[i].DisableKeyword("_ALPHATEST_ON");
-            dataPointMats[i].DisableKeyword("_ALPHABLEND_ON");
-            dataPointMats[i].EnableKeyword("_ALPHAPREMULTIPLY_ON");
-            dataPointMats[i].renderQueue = 3000;
-            dataPointMats[i].color = classifications[i];
-        }
-    }
 
     // For each csv file in the directory, create a csvDataSourceObject
     private void CreateCSVDataSource()
@@ -246,17 +225,32 @@ public class DataFiles : MonoBehaviour
                 if (files[i].getDimensions()[j].MetaData.maxValue > dimensionMax[j])
                 {
                     dimensionMax[j] = files[i].getDimensions()[j].MetaData.maxValue;
+
+                    // TODO VERY inelegant solution
+                    // Finding the file indexes which have the largest x,y,z values so we
+                    // can set the axis ticks correctly
+                    if (j == 1)
+                    {
+                        maxIndexX = i;
+                    }
+                    else if (j == 2)
+                    {
+                        maxIndexY = i;
+                    }
+                    else if (j == 3)
+                    {
+                        maxIndexZ = i;
+                    }
                 }
             }
         }
     }
 
-    // Creates trajectory data objects (BigMesh, LineRenderer, MeshCollider, VisualisationPoints)
+    // Creates trajectory data objects (BigMesh, LineRenderer, MeshCollider)
     private void CreateTrajectory(int fileIndex)
     {
-        // Create the BigMesh object for respective trajectory.
+        // Create the Visualisation object for respective trajectory.
         Visualisation visualisation = Instantiate(visualisationPrefab, transform).GetComponent<Visualisation>();
-        //Visualisation visualisation = visualisationObject.AddComponent<Visualisation>();
         visualisation.geometry = AbstractVisualisation.GeometryType.Points;
         visualisation.dataSource = files[fileIndex];
         visualisation.CreateVisualisation(AbstractVisualisation.VisualisationTypes.SCATTERPLOT);       
@@ -286,6 +280,9 @@ public class DataFiles : MonoBehaviour
             rocket.lineList.Add(line.GetComponent<LineRenderer>());
         }
 
+        //Removed visualisation points to improve performance with multiple graphs
+        //Leaving this here in case it is needed later
+
         /*// Create the VisualisationPoints object for this trajectory
         GameObject point = new GameObject();
         point.SetActive(false);
@@ -303,64 +300,6 @@ public class DataFiles : MonoBehaviour
 
         // Create the data points for trajectory
         point.GetComponent<VisualisationPoints>().CreatePoints(stageTimes, colourCol, dataPointMats);*/
-    }
-
-    // Updates an existing trajectory using its visualisationpoints component
-    public void UpdateTrajectory(VisualisationPoints visualisationPoints)
-    {
-        /*// Create the BigMesh object for respective trajectory.
-        visualisation.dataSource = visualisationPoints.GetComponentInParent<CSVDataSource>();
-        visualisation.CreateVisualisation(AbstractVisualisation.VisualisationTypes.SCATTERPLOT);
-        BigMesh mesh = visualisation.theVisualizationObject.viewList[0].BigMesh;
-
-        // Set the Visualisation points/line components mesh to the new BigMesh
-        visualisationPoints.transform.parent.GetComponentInChildren<VisualisationLine>().setVisualisationMesh(mesh);
-        visualisationPoints.setVisualisationMesh(mesh);
-
-        visualisationPoints.updatePoints();
-
-        // Removes the mesh from the ingame scene
-        DestroyImmediate(mesh.gameObject);*/
-    }
-
-    // Adds the colour coding information to the visualisation legend
-    private void UpdateLegend()
-    {
-        // Change box colour for first prefab
-        Image colourBox = LegendItemPrefab.GetComponentInChildren<Image>();
-        colourBox.color = classifications[0];
-        Text variableName = LegendItemPrefab.GetComponentInChildren<Text>();
-        variableName.text = input.getDimensions()[flightStageIndexes[0]].Identifier;
-        float yPos = LegendItemPrefab.GetComponent<RectTransform>().rect.height * 1.5f;
-
-        // Destroy all legend items except the first and the header
-        for (int i = LegendItemPrefab.transform.parent.childCount - 1; i > 1; i--)
-        {
-            Destroy(LegendItemPrefab.transform.parent.GetChild(i).gameObject);
-        }
-        
-        // Get the name of each variable used for colour coding
-        for (int i = 1; i < flightStageIndexes.Length; i++)
-        {
-            // For calculating the height offset 
-            int multiplier = i;
-
-            // Create the new legend item object
-            GameObject newItem = Instantiate(LegendItemPrefab);
-            newItem.transform.SetParent(LegendItemPrefab.transform.parent);
-            newItem.transform.localScale = LegendItemPrefab.transform.localScale;
-            newItem.transform.position = LegendItemPrefab.transform.position;
-            newItem.transform.rotation = LegendItemPrefab.transform.rotation;
-            Vector2 newPos = new Vector2(newItem.GetComponent<RectTransform>().anchoredPosition.x, newItem.GetComponent<RectTransform>().anchoredPosition.y - (yPos*multiplier));
-            newItem.GetComponent<RectTransform>().anchoredPosition = newPos;
-
-            // Change box colour
-            colourBox = newItem.GetComponentInChildren<Image>();
-            variableName = newItem.GetComponentInChildren<Text>();
-            colourBox.color = classifications[i];
-            variableName.text = input.getDimensions()[flightStageIndexes[i]].Identifier;
-        } 
-
     }
 
     // Creates TextAsset object from a filepath
@@ -392,75 +331,6 @@ public class DataFiles : MonoBehaviour
         }
         return file;        
     }
-
-    public void removeAxisLabels()
-    {
-        Axis[] axes = transform.parent.GetComponentsInChildren<Axis>();
-        foreach (Axis axis in axes)
-        {
-            axis.DestroyAxisTickLabels();
-            Destroy(axis.GetComponentInChildren<TextMeshPro>().gameObject);
-        }
-    }
-
-    // Update the axis ticks 
-    public void UpdateAxisTicks()
-    {
-        /*// Destroys axes directly, since visulation may have changed and lost axes further down.
-        Axis[] oldAxes = transform.parent.GetComponentsInChildren<Axis>();
-        for (int i = 0; i < oldAxes.Length; i++)
-        {
-            Destroy(oldAxes[i].gameObject);
-        }
-
-        if (!visualisation.xDimension.Attribute.Equals("Undefined"))
-        {
-            // Update X axis
-            //DestroyImmediate(visualisation.theVisualizationObject.X_AXIS);
-            visualisation.dataSource = files[maxIndexY];
-            visualisation.theVisualizationObject.ReplaceAxis(AbstractVisualisation.PropertyType.X);
-        }
-
-        if (!visualisation.yDimension.Attribute.Equals("Undefined"))
-        {
-            // Update Y axis
-            //DestroyImmediate(visualisation.theVisualizationObject.Y_AXIS);
-            visualisation.dataSource = files[maxIndexZ];
-            visualisation.theVisualizationObject.ReplaceAxis(AbstractVisualisation.PropertyType.Y);
-        }
-
-        if (!visualisation.zDimension.Attribute.Equals("Undefined"))
-        {
-            // Update Z axis
-            //DestroyImmediate(visualisation.theVisualizationObject.Z_AXIS);
-            visualisation.dataSource = files[maxIndexX];
-            visualisation.theVisualizationObject.ReplaceAxis(AbstractVisualisation.PropertyType.Z);
-        }*/
-    }
-
-    // Sets the visualisation key text to the launch site latitude and longitude
-    public void SetKey()
-    {
-        /*if (input == null) return;
-        int latCol = input.findCol("latitude");
-        int lonCol = input.findCol("longitude");
-        float[] row = input.GetRow(input.dataArray, 0);
-
-        float lat = row[latCol];
-        float lon = row[lonCol];
-
-        if (visualisation != null)
-        {
-            string label = "Latitude: " + lat + "\nLongitude: " + lon;
-            visualisation.SetKey(label, 0.4f);
-        }*/
-    }
-
-        public void SetKey(string label)
-    {
-        //visualisation.SetKey(label, 0.4f);
-    }
-
 
     // Adds new points to the existing graph
     public void addNewPoints()
@@ -501,4 +371,162 @@ public class DataFiles : MonoBehaviour
         }
         rocket.lineList.Clear();
     }
+
+    //UNUSED LEGACY FUNCTIONS
+    //Keeping here for future reference and to prevent compilation errors from dependencies
+    //TODO: Clean codebase to fix these errors properly
+
+    // Update the axis ticks 
+    public void UpdateAxisTicks()
+    {
+        /*// Destroys axes directly, since visulation may have changed and lost axes further down.
+        Axis[] oldAxes = transform.parent.GetComponentsInChildren<Axis>();
+        for (int i = 0; i < oldAxes.Length; i++)
+        {
+            Destroy(oldAxes[i].gameObject);
+        }
+
+        if (!visualisation.xDimension.Attribute.Equals("Undefined"))
+        {
+            // Update X axis
+            //DestroyImmediate(visualisation.theVisualizationObject.X_AXIS);
+            visualisation.dataSource = files[maxIndexY];
+            visualisation.theVisualizationObject.ReplaceAxis(AbstractVisualisation.PropertyType.X);
+        }
+
+        if (!visualisation.yDimension.Attribute.Equals("Undefined"))
+        {
+            // Update Y axis
+            //DestroyImmediate(visualisation.theVisualizationObject.Y_AXIS);
+            visualisation.dataSource = files[maxIndexZ];
+            visualisation.theVisualizationObject.ReplaceAxis(AbstractVisualisation.PropertyType.Y);
+        }
+
+        if (!visualisation.zDimension.Attribute.Equals("Undefined"))
+        {
+            // Update Z axis
+            //DestroyImmediate(visualisation.theVisualizationObject.Z_AXIS);
+            visualisation.dataSource = files[maxIndexX];
+            visualisation.theVisualizationObject.ReplaceAxis(AbstractVisualisation.PropertyType.Z);
+        }*/
+    }
+    
+    public void removeAxisLabels()
+    {
+        // Axis[] axes = transform.parent.GetComponentsInChildren<Axis>();
+        // foreach (Axis axis in axes)
+        // {
+        //     axis.DestroyAxisTickLabels();
+        //     Destroy(axis.GetComponentInChildren<TextMeshPro>().gameObject);
+        // }
+    }
+
+    // Sets the visualisation key text to the launch site latitude and longitude
+    public void SetKey()
+    {
+        /*if (input == null) return;
+        int latCol = input.findCol("latitude");
+        int lonCol = input.findCol("longitude");
+        float[] row = input.GetRow(input.dataArray, 0);
+
+        float lat = row[latCol];
+        float lon = row[lonCol];
+
+        if (visualisation != null)
+        {
+            string label = "Latitude: " + lat + "\nLongitude: " + lon;
+            visualisation.SetKey(label, 0.4f);
+        }*/
+    }
+
+        public void SetKey(string label)
+    {
+        //visualisation.SetKey(label, 0.4f);
+    }
+
+    private void createMaterials()
+    {
+        // // Create the material objects
+        // dataPointMats = new Material[]
+        // {
+        //     new Material(Shader.Find("Standard")),
+        //     new Material(Shader.Find("Standard")),
+        //     new Material(Shader.Find("Standard")),
+        //     new Material(Shader.Find("Standard")),
+        //     new Material(Shader.Find("Standard")),
+        //     new Material(Shader.Find("Standard")),
+        //     new Material(Shader.Find("Standard")),
+        //     new Material(Shader.Find("Standard")),
+        // };
+
+        // // Set the material colours
+        // for (int i = 0; i < dataPointMats.Length; i++)
+        // {
+        //     dataPointMats[i].SetFloat("_Mode", 3);
+        //     dataPointMats[i].SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+        //     dataPointMats[i].SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        //     // dataPointMats[i].SetInt("_ZWrite", 0);
+        //     dataPointMats[i].DisableKeyword("_ALPHATEST_ON");
+        //     dataPointMats[i].DisableKeyword("_ALPHABLEND_ON");
+        //     dataPointMats[i].EnableKeyword("_ALPHAPREMULTIPLY_ON");
+        //     dataPointMats[i].renderQueue = 3000;
+        //     dataPointMats[i].color = classifications[i];
+        // }
+    }
+
+    // Updates an existing trajectory using its visualisationpoints component
+    public void UpdateTrajectory(VisualisationPoints visualisationPoints)
+    {
+        /*// Create the BigMesh object for respective trajectory.
+        visualisation.dataSource = visualisationPoints.GetComponentInParent<CSVDataSource>();
+        visualisation.CreateVisualisation(AbstractVisualisation.VisualisationTypes.SCATTERPLOT);
+        BigMesh mesh = visualisation.theVisualizationObject.viewList[0].BigMesh;
+
+        // Set the Visualisation points/line components mesh to the new BigMesh
+        visualisationPoints.transform.parent.GetComponentInChildren<VisualisationLine>().setVisualisationMesh(mesh);
+        visualisationPoints.setVisualisationMesh(mesh);
+
+        visualisationPoints.updatePoints();
+
+        // Removes the mesh from the ingame scene
+        DestroyImmediate(mesh.gameObject);*/
+    }
+
+    // Adds the colour coding information to the visualisation legend
+    private void UpdateLegend()
+    {
+        // // Change box colour for first prefab
+        // Image colourBox = LegendItemPrefab.GetComponentInChildren<Image>();
+        // colourBox.color = classifications[0];
+        // Text variableName = LegendItemPrefab.GetComponentInChildren<Text>();
+        // variableName.text = input.getDimensions()[flightStageIndexes[0]].Identifier;
+        // float yPos = LegendItemPrefab.GetComponent<RectTransform>().rect.height * 1.5f;
+
+        // // Destroy all legend items except the first and the header
+        // for (int i = LegendItemPrefab.transform.parent.childCount - 1; i > 1; i--)
+        // {
+        //     Destroy(LegendItemPrefab.transform.parent.GetChild(i).gameObject);
+        // }
+        
+        // // Get the name of each variable used for colour coding
+        // for (int i = 1; i < flightStageIndexes.Length; i++)
+        // {
+        //     // For calculating the height offset 
+        //     int multiplier = i;
+
+        //     // Create the new legend item object
+        //     GameObject newItem = Instantiate(LegendItemPrefab);
+        //     newItem.transform.SetParent(LegendItemPrefab.transform.parent);
+        //     newItem.transform.localScale = LegendItemPrefab.transform.localScale;
+        //     newItem.transform.position = LegendItemPrefab.transform.position;
+        //     newItem.transform.rotation = LegendItemPrefab.transform.rotation;
+        //     Vector2 newPos = new Vector2(newItem.GetComponent<RectTransform>().anchoredPosition.x, newItem.GetComponent<RectTransform>().anchoredPosition.y - (yPos*multiplier));
+        //     newItem.GetComponent<RectTransform>().anchoredPosition = newPos;
+
+        //     // Change box colour
+        //     colourBox = newItem.GetComponentInChildren<Image>();
+        //     variableName = newItem.GetComponentInChildren<Text>();
+        //     colourBox.color = classifications[i];
+        //     variableName.text = input.getDimensions()[flightStageIndexes[i]].Identifier;
+    } 
 }

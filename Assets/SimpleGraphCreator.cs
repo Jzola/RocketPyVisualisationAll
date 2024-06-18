@@ -6,6 +6,8 @@ using UnityEngine;
 using System.Linq;
 using BarGraph.VittorCloud;
 
+
+//Simplified version of the GraphCreator class that removes functions unnecessary to the study version of the program
 public class SimpleGraphCreator : GraphCommon
 {
     //Graph prefab is based on the original Input data using different rocket types and weights.
@@ -44,6 +46,7 @@ public class SimpleGraphCreator : GraphCommon
 
     [ContextMenu("Create Graph")]
     // Creates a graph, based on the given prefab and set axes
+    // TODO: Once metrics collecting is added should start collecting here
     public void CreateGraph()
     {
         if (!graphHandler.hasFreeSpace()) return;

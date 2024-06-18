@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//For keeping track of the selected rocket
 public class SelectionManager : MonoBehaviour
 {
     private string selectedRocketId;
@@ -16,6 +17,7 @@ public class SelectionManager : MonoBehaviour
     [SerializeField]
     private Text finalSelectionText;
 
+    //Change the selected rocket and update text
     public void ChangeSelection(string rocketId)
     {
         if (rocketId != selectedRocketId)
@@ -24,6 +26,7 @@ public class SelectionManager : MonoBehaviour
             rocketNameDisplay.text = rocketId;
             confirmButton.interactable = true;
         }
+        //Pressing the same selection button twice deselects the rocket
         else
         {
             rocketNameDisplay.text = "None";
@@ -32,6 +35,8 @@ public class SelectionManager : MonoBehaviour
         }
     }
 
+    //Upon confirmation show the completion panel with the selected rocket
+    //TODO: Once metrics collecting is added should stop collecting here
     public void ConfirmSelection()
     {
         completionPanel.SetActive(true);

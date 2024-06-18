@@ -727,7 +727,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 841604784}
-  - component: {fileID: 841604785}
   - component: {fileID: 841604786}
   m_Layer: 0
   m_Name: Graph Creator
@@ -751,35 +750,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: -79.321, y: 90, z: 0}
---- !u!114 &841604785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 841604783}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa7d265383271294c8bd83fa1558b136, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  variableExtractionFile: {fileID: 4900000, guid: ad85bd01f248ec24eb06e2d064086cb9,
-    type: 3}
-  xAxis: ' Y (m)'
-  yAxis: ' Z (m)'
-  zAxis: ' X (m)'
-  dimensions: 3
-  variables: []
-  inputFolderName: Default_Inputs
-  availableInputs: []
-  scatterGraphPrefab: {fileID: 7634332073583643605, guid: 7168fa4484f58784ba8f7e039387cdab,
-    type: 3}
-  barGraphPrefab: {fileID: 7559326757985018075, guid: e510b41864fa3494896c738279d90a6c,
-    type: 3}
-  graphType: 0
-  VRCamera: {fileID: 8769165772263717265}
-  spawnCirclePrefab: {fileID: 4646104345103368571, guid: 5f99256a64a52c340816a95bd5ba2288,
-    type: 3}
 --- !u!114 &841604786
 MonoBehaviour:
   m_ObjectHideFlags: 0
