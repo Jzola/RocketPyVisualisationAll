@@ -6,7 +6,7 @@ using System;
 
 public class VisualisationManager : MonoBehaviour
 {
-    private List<Visualisation> visualisations;
+    private List<AltitudeCheck> altitudeChecks;
     private List<DataFiles> files;
     private List<string> scenarios;
     private string currentScenario;
@@ -18,6 +18,7 @@ public class VisualisationManager : MonoBehaviour
     void Start()
     {
         files = new List<DataFiles>(GetComponentsInChildren<DataFiles>());
+        altitudeChecks = new List<AltitudeCheck>(GetComponentsInChildren<AltitudeCheck>());
 
         initialiseData();
 
@@ -86,6 +87,14 @@ public class VisualisationManager : MonoBehaviour
             file.setSimulationFilesCoroutine();
         }
         yield return null;
+    }
+
+    private void setDesiredAltitude()
+    {
+        foreach (AltitudeCheck altitudeCheck in altitudeChecks)
+        {
+            altitudeCheck.setHeight(globalMax[1]);
+        }
     }
 
     //Change the current scenario to the specified index in the scenarios array

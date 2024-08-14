@@ -1805,16 +1805,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a57ec4db3a6af4299810b06709dfae46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualisationObject: {fileID: 103121019073850230}
   visualisationPrefab: {fileID: 3573828394815302111, guid: 37465c414c08a1047b909cdf14a8b56c,
     type: 3}
-  dataPointPrefab: {fileID: 722516948723331244, guid: 0858868a1849e774b93a811b300d8ac4,
-    type: 3}
   rocket: {fileID: 7835459601145415201}
-  LegendItemPrefab: {fileID: 506424582861301155}
   scenario: Scenario1
   rocketId: Rocket4
-  outputVariableVisibility: {fileID: 7396836988091437000}
   trajProgress: 0
 --- !u!1 &692787051618115939
 GameObject:
@@ -4750,16 +4745,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a57ec4db3a6af4299810b06709dfae46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualisationObject: {fileID: 1125021310778374098}
   visualisationPrefab: {fileID: 3573828394815302111, guid: 37465c414c08a1047b909cdf14a8b56c,
     type: 3}
-  dataPointPrefab: {fileID: 722516948723331244, guid: 0858868a1849e774b93a811b300d8ac4,
-    type: 3}
   rocket: {fileID: 4488130778187794187}
-  LegendItemPrefab: {fileID: 506424582861301155}
   scenario: Scenario1
   rocketId: Rocket2
-  outputVariableVisibility: {fileID: 7396836988091437000}
   trajProgress: 0
 --- !u!1 &1715784579487585876
 GameObject:
@@ -5142,6 +5132,102 @@ MonoBehaviour:
   MaxNormaliser: 0.99999934
   SourceIndex: 2
   AxisDirection: 1
+--- !u!1 &1890964202036537560
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 695122745512214128}
+  - component: {fileID: 3150139024075095942}
+  - component: {fileID: 3928380919796149820}
+  - component: {fileID: 6222983833796985461}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &695122745512214128
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890964202036537560}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.504, y: -0.033, z: 0.516}
+  m_LocalScale: {x: 1, y: 0.01, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8818383794539582200}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &3150139024075095942
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890964202036537560}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &3928380919796149820
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890964202036537560}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 7c0707aad770f0f4ca09b79e3961539b, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6222983833796985461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890964202036537560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05a738a11ad6647469341d32e416d072, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  altitude: 500
+  graphHeight: 1.033
 --- !u!1 &1897875785843595755
 GameObject:
   m_ObjectHideFlags: 0
@@ -6347,16 +6433,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a57ec4db3a6af4299810b06709dfae46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualisationObject: {fileID: 3104394655504071731}
   visualisationPrefab: {fileID: 3573828394815302111, guid: 37465c414c08a1047b909cdf14a8b56c,
     type: 3}
-  dataPointPrefab: {fileID: 722516948723331244, guid: 0858868a1849e774b93a811b300d8ac4,
-    type: 3}
   rocket: {fileID: 8845734810495432257}
-  LegendItemPrefab: {fileID: 506424582861301155}
   scenario: Scenario1
   rocketId: Rocket3
-  outputVariableVisibility: {fileID: 7396836988091437000}
   trajProgress: 0
 --- !u!1 &2382531399315718681
 GameObject:
@@ -7658,6 +7739,7 @@ Transform:
   - {fileID: 8251464319528130352}
   - {fileID: 5218285235027115649}
   - {fileID: 6903225704793801126}
+  - {fileID: 695122745512214128}
   m_Father: {fileID: 7585773280512342548}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -25, z: 0}
@@ -9200,16 +9282,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a57ec4db3a6af4299810b06709dfae46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualisationObject: {fileID: 8444431479424476454}
   visualisationPrefab: {fileID: 3573828394815302111, guid: 37465c414c08a1047b909cdf14a8b56c,
     type: 3}
-  dataPointPrefab: {fileID: 722516948723331244, guid: 0858868a1849e774b93a811b300d8ac4,
-    type: 3}
   rocket: {fileID: 470793184224536147}
-  LegendItemPrefab: {fileID: 506424582861301155}
   scenario: Scenario1
   rocketId: Rocket6
-  outputVariableVisibility: {fileID: 7396836988091437000}
   trajProgress: 0
 --- !u!1 &3735227941677164538
 GameObject:
@@ -10054,16 +10131,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a57ec4db3a6af4299810b06709dfae46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualisationObject: {fileID: 1567905156216138518}
   visualisationPrefab: {fileID: 3573828394815302111, guid: 37465c414c08a1047b909cdf14a8b56c,
     type: 3}
-  dataPointPrefab: {fileID: 722516948723331244, guid: 0858868a1849e774b93a811b300d8ac4,
-    type: 3}
   rocket: {fileID: 8899361580810972430}
-  LegendItemPrefab: {fileID: 506424582861301155}
   scenario: Scenario1
   rocketId: Rocket5
-  outputVariableVisibility: {fileID: 7396836988091437000}
   trajProgress: 0
 --- !u!1 &4112207236274654382
 GameObject:
@@ -27031,16 +27103,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a57ec4db3a6af4299810b06709dfae46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualisationObject: {fileID: 8450484419705124361}
   visualisationPrefab: {fileID: 3573828394815302111, guid: 37465c414c08a1047b909cdf14a8b56c,
     type: 3}
-  dataPointPrefab: {fileID: 722516948723331244, guid: 0858868a1849e774b93a811b300d8ac4,
-    type: 3}
   rocket: {fileID: 8889152342367156707}
-  LegendItemPrefab: {fileID: 506424582861301155}
   scenario: Scenario1
   rocketId: Rocket1
-  outputVariableVisibility: {fileID: 7396836988091437000}
   trajProgress: 0
 --- !u!1 &7515451095955234499
 GameObject:
@@ -33372,12 +33439,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46009f9247eb4b946a950170a71f7daa, type: 3}
---- !u!224 &5748798393943419874 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4703939447519788613, guid: 46009f9247eb4b946a950170a71f7daa,
-    type: 3}
-  m_PrefabInstance: {fileID: 1044858955081733543}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1049439612912998060 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4589823359664907, guid: 46009f9247eb4b946a950170a71f7daa,
@@ -33390,6 +33451,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &5748798393943419874 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4703939447519788613, guid: 46009f9247eb4b946a950170a71f7daa,
+    type: 3}
+  m_PrefabInstance: {fileID: 1044858955081733543}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2152124883915865951
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34107,6 +34174,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e96eb871060a4549a02804724c0c708, type: 3}
+--- !u!224 &2549650184799320227 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1479568846445504548, guid: 4e96eb871060a4549a02804724c0c708,
+    type: 3}
+  m_PrefabInstance: {fileID: 4029122234758369415}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2549650186336829039 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1479568845981871848, guid: 4e96eb871060a4549a02804724c0c708,
@@ -34119,12 +34192,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &2549650184799320227 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1479568846445504548, guid: 4e96eb871060a4549a02804724c0c708,
-    type: 3}
-  m_PrefabInstance: {fileID: 4029122234758369415}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4084634922871433696
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34409,12 +34476,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e4e8beb6bda7474eb3c0c662d165d6d, type: 3}
---- !u!1 &506424582861301155 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5045942894950341387, guid: 8e4e8beb6bda7474eb3c0c662d165d6d,
-    type: 3}
-  m_PrefabInstance: {fileID: 4684275971590913704}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &3123782630255311489 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7662879086363395113, guid: 8e4e8beb6bda7474eb3c0c662d165d6d,
