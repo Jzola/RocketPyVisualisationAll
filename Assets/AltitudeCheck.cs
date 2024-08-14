@@ -6,15 +6,29 @@ public class AltitudeCheck : MonoBehaviour
 {
     public float altitude;
     public float graphHeight;
-    // Start is called before the first frame update
-    void Start()
+    public float lerpDuration;
+    private float timeElapsed;
+    private Vector3 initialPos;
+    private Vector3 startPoint;
+    private Vector3 targetPos;
+    private bool moving;
+
+    public void Initialise()
     {
-        
+        initialPos = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (moving) 
+        {
+            transform.position = Vector3.Lerp(startPoint, targetPos, timeElapsed / lerpDuration);
+            timeElapsed += Time.deltaTime;
+
+            if (transform.position == targetPos)
+                moving = false;
+        }
         
     }
 
@@ -22,8 +36,11 @@ public class AltitudeCheck : MonoBehaviour
     {
         float relativeHeight = altitude / maxHeight;
         float position = relativeHeight * graphHeight;
+        startPoint = transform.position;
+        timeElapsed = 0;
+        moving = true;
 
-        transform.position = transform.position + new Vector3(0, position, 0);
+        targetPos = initialPos + new Vector3(0, position, 0);
 
     }
 }

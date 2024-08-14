@@ -23,6 +23,8 @@ public class VisualisationManager : MonoBehaviour
         initialiseData();
 
         StartCoroutine(createVisualisations());
+        initialiseAltitudePosition();
+        setDesiredAltitude();
 
         scenarios = new List<string>();
         //TODO: Load scenario names from directory
@@ -48,6 +50,7 @@ public class VisualisationManager : MonoBehaviour
         initialiseData();
 
         StartCoroutine(createVisualisations());
+        setDesiredAltitude();
     }
 
     private void initialiseData()
@@ -93,7 +96,15 @@ public class VisualisationManager : MonoBehaviour
     {
         foreach (AltitudeCheck altitudeCheck in altitudeChecks)
         {
-            altitudeCheck.setHeight(globalMax[1]);
+            altitudeCheck.setHeight(globalMax[2]);
+        }
+    }
+
+    private void initialiseAltitudePosition()
+    {
+        foreach (AltitudeCheck altitudeCheck in altitudeChecks)
+        {
+            altitudeCheck.Initialise();
         }
     }
 
