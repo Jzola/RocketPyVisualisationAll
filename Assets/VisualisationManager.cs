@@ -96,7 +96,7 @@ public class VisualisationManager : MonoBehaviour
     {
         foreach (AltitudeCheck altitudeCheck in altitudeChecks)
         {
-            altitudeCheck.setHeight(globalMax[2]);
+            altitudeCheck.setHeight(globalMax[2], globalMin[2]);
         }
     }
 

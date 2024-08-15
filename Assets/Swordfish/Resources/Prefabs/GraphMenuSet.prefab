@@ -1857,7 +1857,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a738a11ad6647469341d32e416d072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  altitude: 500
+  altitude: 1500
   graphHeight: 1.033
   lerpDuration: 1
 --- !u!1 &680704451275746636
@@ -5326,7 +5326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a738a11ad6647469341d32e416d072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  altitude: 500
+  altitude: 1500
   graphHeight: 1.033
   lerpDuration: 1
 --- !u!1 &1897875785843595755
@@ -10129,7 +10129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a738a11ad6647469341d32e416d072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  altitude: 500
+  altitude: 1500
   graphHeight: 1.033
   lerpDuration: 1
 --- !u!1 &4005853432631089110
@@ -21019,7 +21019,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a738a11ad6647469341d32e416d072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  altitude: 500
+  altitude: 1500
   graphHeight: 1.033
   lerpDuration: 1
 --- !u!1 &4742420880751288469
@@ -24388,7 +24388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a738a11ad6647469341d32e416d072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  altitude: 500
+  altitude: 1500
   graphHeight: 1.033
   lerpDuration: 1
 --- !u!1 &6091618873835719865
@@ -25530,7 +25530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a738a11ad6647469341d32e416d072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  altitude: 500
+  altitude: 1500
   graphHeight: 1.033
   lerpDuration: 1
 --- !u!1 &6643417795339951928

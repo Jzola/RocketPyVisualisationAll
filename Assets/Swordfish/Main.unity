@@ -430,11 +430,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "VR Rocketry System\n\nPress start to begin. Five graphs representing\na
+  m_Text: "VR Rocketry System\n\nPress start to begin. Six graphs representing\na
     design of rocket will appear.\n\nUse the scenario selection panel to change \nbetween
     scenarios.\n\nCompare rocket trajectories across all scenarios\nto determine
     the optimal rocket design.\n\nWhen you are ready to make your selection\npress
-    the 'Select' button below the graph.\n"
+    the 'Select' button below the graph\ncorresponding to your choice of rocket.\n"
 --- !u!222 &446307688
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2492,7 +2492,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1936308376
 MonoBehaviour:
   m_ObjectHideFlags: 0

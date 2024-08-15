@@ -32,9 +32,10 @@ public class AltitudeCheck : MonoBehaviour
         
     }
 
-    public void setHeight(float maxHeight)
+    public void setHeight(float maxHeight, float minHeight)
     {
-        float relativeHeight = altitude / maxHeight;
+        float deltaHeight = maxHeight - minHeight;
+        float relativeHeight = altitude / deltaHeight;
         float position = relativeHeight * graphHeight;
         startPoint = transform.position;
         timeElapsed = 0;
