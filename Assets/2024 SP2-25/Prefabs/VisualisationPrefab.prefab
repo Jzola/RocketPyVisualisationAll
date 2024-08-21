@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7622188611780821905}
   m_Layer: 0
   m_Name: VisualisationPrefab
-  m_TagString: Untagged
+  m_TagString: Visualisation
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

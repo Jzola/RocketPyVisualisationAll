@@ -27,7 +27,7 @@ public class DataFiles : MonoBehaviour
     private int maxIndexZ = 0;
 
     // Simulation files
-    [SerializeField]
+    //[SerializeField]
     private string scenario = "Scenario1";
     [SerializeField]
     private string rocketId;
@@ -78,6 +78,16 @@ public class DataFiles : MonoBehaviour
         }
     }*/
 
+    public void SetVisualisationPrefab(GameObject prefab)
+    {
+        visualisationPrefab = prefab;
+    }
+
+    public void SetRocketId(string id)
+    {
+        rocketId = id;
+    }
+
     public void setScenario(string scenario)
     {
         this.scenario = scenario;
@@ -103,6 +113,8 @@ public class DataFiles : MonoBehaviour
 
         dimensionMin = new float[files[0].DimensionCount];
         dimensionMax = new float[files[0].DimensionCount];
+
+        
     }
 
     public IEnumerator setSimulationFiles()
@@ -256,7 +268,7 @@ public class DataFiles : MonoBehaviour
         visualisation.CreateVisualisation(AbstractVisualisation.VisualisationTypes.SCATTERPLOT);       
         BigMesh mesh = visualisation.theVisualizationObject.viewList[0].BigMesh;
 
-        files[fileIndex].transform.SetParent(visualisation.transform);
+        //files[fileIndex].transform.SetParent(visualisation.transform);
 
         // Create a randomly coloured material to use for the VisualisationLine and VisualisationPoints objects
         var rand = new System.Random();
@@ -270,7 +282,7 @@ public class DataFiles : MonoBehaviour
         line.AddComponent<VisualisationLine>();
         line.GetComponent<VisualisationLine>().setVisualisationMesh(mesh);
         line.GetComponent<VisualisationLine>().setLineMaterial(mat);
-        line.transform.SetParent(files[fileIndex].transform, false);
+        line.transform.SetParent(visualisation.transform, false);
 
         line.SetActive(true);
 
@@ -367,9 +379,10 @@ public class DataFiles : MonoBehaviour
     {
         foreach (Transform child in transform)
         {
-            Destroy(child.gameObject);
+            if (child.tag == "Visualisation")
+                Destroy(child.gameObject);
         }
-        rocket.lineList.Clear();
+        //rocket.lineList.Clear();
     }
 
     //UNUSED LEGACY FUNCTIONS

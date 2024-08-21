@@ -8,32 +8,49 @@ public class VisualisationManager : MonoBehaviour
 {
     private List<AltitudeCheck> altitudeChecks;
     private List<DataFiles> files;
+    private List<ScenarioSwitcher> visualisations;
     private List<string> scenarios;
-    private string currentScenario;
+    private string currentScenario = "";
+    private Dictionary<string, List<GameObject>> scenarioObjects;
 
     private float[] globalMin;
     private float[] globalMax;
 
+    public GameObject visualisationPrefab;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        foreach (Visualisation visualisation in GetComponentsInChildren<Visualisation>())
+        {
+            visualisation.xDimension = " Y (m)";
+            visualisation.yDimension = " Z (m)";
+            visualisation.zDimension = " X (m)";
+        }    
         files = new List<DataFiles>(GetComponentsInChildren<DataFiles>());
+        visualisations = new List<ScenarioSwitcher>(GetComponentsInChildren<ScenarioSwitcher>());
         altitudeChecks = new List<AltitudeCheck>(GetComponentsInChildren<AltitudeCheck>());
-
-        initialiseData();
-
-        StartCoroutine(createVisualisations());
-        initialiseAltitudePosition();
-        setDesiredAltitude();
-
         scenarios = new List<string>();
+        scenarioObjects = new Dictionary<string, List<GameObject>>();
         //TODO: Load scenario names from directory
         //for now use hard coded names
         scenarios.Add("Scenario1");
         scenarios.Add("Scenario2");
 
+        foreach (string scenario in scenarios)
+        {
+            initialiseData(scenario);
+        }
+    
+        // StartCoroutine(createVisualisations());
+        initialiseAltitudePosition();
+        setDesiredAltitude();
+
+        
+
         //Default to first scenario
-        currentScenario = scenarios[0];
+        SetActiveScenario(scenarios[0]);
 
     }
 
@@ -47,16 +64,29 @@ public class VisualisationManager : MonoBehaviour
             file.setScenario(currentScenario);
         }
             
-        initialiseData();
+        //initialiseData();
 
-        StartCoroutine(createVisualisations());
+        //StartCoroutine(createVisualisations());
         setDesiredAltitude();
     }
 
-    private void initialiseData()
-    {
-        foreach (DataFiles file in files)
+    private void initialiseData(string scenario)
+    {   
+        List<GameObject> scenarioList = new List<GameObject>();    
+        for (int i = 0; i < visualisations.Count; i++)
         {
+            GameObject scenarioObj = new GameObject(scenario);
+            scenarioObj.transform.SetParent(visualisations[i].transform, false);
+            scenarioList.Add(scenarioObj);
+
+            GameObject dataFilesObj = new GameObject("DataFiles");
+            dataFilesObj.transform.SetParent(scenarioObj.transform, false);
+
+            DataFiles file = dataFilesObj.AddComponent<DataFiles>();
+            file.setScenario(scenario);
+            file.SetVisualisationPrefab(visualisationPrefab);
+            file.SetRocketId("Rocket" + (i + 1));
+
             file.initialiseDataSet();
             //Dynamically find the min and max of each dimension across all datasets
             //Needed to normalise all the data to the same scale for comparison
@@ -70,14 +100,42 @@ public class VisualisationManager : MonoBehaviour
                 globalMax = file.dimensionMax;
             }
 
-            for (int i = 0; i < file.dimensionMin.Length; i++)
-                if (file.dimensionMin[i] < globalMin[i])
-                    globalMin[i] = file.dimensionMin[i];
+            for (int j = 0; j < file.dimensionMin.Length; j++)
+                if (file.dimensionMin[j] < globalMin[j])
+                    globalMin[j] = file.dimensionMin[j];
 
-            for (int i = 0; i < file.dimensionMax.Length; i++)
-                if (file.dimensionMax[i] > globalMax[i])
-                    globalMax[i] = file.dimensionMax[i];
+            for (int j = 0; j < file.dimensionMax.Length; j++)
+                if (file.dimensionMax[j] > globalMax[j])
+                    globalMax[j] = file.dimensionMax[j];
+            //scenarioObj.SetActive(false);
         }
+
+        scenarioObjects.Add(scenario, scenarioList);
+
+
+        // foreach (DataFiles file in files)
+        // {
+        //     file.initialiseDataSet();
+        //     //Dynamically find the min and max of each dimension across all datasets
+        //     //Needed to normalise all the data to the same scale for comparison
+        //     file.GetMinMax();
+        //     if (globalMin == null)
+        //     {
+        //         globalMin = file.dimensionMin;
+        //     }
+        //     if (globalMax == null)
+        //     {
+        //         globalMax = file.dimensionMax;
+        //     }
+
+        //     for (int i = 0; i < file.dimensionMin.Length; i++)
+        //         if (file.dimensionMin[i] < globalMin[i])
+        //             globalMin[i] = file.dimensionMin[i];
+
+        //     for (int i = 0; i < file.dimensionMax.Length; i++)
+        //         if (file.dimensionMax[i] > globalMax[i])
+        //             globalMax[i] = file.dimensionMax[i];
+        // }
     }
 
     private IEnumerator createVisualisations()
@@ -111,7 +169,34 @@ public class VisualisationManager : MonoBehaviour
     //Change the current scenario to the specified index in the scenarios array
     public void ChangeScenario(int scenario)
     {
-        currentScenario = scenarios[scenario];
-        RemakeVisualisations();
+            SetActiveScenario(scenarios[scenario]);
+    }
+
+    private void SetActiveScenario(string scenario)
+    {
+        if (scenarioObjects.ContainsKey(currentScenario))
+        {
+            foreach (GameObject scenarioObj in scenarioObjects[currentScenario])
+            {
+                foreach (DataFiles file in scenarioObj.GetComponentsInChildren<DataFiles>())
+                {
+                    file.DestroyTrajectories();
+                }                
+            }
+        }
+        if (scenarioObjects.ContainsKey(scenario))
+        {
+            foreach (GameObject scenarioObj in scenarioObjects[scenario])
+            {
+                foreach (DataFiles file in scenarioObj.GetComponentsInChildren<DataFiles>())
+                {
+                    file.dimensionMin = globalMin;
+                    file.dimensionMax = globalMax;
+                    file.setSimulationFilesCoroutine();
+                }                
+            }
+        }
+
+        currentScenario = scenario;
     }
 }
