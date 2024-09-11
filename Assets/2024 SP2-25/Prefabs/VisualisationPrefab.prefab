@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9220805621585151398}
   - component: {fileID: 3877247218602935704}
-  - component: {fileID: 7622188611780821905}
+  - component: {fileID: 6027367741048059967}
   m_Layer: 0
   m_Name: VisualisationPrefab
   m_TagString: Visualisation
@@ -419,9 +419,9 @@ MonoBehaviour:
   height: 1
   depth: 1
   colorPaletteDimension: Undefined
-  theVisualizationObject: {fileID: 0}
+  theVisualizationObject: {fileID: 6027367741048059967}
   uid: 4f8d65b7
---- !u!114 &7622188611780821905
+--- !u!114 &6027367741048059967
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -433,7 +433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a371c45608c2e458976fa2e69ab4a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualisationReference: {fileID: 0}
+  visualisationReference: {fileID: 3877247218602935704}
   viewList: []
   GameObject_Axes_Holders: []
   X_AXIS: {fileID: 0}

@@ -545,7 +545,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2951396255704547103}
   m_Layer: 0
-  m_Name: Visualisation (2)
+  m_Name: Visualisation4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -571,7 +571,7 @@ Transform:
   - {fileID: 775408340739812634}
   - {fileID: 5332001159514708015}
   m_Father: {fileID: 7585773280512342548}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &113427338858100822
 GameObject:
@@ -1906,7 +1906,6 @@ MonoBehaviour:
   visualisationPrefab: {fileID: 3573828394815302111, guid: 37465c414c08a1047b909cdf14a8b56c,
     type: 3}
   rocket: {fileID: 7835459601145415201}
-  scenario: Scenario1
   rocketId: Rocket4
   trajProgress: 0
 --- !u!1 &692787051618115939
@@ -3421,7 +3420,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1845467490632543480}
   m_Layer: 0
-  m_Name: Visualisation (1)
+  m_Name: Visualisation2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4574,7 +4573,7 @@ GameObject:
   m_Component:
   - component: {fileID: 708902689358516094}
   m_Layer: 0
-  m_Name: Visualisation (3)
+  m_Name: Visualisation5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4600,7 +4599,7 @@ Transform:
   - {fileID: 1245298876165684319}
   - {fileID: 3430294014299342506}
   m_Father: {fileID: 7585773280512342548}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 25, z: 0}
 --- !u!1 &1684315679986311034
 GameObject:
@@ -4848,7 +4847,6 @@ MonoBehaviour:
   visualisationPrefab: {fileID: 3573828394815302111, guid: 37465c414c08a1047b909cdf14a8b56c,
     type: 3}
   rocket: {fileID: 4488130778187794187}
-  scenario: Scenario1
   rocketId: Rocket2
   trajProgress: 0
 --- !u!1 &1715784579487585876
@@ -6537,7 +6535,6 @@ MonoBehaviour:
   visualisationPrefab: {fileID: 3573828394815302111, guid: 37465c414c08a1047b909cdf14a8b56c,
     type: 3}
   rocket: {fileID: 8845734810495432257}
-  scenario: Scenario1
   rocketId: Rocket3
   trajProgress: 0
 --- !u!1 &2382531399315718681
@@ -7816,7 +7813,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8818383794539582200}
   m_Layer: 0
-  m_Name: Visualisation
+  m_Name: Visualisation3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7842,7 +7839,7 @@ Transform:
   - {fileID: 6903225704793801126}
   - {fileID: 695122745512214128}
   m_Father: {fileID: 7585773280512342548}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: -25, z: 0}
 --- !u!1 &3132741211356454872
 GameObject:
@@ -9386,7 +9383,6 @@ MonoBehaviour:
   visualisationPrefab: {fileID: 3573828394815302111, guid: 37465c414c08a1047b909cdf14a8b56c,
     type: 3}
   rocket: {fileID: 470793184224536147}
-  scenario: Scenario1
   rocketId: Rocket6
   trajProgress: 0
 --- !u!1 &3735227941677164538
@@ -10332,7 +10328,6 @@ MonoBehaviour:
   visualisationPrefab: {fileID: 3573828394815302111, guid: 37465c414c08a1047b909cdf14a8b56c,
     type: 3}
   rocket: {fileID: 8899361580810972430}
-  scenario: Scenario1
   rocketId: Rocket5
   trajProgress: 0
 --- !u!1 &4112207236274654382
@@ -24722,11 +24717,11 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 8818383794539582200}
+  - {fileID: 2879131535178024520}
   - {fileID: 1845467490632543480}
+  - {fileID: 8818383794539582200}
   - {fileID: 2951396255704547103}
   - {fileID: 708902689358516094}
-  - {fileID: 2879131535178024520}
   - {fileID: 607488416688826509}
   m_Father: {fileID: 1126808855035245237}
   m_RootOrder: 0
@@ -24743,6 +24738,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69e579149623dea448367264371e8517, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visualisationPrefab: {fileID: 0}
+  sidePanel: {fileID: 0}
 --- !u!1 &6334043397976694097
 GameObject:
   m_ObjectHideFlags: 0
@@ -27595,7 +27592,6 @@ MonoBehaviour:
   visualisationPrefab: {fileID: 3573828394815302111, guid: 37465c414c08a1047b909cdf14a8b56c,
     type: 3}
   rocket: {fileID: 8889152342367156707}
-  scenario: Scenario1
   rocketId: Rocket1
   trajProgress: 0
 --- !u!1 &7515451095955234499
@@ -31188,7 +31184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 607488416688826509}
   m_Layer: 0
-  m_Name: Visualisation (5)
+  m_Name: Visualisation6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31226,7 +31222,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2879131535178024520}
   m_Layer: 0
-  m_Name: Visualisation (4)
+  m_Name: Visualisation1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31252,7 +31248,7 @@ Transform:
   - {fileID: 3528662764103108052}
   - {fileID: 8895946567239117101}
   m_Father: {fileID: 7585773280512342548}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -40.482, z: 0}
 --- !u!1 &8513983131723813617
 GameObject:

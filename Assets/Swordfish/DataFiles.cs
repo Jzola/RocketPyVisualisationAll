@@ -31,7 +31,7 @@ public class DataFiles : MonoBehaviour
     private string scenario = "Scenario1";
     [SerializeField]
     private string rocketId;
-    private string path = "/Resources/StudyData/";
+    private string path = "/Resources/Scenarios/";
     private List<CSVDataSource> files;
     [System.NonSerialized]
     public CSVDataSource input;
@@ -41,6 +41,7 @@ public class DataFiles : MonoBehaviour
     private string colourCol = "# Time (s)";
     private Color trajStartCol = new Color(1f, 0.165f, 0.165f);
     private Color trajEndCol = new Color(0.008f, 0.361f, 0.122f);
+    private float colourCounter = 0;
 
     // Traj creation progress, from 0-1
     public float trajProgress = 0;
@@ -164,8 +165,8 @@ public class DataFiles : MonoBehaviour
     private void CreateCSVDataSource()
     {
         // Makes sure to sort the files properly
-        string[] filePaths = Directory.GetFiles(Application.dataPath + (path + rocketId + '/' + scenario), "*.csv").OrderBy(f => Regex.Replace(f, "[0-9]+", match => match.Value.PadLeft(5, '0'))).ToArray();
-        string[] inputFile = Directory.GetFiles(Application.dataPath + (path + rocketId + '/' + scenario + "/inputData"), "*.csv");
+        string[] filePaths = Directory.GetFiles(Application.dataPath + (path + scenario + '/' + rocketId), "*.csv").OrderBy(f => Regex.Replace(f, "[0-9]+", match => match.Value.PadLeft(5, '0'))).ToArray();
+        string[] inputFile = Directory.GetFiles(Application.dataPath + (path + scenario + '/' + rocketId + "/inputData"), "*.csv");
 
         GameObject inputDataObj = new GameObject("InputData");
         inputDataObj.transform.SetParent(this.transform, false);
@@ -264,6 +265,8 @@ public class DataFiles : MonoBehaviour
         // Create the Visualisation object for respective trajectory.
         Visualisation visualisation = Instantiate(visualisationPrefab, transform).GetComponent<Visualisation>();
         visualisation.geometry = AbstractVisualisation.GeometryType.Points;
+        visualisation.colour = new Color(1, 1-colourCounter, 1-colourCounter, 1);
+        colourCounter += .033f;
         visualisation.dataSource = files[fileIndex];
         visualisation.CreateVisualisation(AbstractVisualisation.VisualisationTypes.SCATTERPLOT);       
         BigMesh mesh = visualisation.theVisualizationObject.viewList[0].BigMesh;
@@ -382,6 +385,8 @@ public class DataFiles : MonoBehaviour
             if (child.tag == "Visualisation")
                 Destroy(child.gameObject);
         }
+
+        colourCounter = 0;
         //rocket.lineList.Clear();
     }
 
