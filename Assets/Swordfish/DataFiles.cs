@@ -265,8 +265,41 @@ public class DataFiles : MonoBehaviour
         // Create the Visualisation object for respective trajectory.
         Visualisation visualisation = Instantiate(visualisationPrefab, transform).GetComponent<Visualisation>();
         visualisation.geometry = AbstractVisualisation.GeometryType.Points;
-        visualisation.colour = new Color(1, 1-colourCounter, 1-colourCounter, 1);
-        colourCounter += .033f;
+        //Set colour according to scenario
+        switch (scenario)
+        {
+            case "Scenario1":
+                visualisation.colour = new Color(1, 1 - colourCounter, 1 - colourCounter, 1);
+                colourCounter += .033f;
+                break;
+            case "Scenario2":
+                if (fileIndex < 10)
+                {
+                    visualisation.colour = new Color(0.3f - colourCounter, 0.3f - colourCounter, 1, 1);                      
+                }
+                else if (fileIndex < 20)
+                {
+                    visualisation.colour = new Color(0.3f - colourCounter, 1, 0.3f - colourCounter, 1);
+                }
+                else if (fileIndex < 30)
+                {
+                    visualisation.colour = new Color(1, 0.5f, 0.3f - colourCounter, 1);
+                    
+                }
+                else if (fileIndex < 40)
+                {
+                    visualisation.colour = new Color(1, 0.3f - colourCounter, 0.3f - colourCounter, 1);                   
+                }
+                colourCounter += .03f;
+                if (fileIndex > 0 && (fileIndex + 1) % 10 == 0)
+                    colourCounter = 0;
+                break;
+            default:
+                break;
+        }
+        
+
+
         visualisation.dataSource = files[fileIndex];
         visualisation.CreateVisualisation(AbstractVisualisation.VisualisationTypes.SCATTERPLOT);       
         BigMesh mesh = visualisation.theVisualizationObject.viewList[0].BigMesh;

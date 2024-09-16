@@ -133,13 +133,13 @@ namespace IATK
         public void CreateVisualisation(AbstractVisualisation.VisualisationTypes visualizationType)
         {
             //destroy the previous visualisations
-            AbstractVisualisation[] previousVisualizations = GetComponentsInChildren<AbstractVisualisation>();
+            /*AbstractVisualisation[] previousVisualizations = GetComponentsInChildren<AbstractVisualisation>();
 
             foreach (var item in previousVisualizations)
             {
                 item.destroyView();
                 DestroyImmediate(item);
-            }
+            }*/
 
             // AXES WILL GET DESTROYED ELSEWHERE
             ////destroy the previous axes

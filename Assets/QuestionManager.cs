@@ -16,6 +16,8 @@ public class QuestionManager : MonoBehaviour
     private int currentQuestion = 0;
     private int answer;
     private int[] answers = { 0, 0, 0 };
+    private float[] times;
+    private bool running;
 
     private List<string> questions = new List<string>();
 
@@ -39,17 +41,27 @@ public class QuestionManager : MonoBehaviour
         questions.Add("Question 3: cccccccccc");
 
         questionText.text = questions[0];
+
+        times = new float[questions.Count];
+        running = true;
+    }
+
+    void Update()
+    {
+        if (running)
+            times[currentQuestion] += Time.deltaTime;
     }
 
     public void NextQuestion()
-    {  
+    {
+        Debug.Log("Question " + (currentQuestion + 1) + " Answer: " + answers[currentQuestion] + " Time: " + times[currentQuestion]);
+
         if (answers[currentQuestion] == 0)
             return;
 
         currentQuestion++;
         questionText.text = questions[currentQuestion];
-        resetToggle();    
-
+        resetToggle();      
     }
 
     public void PrevQuestion()
@@ -82,11 +94,5 @@ public class QuestionManager : MonoBehaviour
             else
                 toggles[i].SetIsOnWithoutNotify(false);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
