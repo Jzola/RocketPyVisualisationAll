@@ -9,23 +9,12 @@ public class SidePanel : MonoBehaviour
     private Text rocketIDText;
     [SerializeField]
     private Text scenarioIDText;
-    [SerializeField]
-    private Button selectButton;
-    [SerializeField]
-    private ConfirmationPanel confirmationPanel;
-
     private int selectedRocket;
 
     // Start is called before the first frame update
     void Start()
     {
-        selectButton.onClick.AddListener(confirmSelection);
-    }
 
-    private void confirmSelection()
-    {
-        confirmationPanel.gameObject.SetActive(true);
-        confirmationPanel.SetRocketID(selectedRocket);
     }
 
     public void SetRocketID(int id)

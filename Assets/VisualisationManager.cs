@@ -67,29 +67,39 @@ public class VisualisationManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                scenarioCounter++;
-                if (scenarioCounter > scenarios.Count - 1)
-                {
-                    scenarioCounter = 0;
-                }
-                SetActiveScenario(scenarioCounter);
-                input = false;
-                StartCoroutine(waitForLoad());
+                NextScenario();
             }
 
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
-                scenarioCounter--;
-                if (scenarioCounter < 0)
-                {
-                    scenarioCounter = scenarios.Count - 1;
-                }
-                SetActiveScenario(scenarioCounter);
-                input = false;
-                StartCoroutine(waitForLoad());
+                PrevScenario();
             }
         }
         
+    }
+
+    public void NextScenario()
+    {
+        scenarioCounter++;
+        if (scenarioCounter > scenarios.Count - 1)
+        {
+            scenarioCounter = 0;
+        }
+        SetActiveScenario(scenarioCounter);
+        input = false;
+        StartCoroutine(waitForLoad());
+    }
+
+    public void PrevScenario()
+    {
+        scenarioCounter--;
+        if (scenarioCounter < 0)
+        {
+            scenarioCounter = scenarios.Count - 1;
+        }
+        SetActiveScenario(scenarioCounter);
+        input = false;
+        StartCoroutine(waitForLoad());
     }
 
     private IEnumerator waitForLoad()

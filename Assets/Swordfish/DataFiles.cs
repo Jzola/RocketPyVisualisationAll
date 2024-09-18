@@ -265,30 +265,35 @@ public class DataFiles : MonoBehaviour
         // Create the Visualisation object for respective trajectory.
         Visualisation visualisation = Instantiate(visualisationPrefab, transform).GetComponent<Visualisation>();
         visualisation.geometry = AbstractVisualisation.GeometryType.Points;
+        Color colour = Color.white;
         //Set colour according to scenario
         switch (scenario)
         {
             case "Scenario1":
-                visualisation.colour = new Color(1, 1 - colourCounter, 1 - colourCounter, 1);
+                colour = new Color(1, 1 - colourCounter, 1 - colourCounter, 1);
+                visualisation.colour = colour;
                 colourCounter += .033f;
                 break;
             case "Scenario2":
                 if (fileIndex < 10)
                 {
-                    visualisation.colour = new Color(0.3f - colourCounter, 0.3f - colourCounter, 1, 1);                      
+                    colour = new Color(0.3f - colourCounter, 0.3f - colourCounter, 1, 1);
+                    visualisation.colour = colour;
                 }
                 else if (fileIndex < 20)
                 {
-                    visualisation.colour = new Color(0.3f - colourCounter, 1, 0.3f - colourCounter, 1);
+                    colour = new Color(0.3f - colourCounter, 1, 0.3f - colourCounter, 1);
+                    visualisation.colour = colour;
                 }
                 else if (fileIndex < 30)
                 {
-                    visualisation.colour = new Color(1, 0.5f, 0.3f - colourCounter, 1);
-                    
+                    colour = new Color(1, 0.5f, 0.3f - colourCounter, 1);
+                    visualisation.colour = colour;
                 }
                 else if (fileIndex < 40)
                 {
-                    visualisation.colour = new Color(1, 0.3f - colourCounter, 0.3f - colourCounter, 1);                   
+                    colour = new Color(1, 0.3f - colourCounter, 0.3f - colourCounter, 1);
+                    visualisation.colour = colour;
                 }
                 colourCounter += .03f;
                 if (fileIndex > 0 && (fileIndex + 1) % 10 == 0)
@@ -307,10 +312,10 @@ public class DataFiles : MonoBehaviour
         //files[fileIndex].transform.SetParent(visualisation.transform);
 
         // Create a randomly coloured material to use for the VisualisationLine and VisualisationPoints objects
-        var rand = new System.Random();
+        //var rand = new System.Random();
         Material mat = new Material(Shader.Find("Standard"));
-        Color color = new Color((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble(), 1);
-        mat.color = color;
+        //Color color = Color.white;
+        mat.color = colour;
 
         // Create the VisualisationLine object for this trajectory
         GameObject line = new GameObject();

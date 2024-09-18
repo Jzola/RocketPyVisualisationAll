@@ -8,11 +8,20 @@ public class Rotator : MonoBehaviour
     bool dragging = false;
     Rigidbody rb;
     private Vector3 initialPos;
+    private Vector3 initialCameraPos;
+    /*[SerializeField]
+    private Camera camera;*/
+    [SerializeField]
+    private float scale = 0.05f;
+
+    private const float maxZoom = 1.551175f;
+    private const float minZoom = 2.0f;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         initialPos = transform.position;
+        //initialCameraPos = camera.transform.position;
     }
 
     // Update is called once per frame
@@ -21,6 +30,20 @@ public class Rotator : MonoBehaviour
         dragging = true;
         Debug.Log(dragging);
     }
+
+    /*private void OnGUI()
+    {
+        float fov = camera.fieldOfView;
+        fov -= Input.mouseScrollDelta.y;
+
+        *//*if (pos.z < maxZoom)
+            pos.z = maxZoom;
+
+        if (pos.z > minZoom)
+            pos.z = minZoom;*//*
+
+        camera.fieldOfView = fov;
+    }*/
 
     void Update()
     {
@@ -52,5 +75,6 @@ public class Rotator : MonoBehaviour
         rb.angularVelocity = Vector3.zero;
         transform.rotation = Quaternion.identity;
         transform.position = initialPos;
+        //camera.transform.position = initialCameraPos;
     }
 }
