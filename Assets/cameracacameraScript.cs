@@ -56,7 +56,7 @@ public class cameracacameraScript : MonoBehaviour
         switchCamera(cameraCount);
     }
 
-    private void switchCamera(int cameraId)
+    public void switchCamera(int cameraId)
     {
         cameras[currentCamera].SetActive(false);
         cameras[cameraId].SetActive(true);

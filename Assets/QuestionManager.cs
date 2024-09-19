@@ -13,6 +13,8 @@ public class QuestionManager : MonoBehaviour
     private Button nextButton;
     [SerializeField]
     private Button submitButton;
+    [SerializeField]
+    private cameracacameraScript cameraController;
 
     private List<Toggle> toggles;
     private ToggleGroup toggleGroup;
@@ -24,6 +26,8 @@ public class QuestionManager : MonoBehaviour
     private int[] answers;
     private float[] times;
     private bool running;
+
+    
 
     private List<List<string>> questionsList = new List<List<string>>();
     private List<string> currentQuestions = new List<string>();
@@ -50,18 +54,18 @@ public class QuestionManager : MonoBehaviour
     private void loadQuestions()
     {
         List<string> scenario1Questions = new List<string>();
-        scenario1Questions.Add("Mass: How does increasing the mass affect the altitude and duration of the rocket's flight path?");
-        scenario1Questions.Add("Top Radius: How does changing the top radius impact the trajectory?");
-        scenario1Questions.Add("Tail Length: How does adjusting the length of the tail affect the rocket’s flight duration and stability? ");
-        scenario1Questions.Add("Nose to CM: How does increasing the distance from the nose to the centre of mass affect the performance of the rocket’s flight path? ");
-        scenario1Questions.Add("Tail to CM: How does altering the distance from the tail to the centre of mass affect the performance of the rocket’s flight path? ");
+        scenario1Questions.Add("Mass: What can be inferred about the relationship between mass and flight time?");
+        scenario1Questions.Add("Nozzle: What can be inferred about the relationship between nozzle length and flight time?");
+        scenario1Questions.Add("Propellant: What is the general trend observed in the flight paths as the propellent length increases?");
+        scenario1Questions.Add("Nose to Centre Mass: What would likely happen to the trajectory if the Nose to Centre Mass distance were to increase beyond what is shown?");
+        scenario1Questions.Add("Burnout Time: Despite varying burnout times, what can be concluded about the landing locations of the rockets?");
 
         List<string> scenario2Questions = new List<string>();
-        scenario2Questions.Add("Mass & Tail Length: What is the effect of altering the rocket’s mass in combination with the tail length to affect the flight duration, stability, and trajectory? ");
-        scenario2Questions.Add("Mass & Nose to CM: How does varying the rocket’s mass in combination with the distance between the nose and the centre of mass affect the stability and trajectory of the rocket? ");
-        scenario2Questions.Add("Mass & Tail to CM: What is the combined effect of changing both the rocket mass and the distance between the tail to the centre of mass, affect the rocket’s flight path? ");
-        scenario2Questions.Add("Mass & Nozzle: How does variation in the rocket’s mass combined with differing nozzle designs affect the flight path of the rocket? ");
-        scenario2Questions.Add("Mass & Propellant: What is the impact of changing both rocket mass and the distance of the propellant, have on the overall flight performance and stability? ");
+        scenario2Questions.Add("Mass & Wind: In the higher wind speed (60 m/s), how many flight paths make it past 425.2 meters (Y).");
+        scenario2Questions.Add("Nozzle & Wind: What can be inferred about the relationship between nozzle length, wind speeds and their effect on the overall height of the flight?");
+        scenario2Questions.Add("Propellant & Wind: What would likely happen to the trajectory if the propellant were to increase beyond what is shown alongside the wind speed?");
+        scenario2Questions.Add("Nose to Centre Mass & Wind: As the distance of the nose to the centre of mass increases, what is the trend in flight path stability in windy conditions?");
+        scenario2Questions.Add("Burnout Time & Wind: Despite varying burnout times along with wind speeds, what can be concluded about the landing locations of the rockets?");
 
         questionsList.Add(scenario1Questions);
         questionsList.Add(scenario2Questions);
@@ -97,6 +101,7 @@ public class QuestionManager : MonoBehaviour
             currentQuestion = 0;
             currentQuestions = questionsList[currentScenario];
             questionText.text = currentQuestions[currentQuestion];
+            cameraController.switchCamera(0);
             answers = new int[currentQuestions.Count];
             times = new float[currentQuestions.Count];
             resetToggle();

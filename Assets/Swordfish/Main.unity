@@ -363,7 +363,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Toggle
+  m_Text: B
 --- !u!222 &7215211
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1124,7 +1124,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &47621228
 Transform:
   m_ObjectHideFlags: 0
@@ -5908,6 +5908,7 @@ MonoBehaviour:
   answerToggles: {fileID: 1284020151}
   nextButton: {fileID: 101680500}
   submitButton: {fileID: 177249102}
+  cameraController: {fileID: 1806891934}
 --- !u!114 &215184781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23511,7 +23512,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &937884888
 RectTransform:
   m_ObjectHideFlags: 0
@@ -40909,7 +40910,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Toggle
+  m_Text: D
 --- !u!222 &1775230735
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -43417,7 +43418,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Toggle
+  m_Text: C
 --- !u!222 &1904422749
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -48329,7 +48330,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Toggle
+  m_Text: A
 --- !u!222 &2101046706
 CanvasRenderer:
   m_ObjectHideFlags: 0
