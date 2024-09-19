@@ -58,7 +58,7 @@ public class VisualisationManager : MonoBehaviour
         initialiseAltitudePosition();
 
         //Default to first scenario
-        SetActiveScenario(0);
+        //SetActiveScenario(0);
     }
 
     private void Update()
