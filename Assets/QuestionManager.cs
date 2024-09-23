@@ -101,7 +101,7 @@ public class QuestionManager : MonoBehaviour
             currentQuestion = 0;
             currentQuestions = questionsList[currentScenario];
             questionText.text = currentQuestions[currentQuestion];
-            cameraController.switchCamera(0);
+            cameraController.ResetCameras();
             answers = new int[currentQuestions.Count];
             times = new float[currentQuestions.Count];
             resetToggle();
