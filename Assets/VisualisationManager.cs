@@ -20,9 +20,12 @@ public class VisualisationManager : MonoBehaviour
     private bool input = true;
 
     private const string minMaxPath = "/Resources/Scenarios/MinMax/";
-
-    public GameObject visualisationPrefab;
-    public SidePanel sidePanel;
+    [SerializeField]
+    private GameObject visualisationPrefab;
+    [SerializeField]
+    private SidePanel sidePanel;
+    [SerializeField]
+    private QuestionManager questionPanel;
 
     // Start is called before the first frame update
     void Start()
@@ -46,7 +49,7 @@ public class VisualisationManager : MonoBehaviour
         //for now use hard coded names
         scenarios.Add("Scenario1");
         scenarios.Add("Scenario2");
-        //scenarios.Add("Scenario3");
+        scenarios.Add("Scenario3");
         //scenarios.Add("Scenario4");
 
         foreach (string scenario in scenarios)
@@ -74,8 +77,7 @@ public class VisualisationManager : MonoBehaviour
             {
                 PrevScenario();
             }
-        }
-        
+        } 
     }
 
     public void NextScenario()
@@ -87,6 +89,12 @@ public class VisualisationManager : MonoBehaviour
         }
         SetActiveScenario(scenarioCounter);
         input = false;
+        if (scenarioCounter == 2)
+        {
+            questionPanel.gameObject.SetActive(false);
+            sidePanel.gameObject.SetActive(true);
+
+        }
         StartCoroutine(waitForLoad());
     }
 
@@ -201,7 +209,6 @@ public class VisualisationManager : MonoBehaviour
         }
         if (scenarioObjects.ContainsKey(scenario))
         {
-            sidePanel.SetScenarioID(scenario);
             foreach (GameObject scenarioObj in scenarioObjects[scenario])
             {
                 foreach (DataFiles file in scenarioObj.GetComponentsInChildren<DataFiles>())

@@ -42,6 +42,7 @@ public class DataFiles : MonoBehaviour
     private Color trajStartCol = new Color(1f, 0.165f, 0.165f);
     private Color trajEndCol = new Color(0.008f, 0.361f, 0.122f);
     private float colourCounter = 0;
+    private float sizeCounter = 0;
 
     // Traj creation progress, from 0-1
     public float trajProgress = 0;
@@ -277,27 +278,28 @@ public class DataFiles : MonoBehaviour
             case "Scenario2":
                 if (fileIndex < 10)
                 {
-                    colour = new Color(0.3f - colourCounter, 0.3f - colourCounter, 1, 1);
-                    visualisation.colour = colour;
+                    colour = Color.blue;
+                    visualisation.colour = colour;           
                 }
                 else if (fileIndex < 20)
                 {
-                    colour = new Color(0.3f - colourCounter, 1, 0.3f - colourCounter, 1);
+                    colour = Color.green;
                     visualisation.colour = colour;
                 }
                 else if (fileIndex < 30)
                 {
-                    colour = new Color(1, 0.5f, 0.3f - colourCounter, 1);
+                    colour = new Color(1, 0.5f, 0f, 1);
                     visualisation.colour = colour;
                 }
                 else if (fileIndex < 40)
                 {
-                    colour = new Color(1, 0.3f - colourCounter, 0.3f - colourCounter, 1);
-                    visualisation.colour = colour;
+
+                    visualisation.colour = Color.red;
                 }
-                colourCounter += .03f;
+                visualisation.size = 0.3f + sizeCounter;
+                sizeCounter += .05f;
                 if (fileIndex > 0 && (fileIndex + 1) % 10 == 0)
-                    colourCounter = 0;
+                    sizeCounter = 0;
                 break;
             default:
                 break;

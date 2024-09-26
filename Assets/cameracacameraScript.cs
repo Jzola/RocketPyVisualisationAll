@@ -12,8 +12,12 @@ public class cameracacameraScript : MonoBehaviour
     private List<GameObject> cameras;
     public SidePanel sidePanel;
 
+    [SerializeField]
+    private RotationTracker tracker;
+
     private int currentCamera = 0;
     private int cameraCount;
+
     void Start()
     {
         cameras = new List<GameObject>();
@@ -69,5 +73,6 @@ public class cameracacameraScript : MonoBehaviour
         currentCamera = cameraId;
 
         sidePanel.SetRocketID(cameraId + 1);
+        tracker.SetActiveRotator(cameraId);
     }
 }

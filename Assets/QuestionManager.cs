@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,10 +28,20 @@ public class QuestionManager : MonoBehaviour
     private float[] times;
     private bool running;
 
-    
-
     private List<List<string>> questionsList = new List<List<string>>();
     private List<string> currentQuestions = new List<string>();
+
+    private List<string[]> scenario1Answers = new List<string[]>();
+    private List<string[]> scenario2Answers = new List<string[]>();
+    private List<string[]> currentAnswers = new List<string[]>();
+
+    private List<List<string>> descriptionsList = new List<List<string>>();
+    private List<string> currentDescriptions = new List<string>();
+
+    private string csvFilePath;
+    private string directory;
+
+    private const string folder = "2D/DataSet1/scenario1";
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +57,10 @@ public class QuestionManager : MonoBehaviour
                 checkToggle(toggle);
             });
         }
+
+        directory = Path.Combine(Application.persistentDataPath, folder);
+        string fileName = "question_data_" + System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".csv";
+        csvFilePath = Path.Combine(directory, fileName);
 
         loadQuestions();
         questionText.text = "";
@@ -71,6 +86,53 @@ public class QuestionManager : MonoBehaviour
         questionsList.Add(scenario2Questions);
     }
 
+    private void loadAnswers()
+    {
+        string[] question1answers = { "Left to Right", "Right to Left", "Left", "Right" };
+        string[] question2answers = { "Unpredictable", "Different Areas", "Same Areas", "Slightly varies" };
+        string[] question3answers = { "Shift Right", "Unpredictable", "No Change", "Altitude Decreases" };
+        string[] question4answers = { "Left to Right", "Right to Left", "Left", "Right " };
+        string[] question5answers = { "No Change ", "Group Up", "Spacing Increases", "Unpredictable" };
+
+        scenario1Answers.Add(question1answers);
+        scenario1Answers.Add(question2answers);
+        scenario1Answers.Add(question3answers);
+        scenario1Answers.Add(question4answers);
+        scenario1Answers.Add(question5answers);
+
+        string[] s2question1answers = { "-1246m", "-1300m", "-1370m", "-1454m" };
+        string[] s2question2answers = { "6", "4", "3", "2" };
+        string[] s2question3answers = { "280m", "333m", "450m", "605m" };
+        string[] s2question4answers = { "1", "2", "3", "4" };
+        string[] s2question5answers = { "60m/s", "40m/s", "20m/s", "5m/s" };
+
+        scenario2Answers.Add(s2question1answers);
+        scenario2Answers.Add(s2question2answers);
+        scenario2Answers.Add(s2question3answers);
+        scenario2Answers.Add(s2question4answers);
+        scenario2Answers.Add(s2question5answers);
+    }
+
+    private void loadDescriptions()
+    {
+        List<string> scenario1Descriptions = new List<string>();
+        scenario1Descriptions.Add("Increasing grain number");
+        scenario1Descriptions.Add("Increasing grain density");
+        scenario1Descriptions.Add("Increasing nose length");
+        scenario1Descriptions.Add("Increasing fin distance to centre of mass");
+        scenario1Descriptions.Add("Increasing fin span");
+
+        List<string> scenario2Descriptions = new List<string>();
+        scenario2Descriptions.Add("Increasing grain number at different wind speeds");
+        scenario2Descriptions.Add("Increasing grain density at different wind speeds");
+        scenario2Descriptions.Add("Increasing nose length at different wind speeds");
+        scenario2Descriptions.Add("Increasing fin distance to centre of mass at different wind speeds");
+        scenario2Descriptions.Add("Increasing fin span at different wind speeds");
+
+        descriptionsList.Add(scenario1Descriptions);
+        descriptionsList.Add(scenario2Descriptions);
+    }
+
     void Update()
     {
         if (running)
@@ -93,15 +155,16 @@ public class QuestionManager : MonoBehaviour
 
     public void NextScenario()
     {
+        saveData();
+        cameraController.ResetCameras();
         if (currentScenario == questionsList.Count - 1)
             finish();
         else
-        {
+        {          
             currentScenario++;
             currentQuestion = 0;
             currentQuestions = questionsList[currentScenario];
-            questionText.text = currentQuestions[currentQuestion];
-            cameraController.ResetCameras();
+            questionText.text = currentQuestions[currentQuestion];         
             answers = new int[currentQuestions.Count];
             times = new float[currentQuestions.Count];
             resetToggle();
@@ -149,7 +212,16 @@ public class QuestionManager : MonoBehaviour
 
     private void saveData()
     {
-
+        Directory.CreateDirectory(directory);
+        using (StreamWriter writer = new StreamWriter(csvFilePath, true))
+        {
+            for (int i = 0; i < times.Length; i++)
+            {
+                // Format: "Answer,Time"
+                writer.WriteLine($"{answers[i]},{times[i]}");
+                Debug.Log("Question " + (i + 1) + "\nAnswer: " + answers[i] + "  Time: " + times[i]);
+            }
+        }
     }
 
     private void checkToggle(Toggle change)
