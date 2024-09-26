@@ -363,7 +363,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: B
+  m_Text: 
 --- !u!222 &7215211
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3046,7 +3046,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a738a11ad6647469341d32e416d072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  altitude: 3500
+  altitude: 2100
   graphHeight: 1.033
   lerpDuration: 1
 --- !u!23 &107506807
@@ -4245,7 +4245,7 @@ GameObject:
   - component: {fileID: 170310952}
   - component: {fileID: 170310951}
   m_Layer: 5
-  m_Name: 'Scenario ID:'
+  m_Name: DescriptionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4261,15 +4261,14 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 2, z: 0}
-  m_Children:
-  - {fileID: 1100552187}
+  m_Children: []
   m_Father: {fileID: 761088960}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 35, y: -20}
-  m_SizeDelta: {x: 160, y: 16}
+  m_AnchoredPosition: {x: -4, y: 9}
+  m_SizeDelta: {x: 150, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &170310951
 MonoBehaviour:
@@ -4298,13 +4297,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Scenario ID:'
+  m_Text: 
 --- !u!222 &170310952
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5909,6 +5908,7 @@ MonoBehaviour:
   nextButton: {fileID: 101680500}
   submitButton: {fileID: 177249102}
   cameraController: {fileID: 1806891934}
+  descriptionText: {fileID: 170310951}
 --- !u!114 &215184781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6344,7 +6344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a738a11ad6647469341d32e416d072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  altitude: 3500
+  altitude: 2100
   graphHeight: 1.033
   lerpDuration: 1
 --- !u!23 &237897948
@@ -7032,7 +7032,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a738a11ad6647469341d32e416d072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  altitude: 3500
+  altitude: 2100
   graphHeight: 1.033
   lerpDuration: 1
 --- !u!23 &267936031
@@ -7422,7 +7422,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a738a11ad6647469341d32e416d072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  altitude: 3500
+  altitude: 2100
   graphHeight: 1.033
   lerpDuration: 1
 --- !u!23 &282318062
@@ -10590,7 +10590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a738a11ad6647469341d32e416d072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  altitude: 3500
+  altitude: 2100
   graphHeight: 1.033
   lerpDuration: 1
 --- !u!23 &413232030
@@ -12065,7 +12065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a738a11ad6647469341d32e416d072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  altitude: 3500
+  altitude: 2100
   graphHeight: 1.033
   lerpDuration: 1
 --- !u!23 &455270825
@@ -14906,7 +14906,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a738a11ad6647469341d32e416d072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  altitude: 3500
+  altitude: 2100
   graphHeight: 1.033
   lerpDuration: 1
 --- !u!23 &567578511
@@ -16185,85 +16185,6 @@ Transform:
   m_Father: {fileID: 837920170}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &628037156
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 628037157}
-  - component: {fileID: 628037159}
-  - component: {fileID: 628037158}
-  m_Layer: 5
-  m_Name: VariableChange
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &628037157
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 628037156}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0}
-  m_Children: []
-  m_Father: {fileID: 937884888}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 31, y: -16.2}
-  m_SizeDelta: {x: 140, y: 16}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &628037158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 628037156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 0
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: Placeholder
---- !u!222 &628037159
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 628037156}
-  m_CullTransparentMesh: 1
 --- !u!1 &631513578
 GameObject:
   m_ObjectHideFlags: 0
@@ -19726,7 +19647,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &761088960
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19738,14 +19659,13 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.2, y: 0.5, z: 0}
   m_Children:
-  - {fileID: 937884888}
   - {fileID: 170310950}
   m_Father: {fileID: 669836165}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.4}
-  m_AnchoredPosition: {x: -320, y: 311.65002}
+  m_AnchoredPosition: {x: -320, y: 299.7}
   m_SizeDelta: {x: -0.000030517578, y: -16.699951}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &761088961
@@ -19793,12 +19713,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 761088959}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d12fc8d45801b054da2d79b4773c4453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rocketIDText: {fileID: 628037158}
+  rocketIDText: {fileID: 0}
 --- !u!1 &767055000
 GameObject:
   m_ObjectHideFlags: 0
@@ -20984,7 +20904,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a738a11ad6647469341d32e416d072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  altitude: 3500
+  altitude: 2100
   graphHeight: 1.033
   lerpDuration: 1
 --- !u!23 &825465381
@@ -21128,7 +21048,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a738a11ad6647469341d32e416d072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  altitude: 3500
+  altitude: 2100
   graphHeight: 1.033
   lerpDuration: 1
 --- !u!23 &829777161
@@ -23502,90 +23422,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 936297914}
   m_Mesh: {fileID: 4300000, guid: de83c089f522b410ba6972ea4b2e9b99, type: 3}
---- !u!1 &937884887
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 937884888}
-  - component: {fileID: 937884890}
-  - component: {fileID: 937884889}
-  m_Layer: 5
-  m_Name: Graph Name
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &937884888
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 937884887}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 2, z: 0}
-  m_Children:
-  - {fileID: 628037157}
-  m_Father: {fileID: 761088960}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -168.00014, y: 56.000023}
-  m_SizeDelta: {x: 80, y: 16}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &937884889
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 937884887}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 0
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: 'Graph 1:
-
-
-
-'
---- !u!222 &937884890
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 937884887}
-  m_CullTransparentMesh: 1
 --- !u!1 &943737910
 GameObject:
   m_ObjectHideFlags: 0
@@ -24243,7 +24079,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a738a11ad6647469341d32e416d072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  altitude: 3500
+  altitude: 2100
   graphHeight: 1.033
   lerpDuration: 1
 --- !u!23 &975049740
@@ -25290,7 +25126,7 @@ PrefabInstance:
     - target: {fileID: 128097771853464673, guid: 7168fa4484f58784ba8f7e039387cdab,
         type: 3}
       propertyPath: altitude
-      value: 3500
+      value: 2100
       objectReference: {fileID: 0}
     - target: {fileID: 132090058993683433, guid: 7168fa4484f58784ba8f7e039387cdab,
         type: 3}
@@ -25375,7 +25211,7 @@ PrefabInstance:
     - target: {fileID: 757290415738052990, guid: 7168fa4484f58784ba8f7e039387cdab,
         type: 3}
       propertyPath: altitude
-      value: 3500
+      value: 2100
       objectReference: {fileID: 0}
     - target: {fileID: 964412713694765311, guid: 7168fa4484f58784ba8f7e039387cdab,
         type: 3}
@@ -25515,7 +25351,7 @@ PrefabInstance:
     - target: {fileID: 2645461685537653442, guid: 7168fa4484f58784ba8f7e039387cdab,
         type: 3}
       propertyPath: altitude
-      value: 3500
+      value: 2100
       objectReference: {fileID: 0}
     - target: {fileID: 2831852174189100055, guid: 7168fa4484f58784ba8f7e039387cdab,
         type: 3}
@@ -25635,7 +25471,7 @@ PrefabInstance:
     - target: {fileID: 4889779225431575950, guid: 7168fa4484f58784ba8f7e039387cdab,
         type: 3}
       propertyPath: altitude
-      value: 3500
+      value: 2100
       objectReference: {fileID: 0}
     - target: {fileID: 5038024453159289538, guid: 7168fa4484f58784ba8f7e039387cdab,
         type: 3}
@@ -25700,7 +25536,7 @@ PrefabInstance:
     - target: {fileID: 6222983833796985461, guid: 7168fa4484f58784ba8f7e039387cdab,
         type: 3}
       propertyPath: altitude
-      value: 3500
+      value: 2100
       objectReference: {fileID: 0}
     - target: {fileID: 6562235605468799651, guid: 7168fa4484f58784ba8f7e039387cdab,
         type: 3}
@@ -25775,7 +25611,7 @@ PrefabInstance:
     - target: {fileID: 8794637494680453334, guid: 7168fa4484f58784ba8f7e039387cdab,
         type: 3}
       propertyPath: altitude
-      value: 3500
+      value: 2100
       objectReference: {fileID: 0}
     - target: {fileID: 8818383794539582200, guid: 7168fa4484f58784ba8f7e039387cdab,
         type: 3}
@@ -25826,7 +25662,7 @@ PrefabInstance:
         type: 3}
       propertyPath: scenarioText
       value: 
-      objectReference: {fileID: 1100552188}
+      objectReference: {fileID: 0}
     - target: {fileID: 9088495956760863604, guid: 7168fa4484f58784ba8f7e039387cdab,
         type: 3}
       propertyPath: questionPanel
@@ -26794,85 +26630,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1095511207}
-  m_CullTransparentMesh: 1
---- !u!1 &1100552186
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1100552187}
-  - component: {fileID: 1100552189}
-  - component: {fileID: 1100552188}
-  m_Layer: 5
-  m_Name: ScenarioID_
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1100552187
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1100552186}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0}
-  m_Children: []
-  m_Father: {fileID: 170310950}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -35, y: -16.2}
-  m_SizeDelta: {x: 90, y: 16}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1100552188
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1100552186}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 0
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: ScenarioID_1
---- !u!222 &1100552189
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1100552186}
   m_CullTransparentMesh: 1
 --- !u!1 &1103978472
 GameObject:
@@ -32512,7 +32269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a738a11ad6647469341d32e416d072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  altitude: 3500
+  altitude: 2100
   graphHeight: 1.033
   lerpDuration: 1
 --- !u!23 &1380420627
@@ -35582,7 +35339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a738a11ad6647469341d32e416d072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  altitude: 3500
+  altitude: 2100
   graphHeight: 1.033
   lerpDuration: 1
 --- !u!23 &1523701420
@@ -41107,7 +40864,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: D
+  m_Text: 
 --- !u!222 &1775230735
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -42991,7 +42748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a738a11ad6647469341d32e416d072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  altitude: 3500
+  altitude: 2100
   graphHeight: 1.033
   lerpDuration: 1
 --- !u!23 &1859682188
@@ -43628,7 +43385,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: C
+  m_Text: 
 --- !u!222 &1904422749
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -47918,7 +47675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a738a11ad6647469341d32e416d072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  altitude: 3500
+  altitude: 2100
   graphHeight: 1.033
   lerpDuration: 1
 --- !u!23 &2076144343
@@ -48461,7 +48218,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: A
+  m_Text: 
 --- !u!222 &2101046706
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -302,6 +302,7 @@ public class DataFiles : MonoBehaviour
                     sizeCounter = 0;
                 break;
             default:
+                visualisation.colour = colour;
                 break;
         }
         

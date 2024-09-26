@@ -16,6 +16,8 @@ public class QuestionManager : MonoBehaviour
     private Button submitButton;
     [SerializeField]
     private cameracacameraScript cameraController;
+    [SerializeField]
+    private Text descriptionText;
 
     private List<Toggle> toggles;
     private ToggleGroup toggleGroup;
@@ -63,24 +65,26 @@ public class QuestionManager : MonoBehaviour
         csvFilePath = Path.Combine(directory, fileName);
 
         loadQuestions();
+        loadAnswers();
+        loadDescriptions();
         questionText.text = "";
     }
 
     private void loadQuestions()
     {
         List<string> scenario1Questions = new List<string>();
-        scenario1Questions.Add("Mass: What can be inferred about the relationship between mass and flight time?");
-        scenario1Questions.Add("Nozzle: What can be inferred about the relationship between nozzle length and flight time?");
-        scenario1Questions.Add("Propellant: What is the general trend observed in the flight paths as the propellent length increases?");
-        scenario1Questions.Add("Nose to Centre Mass: What would likely happen to the trajectory if the Nose to Centre Mass distance were to increase beyond what is shown?");
-        scenario1Questions.Add("Burnout Time: Despite varying burnout times, what can be concluded about the landing locations of the rockets?");
+        scenario1Questions.Add("Identify how many rockets make it past an altitude of 1982 metres");
+        scenario1Questions.Add("Identify the direction that the flight paths take when the nozzle distance increases");
+        scenario1Questions.Add("Identify how many rockets make it past 1631.4 metres along the X axes");
+        scenario1Questions.Add("How does the spacing between trajectories change as the nose length to the centre of mass increases?");
+        scenario1Questions.Add("After how many trajectories does the spacing occur ");
 
         List<string> scenario2Questions = new List<string>();
-        scenario2Questions.Add("Mass & Wind: In the higher wind speed (60 m/s), how many flight paths make it past 425.2 meters (Y).");
-        scenario2Questions.Add("Nozzle & Wind: What can be inferred about the relationship between nozzle length, wind speeds and their effect on the overall height of the flight?");
-        scenario2Questions.Add("Propellant & Wind: What would likely happen to the trajectory if the propellant were to increase beyond what is shown alongside the wind speed?");
-        scenario2Questions.Add("Nose to Centre Mass & Wind: As the distance of the nose to the centre of mass increases, what is the trend in flight path stability in windy conditions?");
-        scenario2Questions.Add("Burnout Time & Wind: Despite varying burnout times along with wind speeds, what can be concluded about the landing locations of the rockets?");
+        scenario2Questions.Add("At a windspeed of 20m/s, what is the landing site (Y-axis) at the highest mass rocket?");
+        scenario2Questions.Add("At which wind speed do the trajectories show little variance?");
+        scenario2Questions.Add("At a windspeed of 40m/s, what is the landing site (X-axis) at the highest rocket propellant distance?");
+        scenario2Questions.Add("Which wind speed has the greatest variance in the landing zone?");
+        scenario2Questions.Add("How many wind speeds do all trajectories make it past an altitude of 2266 metres?");
 
         questionsList.Add(scenario1Questions);
         questionsList.Add(scenario2Questions);
@@ -88,11 +92,11 @@ public class QuestionManager : MonoBehaviour
 
     private void loadAnswers()
     {
-        string[] question1answers = { "Left to Right", "Right to Left", "Left", "Right" };
-        string[] question2answers = { "Unpredictable", "Different Areas", "Same Areas", "Slightly varies" };
-        string[] question3answers = { "Shift Right", "Unpredictable", "No Change", "Altitude Decreases" };
-        string[] question4answers = { "Left to Right", "Right to Left", "Left", "Right " };
-        string[] question5answers = { "No Change ", "Group Up", "Spacing Increases", "Unpredictable" };
+        string[] question1answers = { "6", "7", "8", "9" };
+        string[] question2answers = { "Right to left", "Left to Right", "Right", "Left" };
+        string[] question3answers = { "2", "3", "4", "5" };
+        string[] question4answers = { "No Changes", "Unpredictable", "Spacing Decreases", "Spacing increases" };
+        string[] question5answers = { "4", "5", "6", "7" };
 
         scenario1Answers.Add(question1answers);
         scenario1Answers.Add(question2answers);
@@ -100,11 +104,11 @@ public class QuestionManager : MonoBehaviour
         scenario1Answers.Add(question4answers);
         scenario1Answers.Add(question5answers);
 
-        string[] s2question1answers = { "-1246m", "-1300m", "-1370m", "-1454m" };
-        string[] s2question2answers = { "6", "4", "3", "2" };
-        string[] s2question3answers = { "280m", "333m", "450m", "605m" };
-        string[] s2question4answers = { "1", "2", "3", "4" };
-        string[] s2question5answers = { "60m/s", "40m/s", "20m/s", "5m/s" };
+        string[] s2question1answers = { "-520m", "-580m", "-700m", "-809m" };
+        string[] s2question2answers = { "5m/s", "20m/s", "40m/s", "60m/s" };
+        string[] s2question3answers = { "915m", "1075m", "1237m", "1450m" };
+        string[] s2question4answers = { "5m/s", "20m/s", "40m/s", "60m/s" };
+        string[] s2question5answers = { "2", "3", "4", "6" };
 
         scenario2Answers.Add(s2question1answers);
         scenario2Answers.Add(s2question2answers);
@@ -116,18 +120,18 @@ public class QuestionManager : MonoBehaviour
     private void loadDescriptions()
     {
         List<string> scenario1Descriptions = new List<string>();
-        scenario1Descriptions.Add("Increasing grain number");
-        scenario1Descriptions.Add("Increasing grain density");
-        scenario1Descriptions.Add("Increasing nose length");
-        scenario1Descriptions.Add("Increasing fin distance to centre of mass");
-        scenario1Descriptions.Add("Increasing fin span");
+        scenario1Descriptions.Add("Increasing mass");
+        scenario1Descriptions.Add("Increasing nozzle distance to centre of mass");
+        scenario1Descriptions.Add("Increasing propellant distance to centre of mass");
+        scenario1Descriptions.Add("Increasing nose distance to centre of mass");
+        scenario1Descriptions.Add("Increasing fin count");
 
         List<string> scenario2Descriptions = new List<string>();
-        scenario2Descriptions.Add("Increasing grain number at different wind speeds");
-        scenario2Descriptions.Add("Increasing grain density at different wind speeds");
-        scenario2Descriptions.Add("Increasing nose length at different wind speeds");
-        scenario2Descriptions.Add("Increasing fin distance to centre of mass at different wind speeds");
-        scenario2Descriptions.Add("Increasing fin span at different wind speeds");
+        scenario2Descriptions.Add("Increasing mass at different wind speeds");
+        scenario2Descriptions.Add("Increasing nozzle distance to centre of mass at different wind speeds");
+        scenario2Descriptions.Add("Increasing propellant distance to centre of mass at different wind speeds");
+        scenario2Descriptions.Add("Increasing nose distance to centre of mass at different wind speeds");
+        scenario2Descriptions.Add("Increasing fin count at different wind speeds");
 
         descriptionsList.Add(scenario1Descriptions);
         descriptionsList.Add(scenario2Descriptions);
@@ -147,7 +151,13 @@ public class QuestionManager : MonoBehaviour
     public void BeginFirstScenario()
     {
         currentQuestions = questionsList[currentScenario];
+        currentAnswers = scenario1Answers;
+        currentDescriptions = descriptionsList[0];
+
         questionText.text = currentQuestions[0];
+        setAnswerText();
+        descriptionText.text = currentDescriptions[currentQuestion];
+
         times = new float[currentQuestions.Count];
         answers = new int[currentQuestions.Count];
         running = true;
@@ -164,7 +174,13 @@ public class QuestionManager : MonoBehaviour
             currentScenario++;
             currentQuestion = 0;
             currentQuestions = questionsList[currentScenario];
-            questionText.text = currentQuestions[currentQuestion];         
+            currentAnswers = scenario2Answers;
+            currentDescriptions = descriptionsList[currentScenario];
+
+            questionText.text = currentQuestions[currentQuestion];
+            setAnswerText();
+            descriptionText.text = currentDescriptions[currentQuestion];
+
             answers = new int[currentQuestions.Count];
             times = new float[currentQuestions.Count];
             resetToggle();
@@ -180,6 +196,9 @@ public class QuestionManager : MonoBehaviour
 
         currentQuestion++;
         questionText.text = currentQuestions[currentQuestion];
+        setAnswerText();
+        descriptionText.text = currentDescriptions[currentQuestion];
+
         if (currentQuestion == currentQuestions.Count - 1)
         {
             nextButton.gameObject.SetActive(false);
@@ -194,6 +213,8 @@ public class QuestionManager : MonoBehaviour
             return;
         currentQuestion--;
         questionText.text = currentQuestions[currentQuestion];
+        setAnswerText();
+        descriptionText.text = currentDescriptions[currentQuestion];
 
         if (!nextButton.IsActive())
         {
@@ -244,6 +265,14 @@ public class QuestionManager : MonoBehaviour
                 toggles[i].SetIsOnWithoutNotify(true);
             else
                 toggles[i].SetIsOnWithoutNotify(false);
+        }
+    }
+
+    private void setAnswerText()
+    {
+        for (int i = 0; i < toggleText.Count; i++)
+        {
+            toggleText[i].text = currentAnswers[currentQuestion][i];
         }
     }
 }
