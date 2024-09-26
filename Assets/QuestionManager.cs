@@ -18,6 +18,8 @@ public class QuestionManager : MonoBehaviour
     private cameracacameraScript cameraController;
     [SerializeField]
     private Text descriptionText;
+    [SerializeField]
+    private GameObject legend;
 
     private List<Toggle> toggles;
     private ToggleGroup toggleGroup;
@@ -74,10 +76,10 @@ public class QuestionManager : MonoBehaviour
     {
         List<string> scenario1Questions = new List<string>();
         scenario1Questions.Add("Identify how many rockets make it past an altitude of 1982 metres");
-        scenario1Questions.Add("Identify the direction that the flight paths take when the nozzle distance increases");
-        scenario1Questions.Add("Identify how many rockets make it past 1631.4 metres along the X axes");
+        scenario1Questions.Add("Identify the direction that the trajectories take along the Y-axis when the nozzle distance increases  ");
+        scenario1Questions.Add("Identify how many rockets don't make it past 1631.4 metres along the X axis?");
         scenario1Questions.Add("How does the spacing between trajectories change as the nose length to the centre of mass increases?");
-        scenario1Questions.Add("After how many trajectories does the spacing occur ");
+        scenario1Questions.Add("After how many trajectories do you notice irregular spacing / intervals? ");
 
         List<string> scenario2Questions = new List<string>();
         scenario2Questions.Add("At a windspeed of 20m/s, what is the landing site (Y-axis) at the highest mass rocket?");
@@ -93,7 +95,7 @@ public class QuestionManager : MonoBehaviour
     private void loadAnswers()
     {
         string[] question1answers = { "6", "7", "8", "9" };
-        string[] question2answers = { "Right to left", "Left to Right", "Right", "Left" };
+        string[] question2answers = { "Moves along the positive axis then the negative axis", "Moves along the negative axis then the positive axis ", "Moves along the positive axis", "Moves along the negative axis" };
         string[] question3answers = { "2", "3", "4", "5" };
         string[] question4answers = { "No Changes", "Unpredictable", "Spacing Decreases", "Spacing increases" };
         string[] question5answers = { "4", "5", "6", "7" };
@@ -104,9 +106,9 @@ public class QuestionManager : MonoBehaviour
         scenario1Answers.Add(question4answers);
         scenario1Answers.Add(question5answers);
 
-        string[] s2question1answers = { "-520m", "-580m", "-700m", "-809m" };
+        string[] s2question1answers = { "-1,069.9m to -809.7m", "-809.7m to -549.6m", "-549.6m to -289.4m", "-289.4m to -29.2m" };
         string[] s2question2answers = { "5m/s", "20m/s", "40m/s", "60m/s" };
-        string[] s2question3answers = { "915m", "1075m", "1237m", "1450m" };
+        string[] s2question3answers = { "915.8m to 1,237.8m", "593.8m to 915.8m", "1,237.8m to 1,559.8m", "1,559.8m to 1,881.8m" };
         string[] s2question4answers = { "5m/s", "20m/s", "40m/s", "60m/s" };
         string[] s2question5answers = { "2", "3", "4", "6" };
 
@@ -168,14 +170,23 @@ public class QuestionManager : MonoBehaviour
         saveData();
         cameraController.ResetCameras();
         if (currentScenario == questionsList.Count - 1)
+        {
+            legend.SetActive(false);
+            descriptionText.transform.parent.gameObject.SetActive(false);
             finish();
+        }
         else
-        {          
+        {
             currentScenario++;
             currentQuestion = 0;
             currentQuestions = questionsList[currentScenario];
             currentAnswers = scenario2Answers;
             currentDescriptions = descriptionsList[currentScenario];
+
+            if (currentScenario == 1)
+            {
+                legend.SetActive(true);
+            }
 
             questionText.text = currentQuestions[currentQuestion];
             setAnswerText();
