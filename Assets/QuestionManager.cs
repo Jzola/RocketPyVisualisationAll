@@ -238,8 +238,7 @@ public class QuestionManager : MonoBehaviour
 
     private void finish()
     {
-        CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
-        canvasGroup.interactable = false;
+        
     }
 
     private void saveData()

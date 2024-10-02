@@ -19,25 +19,28 @@ public class VisualisationManager : MonoBehaviour
     private List<GameObject> dataSources;
     private bool input = true;
 
-    private const string minMaxPath = "/Resources/Scenarios/MinMax/";
     [SerializeField]
     private GameObject visualisationPrefab;
     [SerializeField]
     private SidePanel sidePanel;
     [SerializeField]
     private QuestionManager questionPanel;
+    [SerializeField]
+    private GameObject cameraRoot;
+
+    private const string minMaxPath = "/Resources/Scenarios/MinMax/";
+    private const int scenario1Length = 5;
+    private const int scenario2Length = 5;
+    private const int scenario3Length = 10;
 
     // Start is called before the first frame update
     void Start()
     {
-        foreach (Visualisation visualisation in GetComponentsInChildren<Visualisation>())
-        {
-            visualisation.xDimension = " Y (m)";
-            visualisation.yDimension = " Z (m)";
-            visualisation.zDimension = " X (m)";
-        }    
+         
         files = new List<DataFiles>(GetComponentsInChildren<DataFiles>());
-        visualisations = new List<Visualisation>(GetComponentsInChildren<Visualisation>());
+        visualisations = new List<Visualisation>();
+        setupVisualisations(scenario1Length);
+
         altitudeChecks = new List<AltitudeCheck>(GetComponentsInChildren<AltitudeCheck>(true));
         scenarios = new List<string>();
         scenarioObjects = new Dictionary<string, List<GameObject>>();
@@ -52,6 +55,8 @@ public class VisualisationManager : MonoBehaviour
         scenarios.Add("Scenario3");
         //scenarios.Add("Scenario4");
 
+
+
         foreach (string scenario in scenarios)
         {
             initialiseData(scenario);
@@ -64,37 +69,36 @@ public class VisualisationManager : MonoBehaviour
         //SetActiveScenario(0);
     }
 
-    private void Update()
+    private void setupVisualisations(int length)
     {
-        if (input)
+        List<Visualisation> allVisualisations = new List<Visualisation>(GetComponentsInChildren<Visualisation>(true));
+        for (int i = 0; i < length; i++)
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                NextScenario();
-            }
+            Visualisation visualisation = allVisualisations[i];
+            if (!visualisation.gameObject.activeSelf)
+                visualisation.gameObject.SetActive(true);
+            visualisations.Add(visualisation);
+        }
 
-            if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                PrevScenario();
-            }
-        } 
+        List<Camera> cameras = new List<Camera>(cameraRoot.GetComponentsInChildren<Camera>());
+        for (int i = 0; i < length; i++)
+        {
+            cameras[i].gameObject.SetActive(true);
+        }
+
+        foreach (Visualisation visualisation in visualisations)
+        {
+            visualisation.xDimension = " Y (m)";
+            visualisation.yDimension = " Z (m)";
+            visualisation.zDimension = " X (m)";
+        }
     }
 
     public void NextScenario()
     {
         scenarioCounter++;
-        if (scenarioCounter > scenarios.Count - 1)
-        {
-            scenarioCounter = 0;
-        }
         SetActiveScenario(scenarioCounter);
         input = false;
-        if (scenarioCounter == 2)
-        {
-            questionPanel.gameObject.SetActive(false);
-            sidePanel.gameObject.SetActive(true);
-
-        }
         StartCoroutine(waitForLoad());
     }
 
@@ -134,7 +138,8 @@ public class VisualisationManager : MonoBehaviour
 
     private void initialiseData(string scenario)
     {   
-        List<GameObject> scenarioList = new List<GameObject>();    
+        List<GameObject> scenarioList = new List<GameObject>();
+
         for (int i = 0; i < visualisations.Count; i++)
         {
             GameObject scenarioObj = new GameObject(scenario);
@@ -171,7 +176,7 @@ public class VisualisationManager : MonoBehaviour
             {
                 for (int j = 0; j < file.dimensionMax.Length; j++)
                     if (file.dimensionMax[j] > scenarioMax[scenario][j])
-                    scenarioMax[scenario][j] = file.dimensionMax[j];
+                        scenarioMax[scenario][j] = file.dimensionMax[j];
             }   
         }
 
@@ -196,7 +201,24 @@ public class VisualisationManager : MonoBehaviour
 
     public void SetActiveScenario(int scenarioNo)
     {
-        string scenario = scenarios[scenarioNo];       
+        string scenario = scenarios[scenarioNo];
+        
+        switch(scenarioNo)
+        {
+            case 1:
+                {
+                    setupVisualisations(scenario2Length);
+                    break;
+                }
+            case 2:
+                {
+                    questionPanel.gameObject.SetActive(false);
+                    sidePanel.gameObject.SetActive(true);
+                    setupVisualisations(scenario3Length);
+                    break;
+                }
+        }
+
         if (scenarioObjects.ContainsKey(currentScenario))
         {
             foreach (GameObject scenarioObj in scenarioObjects[currentScenario])
