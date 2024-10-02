@@ -7,10 +7,12 @@ public class RotationTracker : MonoBehaviour
 {
     private List<Rotator> rotators;
     private int activeRotator = 0;
+    private float timeElapsed = 0;
 
     private string directory;
     private const string folder = "2D/DataSet1/tracking";
     private string csvFilePath;
+    public bool Running { get; set; } = false;
 
     // Start is called before the first frame update
     void Start()
@@ -25,12 +27,14 @@ public class RotationTracker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        trackRotation();
+        if (Running)
+            trackRotation();
     }
 
     private void trackRotation()
     {
         Quaternion rotation = rotators[activeRotator].transform.rotation;
+        timeElapsed += Time.deltaTime;
         saveToCSV(rotation);
     }
 
@@ -40,13 +44,19 @@ public class RotationTracker : MonoBehaviour
         // Write position and rotation data to CSV file
         using (StreamWriter writer = new StreamWriter(csvFilePath, true))
         {
-            // Format: "GraphNumber,Rotation_X,Rotation_Y,Rotation_Z,Rotation_W"
-            writer.WriteLine($"{activeRotator},{rotation.x},{rotation.y},{rotation.z},{rotation.w}");
+            // Format: "GraphNumber,Rotation_X,Rotation_Y,Rotation_Z,Rotation_W, time"
+            writer.WriteLine($"{activeRotator},{rotation.x},{rotation.y},{rotation.z},{rotation.w},{timeElapsed}");
         }
     }
 
     public void SetActiveRotator(int rotator)
     {
         activeRotator = rotator;
+    }
+
+    public void ResetRotation()
+    {
+        foreach (Rotator rotator in rotators)
+            rotator.ResetPosition();
     }
 }

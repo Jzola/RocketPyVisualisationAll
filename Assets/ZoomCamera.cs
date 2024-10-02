@@ -20,7 +20,7 @@ public class ZoomCamera : MonoBehaviour
     {
         if (Input.GetKeyDown("r"))
         {
-            camera.fieldOfView = initialFov;
+            ResetZoom();
         }
     }
 
@@ -36,5 +36,10 @@ public class ZoomCamera : MonoBehaviour
             fov = minFov;
 
         camera.fieldOfView = fov;
+    }
+
+    public void ResetZoom()
+    {
+        camera.fieldOfView = initialFov;
     }
 }

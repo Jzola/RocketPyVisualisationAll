@@ -122,18 +122,18 @@ public class QuestionManager : MonoBehaviour
     private void loadDescriptions()
     {
         List<string> scenario1Descriptions = new List<string>();
-        scenario1Descriptions.Add("Increasing mass");
-        scenario1Descriptions.Add("Increasing nozzle distance to centre of mass");
-        scenario1Descriptions.Add("Increasing propellant distance to centre of mass");
-        scenario1Descriptions.Add("Increasing nose distance to centre of mass");
-        scenario1Descriptions.Add("Increasing fin count");
+        scenario1Descriptions.Add("Mass");
+        scenario1Descriptions.Add("Nozzle distance to centre of mass");
+        scenario1Descriptions.Add("Propellant distance to centre of mass");
+        scenario1Descriptions.Add("Nose distance to centre of mass");
+        scenario1Descriptions.Add("Fin count");
 
         List<string> scenario2Descriptions = new List<string>();
-        scenario2Descriptions.Add("Increasing mass at different wind speeds");
-        scenario2Descriptions.Add("Increasing nozzle distance to centre of mass at different wind speeds");
-        scenario2Descriptions.Add("Increasing propellant distance to centre of mass at different wind speeds");
-        scenario2Descriptions.Add("Increasing nose distance to centre of mass at different wind speeds");
-        scenario2Descriptions.Add("Increasing fin count at different wind speeds");
+        scenario2Descriptions.Add("Mass");
+        scenario2Descriptions.Add("Nozzle");
+        scenario2Descriptions.Add("Propellant distance to centre of mass");
+        scenario2Descriptions.Add("Nose distance to centre of mass");
+        scenario2Descriptions.Add("Fin count");
 
         descriptionsList.Add(scenario1Descriptions);
         descriptionsList.Add(scenario2Descriptions);

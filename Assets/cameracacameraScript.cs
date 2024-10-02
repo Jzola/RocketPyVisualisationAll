@@ -9,7 +9,7 @@ public class cameracacameraScript : MonoBehaviour
     public GameObject camera0;
     public GameObject camera1;
     public GameObject camerasParent;
-    private List<GameObject> cameras;
+    private List<Camera> cameras;
     public SidePanel sidePanel;
 
     [SerializeField]
@@ -18,15 +18,14 @@ public class cameracacameraScript : MonoBehaviour
     private int currentCamera = 0;
     private int cameraCount;
 
+    public const int cameraFov = 60;
+
     void Start()
     {
-        cameras = new List<GameObject>();
+        cameras = new List<Camera>(camerasParent.GetComponentsInChildren<Camera>());
 
-        Camera[] cameraObjects = camerasParent.GetComponentsInChildren<Camera>();
-
-        foreach (Camera camera in cameraObjects) 
+        foreach (Camera camera in cameras) 
         {
-            cameras.Add(camera.gameObject);
             camera.gameObject.SetActive(false);
         }
 
@@ -64,12 +63,14 @@ public class cameracacameraScript : MonoBehaviour
     {
         cameraCount = 0;
         switchCamera(0);
+        foreach (Camera camera in cameras)
+            camera.fieldOfView = cameraFov;
     }
 
     public void switchCamera(int cameraId)
     {
-        cameras[currentCamera].SetActive(false);
-        cameras[cameraId].SetActive(true);
+        cameras[currentCamera].gameObject.SetActive(false);
+        cameras[cameraId].gameObject.SetActive(true);
         currentCamera = cameraId;
 
         sidePanel.SetRocketID(cameraId + 1);

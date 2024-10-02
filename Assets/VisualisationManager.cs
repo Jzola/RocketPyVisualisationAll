@@ -38,8 +38,14 @@ public class VisualisationManager : MonoBehaviour
     {
          
         files = new List<DataFiles>(GetComponentsInChildren<DataFiles>());
-        visualisations = new List<Visualisation>();
-        setupVisualisations(scenario1Length);
+        visualisations = new List<Visualisation>(GetComponentsInChildren<Visualisation>());
+
+        foreach (Visualisation visualisation in visualisations)
+        {
+            visualisation.xDimension = " Y (m)";
+            visualisation.yDimension = " Z (m)";
+            visualisation.zDimension = " X (m)";
+        }
 
         altitudeChecks = new List<AltitudeCheck>(GetComponentsInChildren<AltitudeCheck>(true));
         scenarios = new List<string>();
@@ -55,8 +61,6 @@ public class VisualisationManager : MonoBehaviour
         scenarios.Add("Scenario3");
         //scenarios.Add("Scenario4");
 
-
-
         foreach (string scenario in scenarios)
         {
             initialiseData(scenario);
@@ -67,31 +71,6 @@ public class VisualisationManager : MonoBehaviour
 
         //Default to first scenario
         //SetActiveScenario(0);
-    }
-
-    private void setupVisualisations(int length)
-    {
-        List<Visualisation> allVisualisations = new List<Visualisation>(GetComponentsInChildren<Visualisation>(true));
-        for (int i = 0; i < length; i++)
-        {
-            Visualisation visualisation = allVisualisations[i];
-            if (!visualisation.gameObject.activeSelf)
-                visualisation.gameObject.SetActive(true);
-            visualisations.Add(visualisation);
-        }
-
-        List<Camera> cameras = new List<Camera>(cameraRoot.GetComponentsInChildren<Camera>());
-        for (int i = 0; i < length; i++)
-        {
-            cameras[i].gameObject.SetActive(true);
-        }
-
-        foreach (Visualisation visualisation in visualisations)
-        {
-            visualisation.xDimension = " Y (m)";
-            visualisation.yDimension = " Z (m)";
-            visualisation.zDimension = " X (m)";
-        }
     }
 
     public void NextScenario()
@@ -207,14 +186,12 @@ public class VisualisationManager : MonoBehaviour
         {
             case 1:
                 {
-                    setupVisualisations(scenario2Length);
                     break;
                 }
             case 2:
                 {
                     questionPanel.gameObject.SetActive(false);
                     sidePanel.gameObject.SetActive(true);
-                    setupVisualisations(scenario3Length);
                     break;
                 }
         }
