@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Filtering</title>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic|Source+Code+Pro:300,400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="../assets/css/bootstrap.css">
+<link rel="stylesheet" href="../assets/css/jquery.bonsai.css">
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/icon-font/icons.css">
+<script type="text/javascript" src="../assets/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript" src="../assets/js/bootstrap.js"></script>
+<script type="text/javascript" src="../assets/js/jquery.bonsai.js"></script>
+
+  </head>
+  <body>
+    <div>
+
+      <!-- Name Title -->
+
+      <h1>Filtering</h1>
+
+      <!-- Type and Stereotype -->
+
+      <section style="margin-top: .5em;">
+        <span class="alert alert-info">
+          <span class="node-icon staruml-icon icon-UMLClass"></span>
+          UMLClass
+        </span>
+        
+          <span style="margin-left: 10px" class="alert alert-info">«Script»</span>
+        
+      </section>
+
+      <!-- Path -->
+
+      <section style="margin-top: 10px">
+        
+        
+        
+          
+          <span class="label label-info"><a href='cf9c8b720f3815adeccaf3ef6e48c6c4.html'><span class='node-icon staruml-icon icon-Project'></span>RocketVisualisation UML</a></span>
+        
+          <span>::</span>
+          <span class="label label-info"><a href='cb351982efa2753bce8fec8bdd3dd89e.html'><span class='node-icon staruml-icon icon-UMLPackage'></span>Scripts</a></span>
+        
+          <span>::</span>
+          <span class="label label-info"><a href='e67f0dc20485fd677d4d05f556bb456b.html'><span class='node-icon staruml-icon icon-UMLClass'></span>«Script»Filtering</a></span>
+        
+      </section>
+
+      <!-- Diagram -->
+
+      
+
+      <!-- Description -->
+
+      
+      <section>
+        <h3>Description</h3>
+        <div>
+          
+            <span class="label label-info">none</span>
+          
+        </div>
+      </section>
+      
+
+      <!-- Specification -->
+
+      
+
+      <!-- Directed Relationship -->
+
+      
+
+      <!-- Undirected Relationship -->
+
+      
+
+      <!-- Classifier -->
+
+      
+        
+        
+
+
+        
+        
+
+
+        
+        
+
+
+        
+        
+
+
+        
+        
+
+      
+
+      <!-- Interface -->
+
+      
+
+      <!-- Component -->
+
+      
+
+      <!-- Node -->
+
+      
+
+      <!-- Actor -->
+
+      
+
+      <!-- Use Case -->
+
+      
+
+      <!-- Template Parameters -->
+
+      
+
+      <!-- Literals -->
+
+      
+
+      <!-- Attributes -->
+
+      
+      <section>
+        <h3>Attributes</h3>
+        <table class="table table-striped table-bordered">
+          <tr>
+            <th>Visibility</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="535f7748d9674e57504599346bc1bdd4.html">dataNames</a></td>
+            <td><span class='label label-info'>none</span></td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="991fc8eb161f25a22de2a208ccd89649.html">filterVariable</a></td>
+            <td>string</td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="b21dd6fe892bd67a7284fb45735bd8c7.html">FilterType</a></td>
+            <td>enum</td>
+            <td><p> None,
+        HideAbove,
+        HideBelow,
+        Between</p></td>
+          </tr>
+          
+          <tr>
+            <td>private</td>
+            <td><a href="2e4624ca96348efc6efc481bead39d4a.html">filterType</a></td>
+            <td>FilterType</td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>private</td>
+            <td><a href="cf0698b82160c0880cddb2a2ebc9dbda.html">filterValue</a></td>
+            <td>float</td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>private</td>
+            <td><a href="f9818911380b7ebe3b316749c6053ba2.html">filterRangeMin</a></td>
+            <td><span class='label label-info'>none</span></td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>private</td>
+            <td><a href="20b23f2e31f2bb3e0df458a9b2f82cb7.html">doFilter</a></td>
+            <td>bool</td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>private</td>
+            <td><a href="4ece3cd119e13243505f2fe3e965c20c.html">files</a></td>
+            <td><a href='67940c453e0f5924325f6efea2bad49c.html'>DataFiles</a></td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>private</td>
+            <td><a href="edbb35c49187dec86e550622248622ad.html">dataObject</a></td>
+            <td><span class='label label-info'>none</span></td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>private</td>
+            <td><a href="718372701abd748bada4ac013d2bb3f0.html">loaded</a></td>
+            <td>bool</td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>private</td>
+            <td><a href="9bd1617d917861e3737772ccd01b4f96.html">currentFilter</a></td>
+            <td><span class='label label-info'>none</span></td>
+            <td></td>
+          </tr>
+          
+        </table>
+      </section>
+      
+
+      <!-- Operations -->
+
+      
+      <section>
+        <h3>Operations</h3>
+        <table class="table table-striped table-bordered">
+          <tr>
+            <th>Visibility</th>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="8a0368f5e7695cbde169e203e8ebcff4.html">Update()</a></td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="a4dd26717a15610de5fab8a30037cae7.html">FilterAbove(index: int, filterValue: float)</a></td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="ed7a047dc5b775ec678b8e73e20db3f6.html">FilterAbove(index: int, filterValue: float)</a></td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="cf8b517ce7b78dbbda87b586e074b1cf.html">FilterBetween(index: int, maxValue: int, minValue: int)</a></td>
+            <td><p> Hide all values outside of a provided range.</p></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="791f2c43be63fe91ed00249eb8bbe95a.html">FilterSingle()</a></td>
+            <td><p> Hide all values except the provided index</p></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="aaae8d05be65a92a62e0527c9316874c.html">ResetFilters()</a></td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="4025cd48839b7679327298cd11d0e7ef.html">RunFilter(filterValues: List&lt;float&gt;)</a></td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="21fd62d82e5eb9da40986906121e14af.html">SetFilterType(filterTypeIndex: int)</a></td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="634be1e4304b32738d305d9f603193cb.html">GetDataNames(): null</a></td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="104de40ba2d8cff94f07a86c5e432fb3.html">GetDataObject(): null</a></td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="a8026f48764d2f8eeac5235a50cc7fb7.html">reload()</a></td>
+            <td><p>Clear all data objects</p></td>
+          </tr>
+          
+        </table>
+      </section>
+      
+
+      <!-- Receptions -->
+
+      
+
+      <!-- Extension Points -->
+
+      
+
+      <!-- Parameters -->
+
+      
+
+      <!-- Diagrams -->
+
+      
+      
+
+      <!-- Behavior -->
+
+      
+
+      <!-- Action -->
+
+      
+
+      <!-- Interaction -->
+
+      
+
+      <!-- CombinedFragment -->
+
+      
+
+      <!-- Activity -->
+
+      
+
+      <!-- State Machine -->
+
+      
+
+      <!-- State Machine -->
+
+      
+
+      <!-- State -->
+
+      
+
+      <!-- Vertex -->
+
+      
+
+      <!-- Transition -->
+
+      
+
+      <!-- Data Model (ERD) -->
+
+      
+
+      <!-- Columns (ERD) -->
+
+      
+
+      <!-- Related Entities (ERD) -->
+
+      
+
+      <!-- Data Flows (DFD) -->
+
+      
+
+      <!-- Flows (Flowchart) -->
+
+      
+
+      <!-- Properties -->
+
+      <section>
+        <h3>Properties</h3>
+        
+        <table class="table table-striped table-bordered">
+    <tr>
+        <th width="50%">Name</th>
+        <th width="50%">Value</th>
+    </tr>
+    
+    
+    
+    
+    
+    
+    
+    <tr>
+        <td>name</td>
+        <td>Filtering</td>
+    </tr>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <tr>
+        <td>stereotype</td>
+        <td>Script</td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>visibility</td>
+        <td>public</td>
+    </tr>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <tr>
+        <td>isAbstract</td>
+        <td><span class='label label-info'>false</span></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>isFinalSpecialization</td>
+        <td><span class='label label-info'>false</span></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>isLeaf</td>
+        <td><span class='label label-info'>false</span></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>isActive</td>
+        <td><span class='label label-info'>false</span></td>
+    </tr>
+    
+    
+    
+</table>                
+
+      </section>
+
+      <!-- Tags -->
+
+      
+
+      <!-- Constraints, Dependencies, Dependants -->
+
+      
+        
+        
+
+
+        
+        
+<section class="element-list">
+    <h3>Dependencies</h3>
+    <ul class="nav nav-list">
+        
+        <li><a href='67940c453e0f5924325f6efea2bad49c.html'><span class='node-icon staruml-icon icon-UMLClass'></span>«Script»DataFiles</a></li>
+        
+    </ul>
+</section>
+
+
+
+        
+        
+<section class="element-list">
+    <h3>Dependants</h3>
+    <ul class="nav nav-list">
+        
+        <li><a href='8016d51c487a33fc3e0cb9fb1195f671.html'><span class='node-icon staruml-icon icon-UMLClass'></span>«GameObject»Visualisation</a></li>
+        
+    </ul>
+</section>
+
+
+      
+
+      <!-- Relationships -->
+
+      
+      
+<section class="element-list">
+    <h3>Relationships</h3>
+    <ul class="nav nav-list">
+        
+        <li><a href='fb9cc0ea17c382123d914e3a9cf9ca63.html'><span class='node-icon staruml-icon icon-UMLDependency'></span>(Visualisation→Filtering)</a></li>
+        
+        <li><a href='a54afc72003781a68d86b87af6ca5eca.html'><span class='node-icon staruml-icon icon-UMLAssociation'></span>(Filtering—Visualisation)</a></li>
+        
+        <li><a href='994e7684f0f819e9bb37fdedbe6b019b.html'><span class='node-icon staruml-icon icon-UMLDependency'></span>(Filtering→DataFiles)</a></li>
+        
+        <li><a href='0f41673e08050980a8aefe53a4dd44d2.html'><span class='node-icon staruml-icon icon-UMLAssociation'></span>(Filtering—Visualisation)</a></li>
+        
+    </ul>
+</section>
+
+
+
+      <!-- Owned Elements -->
+
+      
+      
+<section class="element-list">
+    <h3>Owned Elements</h3>
+    <ul class="nav nav-list">
+        
+        <li><a href='a54afc72003781a68d86b87af6ca5eca.html'><span class='node-icon staruml-icon icon-UMLAssociation'></span>(Filtering—Visualisation)</a></li>
+        
+        <li><a href='994e7684f0f819e9bb37fdedbe6b019b.html'><span class='node-icon staruml-icon icon-UMLDependency'></span>(Filtering→DataFiles)</a></li>
+        
+        <li><a href='0f41673e08050980a8aefe53a4dd44d2.html'><span class='node-icon staruml-icon icon-UMLAssociation'></span>(Filtering—Visualisation)</a></li>
+        
+    </ul>
+</section>
+
+
+
+    </div>
+  </body>
+</html>
