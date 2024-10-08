@@ -76,17 +76,17 @@ public class QuestionManager : MonoBehaviour
     {
         List<string> scenario1Questions = new List<string>();
         scenario1Questions.Add("Identify how many rockets make it past an altitude of 1982 metres");
-        scenario1Questions.Add("Identify the direction that the trajectories take along the Y-axis when the nozzle distance increases  ");
-        scenario1Questions.Add("Identify how many rockets don't make it past 1631.4 metres along the X axis?");
-        scenario1Questions.Add("How does the spacing between trajectories change as the nose length to the centre of mass increases?");
+        scenario1Questions.Add("Identify the direction that the trajectories take along the Y-axis as the variable increases  ");
+        scenario1Questions.Add("Identify how many rockets don't make it past 1631.4 metres along the X axis");
+        scenario1Questions.Add("How does the spacing between trajectories change as the variable increases?");
         scenario1Questions.Add("After how many trajectories do you notice irregular spacing / intervals? ");
 
         List<string> scenario2Questions = new List<string>();
-        scenario2Questions.Add("At a windspeed of 20m/s, what is the landing site (Y-axis) at the highest mass rocket?");
+        scenario2Questions.Add("At a windspeed of 20m/s, what is the landing site (Y-axis) at the highest variable?");
         scenario2Questions.Add("At which wind speed do the trajectories show little variance?");
-        scenario2Questions.Add("At a windspeed of 40m/s, what is the landing site (X-axis) at the highest rocket propellant distance?");
+        scenario2Questions.Add("At a windspeed of 40m/s, what is the landing site (X-axis) at the highest variable?");
         scenario2Questions.Add("Which wind speed has the greatest variance in the landing zone?");
-        scenario2Questions.Add("How many wind speeds do all trajectories make it past an altitude of 2266 metres?");
+        scenario2Questions.Add("At how many wind speeds do all trajectories make it past an altitude of 2266 metres?");
 
         questionsList.Add(scenario1Questions);
         questionsList.Add(scenario2Questions);
@@ -95,7 +95,7 @@ public class QuestionManager : MonoBehaviour
     private void loadAnswers()
     {
         string[] question1answers = { "6", "7", "8", "9" };
-        string[] question2answers = { "Moves along the positive axis then the negative axis", "Moves along the negative axis then the positive axis ", "Moves along the positive axis", "Moves along the negative axis" };
+        string[] question2answers = { "Moves in the positive direction then the negative direction", "Moves in the negative direction then the positive direction ", "Moves in the positive direction", "Moves in the negative direction" };
         string[] question3answers = { "2", "3", "4", "5" };
         string[] question4answers = { "No Changes", "Unpredictable", "Spacing Decreases", "Spacing increases" };
         string[] question5answers = { "4", "5", "6", "7" };
