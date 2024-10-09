@@ -10412,10 +10412,50 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2510630101918658829, guid: 7d9f2d77fa39ee843800657f59ed566c,
+        type: 3}
+      propertyPath: altitude
+      value: 1100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3530418037894599476, guid: 7d9f2d77fa39ee843800657f59ed566c,
+        type: 3}
+      propertyPath: altitude
+      value: 1100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3530418038035745165, guid: 7d9f2d77fa39ee843800657f59ed566c,
+        type: 3}
+      propertyPath: altitude
+      value: 1100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3530418038723956904, guid: 7d9f2d77fa39ee843800657f59ed566c,
+        type: 3}
+      propertyPath: altitude
+      value: 1100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3530418039436564477, guid: 7d9f2d77fa39ee843800657f59ed566c,
+        type: 3}
+      propertyPath: altitude
+      value: 1100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4390246435125800503, guid: 7d9f2d77fa39ee843800657f59ed566c,
+        type: 3}
+      propertyPath: altitude
+      value: 1100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5781891256914588090, guid: 7d9f2d77fa39ee843800657f59ed566c,
+        type: 3}
+      propertyPath: altitude
+      value: 1100
+      objectReference: {fileID: 0}
     - target: {fileID: 8039916231415855130, guid: 7d9f2d77fa39ee843800657f59ed566c,
         type: 3}
       propertyPath: m_Name
       value: GraphMenuSet
+      objectReference: {fileID: 0}
+    - target: {fileID: 8481643750939542215, guid: 7d9f2d77fa39ee843800657f59ed566c,
+        type: 3}
+      propertyPath: altitude
+      value: 1100
       objectReference: {fileID: 0}
     - target: {fileID: 8665435095968862395, guid: 7d9f2d77fa39ee843800657f59ed566c,
         type: 3}
@@ -10432,5 +10472,15 @@ PrefabInstance:
       propertyPath: questionPanel
       value: 
       objectReference: {fileID: 215184780}
+    - target: {fileID: 8966044057988100889, guid: 7d9f2d77fa39ee843800657f59ed566c,
+        type: 3}
+      propertyPath: altitude
+      value: 1100
+      objectReference: {fileID: 0}
+    - target: {fileID: 9147283278857660376, guid: 7d9f2d77fa39ee843800657f59ed566c,
+        type: 3}
+      propertyPath: altitude
+      value: 1100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d9f2d77fa39ee843800657f59ed566c, type: 3}

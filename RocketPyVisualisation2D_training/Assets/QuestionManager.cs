@@ -11,8 +11,6 @@ public class QuestionManager : MonoBehaviour
     [SerializeField]
     private GameObject answerToggles;
     [SerializeField]
-    private Button nextButton;
-    [SerializeField]
     private Button submitButton;
     [SerializeField]
     private cameracacameraScript cameraController;
@@ -112,11 +110,6 @@ public class QuestionManager : MonoBehaviour
     {
         if (running)
             times[currentQuestion] += Time.deltaTime;
-
-        if (!toggleGroup.AnyTogglesOn())
-            nextButton.interactable = false;
-        else if (!nextButton.IsInteractable())
-            nextButton.interactable = true;
     }
 
     public void BeginFirstScenario()
@@ -176,12 +169,6 @@ public class QuestionManager : MonoBehaviour
         questionText.text = currentQuestions[currentQuestion];
         setAnswerText();
         descriptionText.text = currentDescriptions[currentQuestion];
-
-        if (currentQuestion == currentQuestions.Count - 1)
-        {
-            nextButton.gameObject.SetActive(false);
-            submitButton.gameObject.SetActive(true);
-        }
         resetToggle();      
     }
 
@@ -194,18 +181,7 @@ public class QuestionManager : MonoBehaviour
         setAnswerText();
         descriptionText.text = currentDescriptions[currentQuestion];
 
-        if (!nextButton.IsActive())
-        {
-            nextButton.gameObject.SetActive(true);
-            submitButton.gameObject.SetActive(false);
-        }
-
         resetToggle();
-    }
-
-    private void finish()
-    {
-        
     }
 
     private void saveData()
