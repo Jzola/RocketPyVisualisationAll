@@ -59,8 +59,6 @@ public class VisualisationManager : MonoBehaviour
         scenarios.Add("Scenario1");
         scenarios.Add("Scenario2");
         scenarios.Add("Scenario3");
-        //scenarios.Add("Scenario4");
-
         foreach (string scenario in scenarios)
         {
             initialiseData(scenario);
@@ -68,9 +66,6 @@ public class VisualisationManager : MonoBehaviour
 
         loadMinMaxFiles();
         initialiseAltitudePosition();
-
-        //Default to first scenario
-        //SetActiveScenario(0);
     }
 
     public void NextScenario()
@@ -108,10 +103,6 @@ public class VisualisationManager : MonoBehaviour
             //Update the scenario to load the appropriate data
             file.setScenario(currentScenario);
         }
-            
-        //initialiseData();
-
-        //StartCoroutine(createVisualisations());
         setDesiredAltitude();
     }
 
@@ -121,6 +112,7 @@ public class VisualisationManager : MonoBehaviour
 
         for (int i = 0; i < visualisations.Count; i++)
         {
+            // Create a game object for each scenario to store rocket data under
             GameObject scenarioObj = new GameObject(scenario);
             scenarioObj.transform.SetParent(visualisations[i].transform, false);
             scenarioList.Add(scenarioObj);
@@ -166,6 +158,7 @@ public class VisualisationManager : MonoBehaviour
     {
         foreach (AltitudeCheck altitudeCheck in altitudeChecks)
         {
+            // Use min and max height to scale the height of the altitude check properly
             altitudeCheck.setHeight(scenarioMax[currentScenario][3], scenarioMin[currentScenario][3]);
         }
     }
@@ -182,20 +175,14 @@ public class VisualisationManager : MonoBehaviour
     {
         string scenario = scenarios[scenarioNo];
         
-        switch(scenarioNo)
+        if (scenarioNo == 2)
         {
-            case 1:
-                {
-                    break;
-                }
-            case 2:
-                {
-                    questionPanel.gameObject.SetActive(false);
-                    sidePanel.gameObject.SetActive(true);
-                    break;
-                }
+            // Replace question panel with rocket selection panel for scenario 3
+            questionPanel.gameObject.SetActive(false);
+            sidePanel.gameObject.SetActive(true);
         }
 
+        // If a scenario is already loaded destroy all its trajectories
         if (scenarioObjects.ContainsKey(currentScenario))
         {
             foreach (GameObject scenarioObj in scenarioObjects[currentScenario])
@@ -206,6 +193,7 @@ public class VisualisationManager : MonoBehaviour
                 }                
             }
         }
+        // If the provided scenario was loaded on startup load new min max for scaling and create the trajectories
         if (scenarioObjects.ContainsKey(scenario))
         {
             foreach (GameObject scenarioObj in scenarioObjects[scenario])
@@ -234,7 +222,7 @@ public class VisualisationManager : MonoBehaviour
 
     private void updateAxisTicks(Visualisation visualisation, int scenarioNo)
     {
-        // Destroys axes directly, since visulation may have changed and lost axes further down.
+        // Destroys axes directly
         Axis[] oldAxes = visualisation.transform.GetComponentsInChildren<Axis>();
         visualisation.CreateVisualisation(AbstractVisualisation.VisualisationTypes.SCATTERPLOT);
         CSVDataSource dataSource = dataSources[scenarioNo].GetComponent<CSVDataSource>();
@@ -264,6 +252,7 @@ public class VisualisationManager : MonoBehaviour
         }
     }
 
+    // Min and max values for each scenario are stored in their own files to improve performance
     private void loadMinMaxFiles()
     {
         string[] filePaths = Directory.GetFiles(Application.dataPath + (minMaxPath), "*.csv");

@@ -26,9 +26,11 @@ public class ZoomCamera : MonoBehaviour
 
     private void OnGUI()
     {
+        // Change camera fov based on mouse scroll movement
         float fov = camera.fieldOfView;
         fov -= Input.mouseScrollDelta.y;
 
+        // Limit FOV range to prevent excessive zooming in/out
         if (fov > maxFov)
             fov = maxFov;
 

@@ -22,24 +22,23 @@ public class cameracacameraScript : MonoBehaviour
 
     void Start()
     {
+        // All cameras active at startup and added to list
         cameras = new List<Camera>(camerasParent.GetComponentsInChildren<Camera>());
 
+        // Deactivate each camera
         foreach (Camera camera in cameras) 
         {
             camera.gameObject.SetActive(false);
         }
 
+        // Switch to the first camera
         switchCamera(0);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     public void nextCamera()
     {
         cameraCount++;
+        // If moving past the last camera, move back to the first camera
         if (cameraCount > cameras.Count - 1)
         {
             cameraCount = 0;
@@ -53,6 +52,7 @@ public class cameracacameraScript : MonoBehaviour
         cameraCount--;
         if (cameraCount < 0)
         {
+            // If moving before the first camera, move to the last camera
             cameraCount = cameras.Count - 1;
         }
 
@@ -61,6 +61,7 @@ public class cameracacameraScript : MonoBehaviour
 
     public void ResetCameras()
     {
+        // Reset to first camera and reset the zoom of all cameras
         cameraCount = 0;
         switchCamera(0);
         foreach (Camera camera in cameras)
@@ -69,10 +70,12 @@ public class cameracacameraScript : MonoBehaviour
 
     public void switchCamera(int cameraId)
     {
+        // Disable the currently active camera and enable the specified camera
         cameras[currentCamera].gameObject.SetActive(false);
         cameras[cameraId].gameObject.SetActive(true);
         currentCamera = cameraId;
 
+        // Update the ui and metrics tracker with the newly active camera
         sidePanel.SetRocketID(cameraId + 1);
         tracker.SetActiveRotator(cameraId);
     }

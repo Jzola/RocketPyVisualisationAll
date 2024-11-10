@@ -24,13 +24,13 @@ public class Rotator : MonoBehaviour
     void OnMouseDrag()
     {
         dragging = true;
-        Debug.Log(dragging);
     }
 
     void Update()
     {
         if (!Input.GetMouseButton(0))
         {
+            // Stop rotation when the mouse cursor is released
             dragging = false;
         }
 
@@ -44,6 +44,7 @@ public class Rotator : MonoBehaviour
     {
         if (dragging)
         {
+            // Rotate the graph based on mouse movement
             float x = Input.GetAxis("Mouse X") * rotationSpeed * Time.fixedDeltaTime;
             float y = Input.GetAxis("Mouse Y") * rotationSpeed * Time.fixedDeltaTime;
 

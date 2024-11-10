@@ -72,6 +72,8 @@ public class QuestionManager : MonoBehaviour
         questionText.text = "";
     }
 
+    //Question and answer text is hard coded
+    //TODO: store and load questions and answers from a file
     private void loadQuestions()
     {
         List<string> scenario1Questions = new List<string>();
@@ -141,9 +143,11 @@ public class QuestionManager : MonoBehaviour
 
     void Update()
     {
+        // While running update elapsed time for the current question each frame
         if (running)
             times[currentQuestion] += Time.deltaTime;
 
+        // If no answer is selected disable the next question button
         if (!toggleGroup.AnyTogglesOn())
             nextButton.interactable = false;
         else if (!nextButton.IsInteractable())
@@ -152,6 +156,7 @@ public class QuestionManager : MonoBehaviour
 
     public void BeginFirstScenario()
     {
+        // Initialise questions, answers and descriptions for the first scenario  
         currentQuestions = questionsList[currentScenario];
         currentAnswers = scenario1Answers;
         currentDescriptions = descriptionsList[0];
@@ -160,6 +165,7 @@ public class QuestionManager : MonoBehaviour
         setAnswerText();
         descriptionText.text = currentDescriptions[currentQuestion];
 
+        // Start recording metrics for the first scenairo
         times = new float[currentQuestions.Count];
         answers = new int[currentQuestions.Count];
         running = true;
@@ -168,15 +174,17 @@ public class QuestionManager : MonoBehaviour
     public void NextScenario()
     {
         saveData();
+        // Reset to the first camera
         cameraController.ResetCameras();
+        // If the current scenario is the last with questions, change to the scenario 3 layout
         if (currentScenario == questionsList.Count - 1)
         {
             legend.SetActive(false);
             descriptionText.transform.parent.gameObject.SetActive(false);
-            finish();
         }
         else
         {
+            // Load questions, answers and descriptions for the next scenario 
             currentScenario++;
             currentQuestion = 0;
             currentQuestions = questionsList[currentScenario];
@@ -185,6 +193,7 @@ public class QuestionManager : MonoBehaviour
 
             if (currentScenario == 1)
             {
+                // Display the legend for wind speed when switching to scenario 2
                 legend.SetActive(true);
             }
 
@@ -205,11 +214,13 @@ public class QuestionManager : MonoBehaviour
         if (answers[currentQuestion] == 0)
             return;
 
+        // Load question and answers text for the next question
         currentQuestion++;
         questionText.text = currentQuestions[currentQuestion];
         setAnswerText();
         descriptionText.text = currentDescriptions[currentQuestion];
 
+        // If moving to the final question change the 'next' button to 'submit'
         if (currentQuestion == currentQuestions.Count - 1)
         {
             nextButton.gameObject.SetActive(false);
@@ -218,31 +229,9 @@ public class QuestionManager : MonoBehaviour
         resetToggle();      
     }
 
-    public void PrevQuestion()
-    {
-        if (currentQuestion == 0)
-            return;
-        currentQuestion--;
-        questionText.text = currentQuestions[currentQuestion];
-        setAnswerText();
-        descriptionText.text = currentDescriptions[currentQuestion];
-
-        if (!nextButton.IsActive())
-        {
-            nextButton.gameObject.SetActive(true);
-            submitButton.gameObject.SetActive(false);
-        }
-
-        resetToggle();
-    }
-
-    private void finish()
-    {
-        
-    }
-
     private void saveData()
     {
+        // Stores the answers and time taken for each question in a csv file
         Directory.CreateDirectory(directory);
         using (StreamWriter writer = new StreamWriter(csvFilePath, true))
         {
@@ -257,6 +246,7 @@ public class QuestionManager : MonoBehaviour
 
     private void checkToggle(Toggle change)
     {
+        // Remember which answer toggle was selected
         int selected = 0;
         for (int i = 0; i < toggles.Count; i++)
         {
@@ -268,7 +258,8 @@ public class QuestionManager : MonoBehaviour
     }
 
     private void resetToggle()
-    {     
+    {
+        // Reset all toggles to their previous position
         for (int i = 0; i < toggles.Count; i++)
         {
             if (i + 1 == answers[currentQuestion])

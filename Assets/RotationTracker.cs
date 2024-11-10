@@ -33,6 +33,7 @@ public class RotationTracker : MonoBehaviour
 
     private void trackRotation()
     {
+        // Record the rotation of the currently active graph
         Quaternion rotation = rotators[activeRotator].transform.rotation;
         timeElapsed += Time.deltaTime;
         saveToCSV(rotation);
